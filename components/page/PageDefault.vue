@@ -1,6 +1,6 @@
 <template>
   <div class="container mt-10">
-    <h1 class="text-xl font-bold">{{ `This is ${route.name}.` }}</h1>
+    <h1 class="text-h1 font-bold">{{ `This is ${route.name}.` }}</h1>
   </div>
 </template>
 
