@@ -103,9 +103,10 @@ module.exports = {
     },
     screens: {
       sm: '576px',
-      md: '720px',
-      lg: '960px',
-      xl: '1320px'
+      md: '768px',
+      lg: '992x',
+      xl: '1200px',
+      '2xl': '1400px'
     },
     container: {
       center: true,
@@ -150,5 +151,29 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  plugins: [
+    function ({ addComponents }) {
+      addComponents({
+        '.container': {
+          maxWidth: '100%',
+          '@screen sm': {
+            maxWidth: '540px'
+          },
+          '@screen md': {
+            maxWidth: '720px'
+          },
+          '@screen lg': {
+            maxWidth: '960x'
+          },
+          '@screen xl': {
+            maxWidth: '1140px'
+          },
+          '@screen 2xl': {
+            maxWidth: '1320px'
+          }
+        }
+      })
+    }
+  ]
 }

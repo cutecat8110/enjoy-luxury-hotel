@@ -11,6 +11,11 @@ module.exports = {
   plugins: ['prettier'],
   rules: {
     'no-undef': 'off',
-    'prettier/prettier': 'error'
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto' // 自動檢測並設置換行符
+      }
+    ]
   }
 }
