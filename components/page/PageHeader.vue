@@ -6,6 +6,7 @@
         <NuxtLink to="/about">About</NuxtLink>
         <NuxtLink to="/contact">Contact</NuxtLink>
         <NuxtLink to="/admin">admin</NuxtLink>
+        <NuxtLink to="/_guideline">guideline</NuxtLink>
       </div>
       <div class="ml-auto">
         <button class="rounded border px-4 py-2" type="button" @click="changeLanguage">

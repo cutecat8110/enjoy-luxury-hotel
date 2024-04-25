@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import defaultTheme from 'tailwindcss/defaultTheme'
 
 module.exports = {
   darkMode: 'class',
@@ -77,15 +78,23 @@ module.exports = {
         }
       ],
       'sub-title': [
-        '0.75rem',
+        '0.875rem',
         {
           lineHeight: 1.5,
           letterSpacing: '0.02em',
           fontWeight: '700'
         }
       ],
+      body: [
+        '1rem',
+        {
+          lineHeight: 1.5,
+          letterSpacing: '0.02em',
+          fontWeight: '500'
+        }
+      ],
       'body-2': [
-        '0.75rem',
+        '0.875rem',
         {
           lineHeight: 1.5,
           letterSpacing: '0.02em',
@@ -104,7 +113,7 @@ module.exports = {
     screens: {
       sm: '576px',
       md: '768px',
-      lg: '992x',
+      lg: '992px',
       xl: '1200px',
       '2xl': '1400px'
     },
@@ -118,7 +127,7 @@ module.exports = {
           primary: {
             120: '#7B6651',
             100: '#BF9D7D',
-            80: '#AE9984',
+            80: '#D0B79F',
             60: '#E1D1C2',
             40: '#F1EAE4',
             10: '#FAF7F5'
@@ -126,29 +135,34 @@ module.exports = {
           success: {
             120: '#299F65',
             100: '#52DD7E',
-            20: '#BCFBBD',
+            60: '#BCFBBD',
             10: '#E8FEE7'
           },
           info: {
             120: '#1D66AC',
             100: '#3BADEF',
-            20: '#B1EFFD',
+            60: '#B1EFFD',
             10: '#E6FBFE'
           },
           error: {
             120: '#C22538',
             100: '#DA3E51',
-            20: '#F5CCD1',
+            60: '#F5CCD1',
             10: '#FDECEF'
           },
           background: '#140F0A',
+          black: '#000000',
           gray: {
             80: '#4B4B4B',
-            60: '#ECECEC',
+            60: '#909090',
             40: '#ECECEC',
             10: '#F9F9F9'
-          }
+          },
+          white: '#FFFFFF'
         }
+      },
+      fontFamily: {
+        serif: ["'Noto Seri'", ...defaultTheme.fontFamily.serif]
       }
     }
   },
