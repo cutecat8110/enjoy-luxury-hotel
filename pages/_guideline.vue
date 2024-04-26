@@ -19,7 +19,7 @@
         </ul>
       </aside>
       <main ref="mainRefs" class="relative space-y-12 !overflow-y-auto px-3 py-8 2xl:px-6">
-        <section :ref="(el) => (scrollPointData[0].refs = el as HTMLElement | null)">
+        <section :ref="(el: any) => (scrollPointData[0].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[0].title }}</h2>
           <ul class="card">
             <li>
@@ -109,7 +109,7 @@
           </ul>
         </section>
 
-        <section :ref="(el) => (scrollPointData[1].refs = el as HTMLElement | null)">
+        <section :ref="(el: any) => (scrollPointData[1].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[1].title }}</h2>
           <ul class="card">
             <li>
@@ -251,7 +251,7 @@
           </ul>
         </section>
 
-        <section :ref="(el) => (scrollPointData[2].refs = el as HTMLElement | null)">
+        <section :ref="(el: any) => (scrollPointData[2].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[2].title }}</h2>
           <ul class="card">
             <li>
@@ -354,8 +354,8 @@
                 </li>
                 <li>
                   <button type="button" @click="toCopyIcon">
-                    <span class="hidden"> ICLuxuryCar </span>
-                    <Icon name="ICLuxuryCar"></Icon>
+                    <span class="hidden"> IconLuxuryCar </span>
+                    <Icon name="IconLuxuryCar"></Icon>
                   </button>
                 </li>
                 <li>
@@ -366,8 +366,8 @@
                 </li>
                 <li>
                   <button type="button" @click="toCopyIcon">
-                    <span class="hidden"> ICSize </span>
-                    <Icon name="ICSize"></Icon>
+                    <span class="hidden"> IconSize </span>
+                    <Icon name="IconSize"></Icon>
                   </button>
                 </li>
                 <li>
@@ -377,6 +377,212 @@
                   </button>
                 </li>
               </ul>
+            </li>
+          </ul>
+        </section>
+
+        <section :ref="(el: any) => (scrollPointData[3].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[3].title }}</h2>
+
+          <ul class="card">
+            <li>
+              <h3 class="card-title">Primary Color</h3>
+              <PageLogo />
+            </li>
+            <li>
+              <h3 class="card-title">White Color</h3>
+              <div class="dark-wrapper">
+                <PageLogo white />
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section :ref="(el: any) => (scrollPointData[4].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[4].title }}</h2>
+
+          <ul class="card">
+            <li>
+              <h3 class="card-title">Default</h3>
+              <div class="dark-wrapper">
+                <UIHeroButton />
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section :ref="(el: any) => (scrollPointData[5].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[5].title }}</h2>
+          <ul class="card">
+            <li>
+              <h3 class="card-title">Primary</h3>
+              <table class="button-sample-wrapper">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>with icon</th>
+                    <th>no icon</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Initial</td>
+                    <td>
+                      <UIButton icon="ic:baseline-person" />
+                    </td>
+                    <td>
+                      <UIButton />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Disable</td>
+                    <td>
+                      <UIButton icon="ic:baseline-person" disabled />
+                    </td>
+                    <td>
+                      <UIButton disabled />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+
+            <li>
+              <h3 class="card-title">Secondary</h3>
+              <table class="button-sample-wrapper">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>with icon</th>
+                    <th>no icon</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Initial</td>
+                    <td>
+                      <UIButton type="secondary" icon="ic:baseline-person" />
+                    </td>
+                    <td>
+                      <UIButton type="secondary" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Disable</td>
+                    <td>
+                      <UIButton type="secondary" icon="ic:baseline-person" disabled />
+                    </td>
+                    <td>
+                      <UIButton type="secondary" disabled />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+
+            <li>
+              <h3 class="card-title">Ghost</h3>
+              <div class="dark-wrapper">
+                <table class="button-sample-wrapper">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>with icon</th>
+                      <th>no icon</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr>
+                      <td>Initial</td>
+                      <td>
+                        <UIButton type="ghost" icon="ic:baseline-person" />
+                      </td>
+                      <td>
+                        <UIButton type="ghost" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Disable</td>
+                      <td>
+                        <UIButton type="ghost" icon="ic:baseline-person" disabled />
+                      </td>
+                      <td>
+                        <UIButton type="ghost" disabled />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+
+            <li>
+              <h3 class="card-title">Text</h3>
+              <div class="dark-wrapper">
+                <table class="button-sample-wrapper">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>with icon</th>
+                      <th>no icon</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Initial</td>
+                      <td></td>
+                      <td>
+                        <UIButton type="text" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Disable</td>
+                      <td></td>
+                      <td>
+                        <UIButton type="text" disabled />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <section :ref="(el: any) => (scrollPointData[6].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[6].title }}</h2>
+          <ul class="card">
+            <li>
+              <div class="dark-wrapper">
+                <table class="button-sample-wrapper">
+                  <tbody>
+                    <tr>
+                      <td class="w-24">必填</td>
+                      <td>
+                        <UIInput label="Label" placeholder="請輸入文字" required />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>基礎</td>
+                      <td>
+                        <UIInput v-model:input="inputText" placeholder="請輸入文字" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>佔位字</td>
+                      <td>
+                        <UIInput placeholder="請輸入文字" />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>錯誤訊息</td>
+                      <td>
+                        <UIInput placeholder="請輸入文字" error="XX為必填" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </li>
           </ul>
         </section>
@@ -416,21 +622,23 @@ interface ScrollPoint {
 const scrollPointData = ref<ScrollPoint[]>([
   { title: 'Typography 字體設計', point: 'Typography', refs: null },
   { title: 'Color System 色彩系統', point: 'Color System', refs: null },
-  { title: 'Icon 圖標', point: 'Icon', refs: null }
+  { title: 'Icon 圖標', point: 'Icon', refs: null },
+  { title: 'LOGO 標誌', point: 'LOGO', refs: null },
+  { title: 'Hero Button 導引按鈕', point: 'Hero Button', refs: null },
+  { title: 'Button 按鈕', point: 'Button', refs: null },
+  { title: 'Input Field 輸入框', point: 'Input Field', refs: null }
 ])
 const { y: mainY } = useScroll(mainRefs, { behavior: 'smooth' })
 const scrollPoint = (ref: HTMLElement) => {
   mainY.value = ref.offsetTop - 32
 }
+
+const inputText = ref('The quick brown fox jumps over the lazy dog.')
 </script>
 
 <style lang="scss" scoped>
-* {
-  @apply truncate;
-}
-
 .card {
-  @apply space-y-6 rounded border bg-white p-6;
+  @apply space-y-6 truncate rounded border bg-white p-6;
 }
 
 .card-title {
@@ -491,5 +699,26 @@ ul {
       font-size: 20px;
     }
   }
+}
+
+table.button-sample-wrapper {
+  @apply w-full max-w-[600px] table-fixed border-collapse border;
+
+  th,
+  td {
+    @apply truncate border p-2 text-center align-middle;
+  }
+
+  th {
+    @apply text-title;
+  }
+
+  td:first-child {
+    @apply text-title;
+  }
+}
+
+.dark-wrapper {
+  @apply inline-block rounded bg-system-gray-80 p-4 text-white;
 }
 </style>

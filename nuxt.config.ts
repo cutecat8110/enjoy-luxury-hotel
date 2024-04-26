@@ -12,8 +12,17 @@ export default defineNuxtConfig({
     '@pinia-plugin-persistedstate/nuxt',
     '@nuxtjs/i18n',
     '@vueuse/nuxt',
-    'nuxt-icon'
+    'nuxt-icon',
+    '@nuxt/image'
   ],
+
+  vite: {
+    vue: {
+      script: {
+        defineModel: true
+      }
+    }
+  },
 
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
