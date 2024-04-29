@@ -21,8 +21,6 @@
 </template>
 
 <script lang="ts" setup>
-const input = defineModel('input')
-
 const props = defineProps({
   label: {
     type: String,
@@ -38,6 +36,8 @@ const props = defineProps({
     default: ''
   }
 })
+
+const input = defineModel<string>()
 
 const cssColor = computed<string>(() => {
   return props.error

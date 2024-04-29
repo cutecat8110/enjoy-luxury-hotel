@@ -13,7 +13,8 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@vueuse/nuxt',
     'nuxt-icon',
-    '@nuxt/image'
+    '@nuxt/image',
+    '@vee-validate/nuxt'
   ],
 
   vite: {
@@ -48,6 +49,18 @@ export default defineNuxtConfig({
     defaultLocale: 'zh',
     strategy: 'no_prefix',
     vueI18n: './i18n.config.js'
+  },
+
+  veeValidate: {
+    // disable or enable auto imports
+    autoImports: true,
+    // Use different names for components
+    componentNames: {
+      Form: 'VForm',
+      Field: 'VField',
+      FieldArray: 'VFieldArray',
+      ErrorMessage: 'VErrorMessage'
+    }
   },
 
   css: ['~/assets/scss/main.scss']

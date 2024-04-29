@@ -3,7 +3,7 @@
     <header class="sticky border-b px-3 py-4 text-h5 2xl:px-6">
       <h1 class="text-h5">Guideline</h1>
     </header>
-    <div class="flex flex-1 bg-slate-100">
+    <div class="flex flex-1 overflow-hidden bg-slate-100">
       <aside class="w-[168px] shrink-0 !overflow-y-auto py-8 pl-3 2xl:pl-6">
         <h2 class="mb-4 text-h5 text-transparent">_</h2>
         <ul class="space-y-2 pt-6">
@@ -19,6 +19,7 @@
         </ul>
       </aside>
       <main ref="mainRefs" class="relative space-y-12 !overflow-y-auto px-3 py-8 2xl:px-6">
+        <!-- Typography 字體設計 -->
         <section :ref="(el: any) => (scrollPointData[0].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[0].title }}</h2>
           <ul class="card">
@@ -109,6 +110,7 @@
           </ul>
         </section>
 
+        <!-- Color System 色彩系統 -->
         <section :ref="(el: any) => (scrollPointData[1].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[1].title }}</h2>
           <ul class="card">
@@ -251,6 +253,7 @@
           </ul>
         </section>
 
+        <!-- Icon 圖標 -->
         <section :ref="(el: any) => (scrollPointData[2].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[2].title }}</h2>
           <ul class="card">
@@ -381,6 +384,7 @@
           </ul>
         </section>
 
+        <!-- LOGO 標誌 -->
         <section :ref="(el: any) => (scrollPointData[3].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[3].title }}</h2>
 
@@ -398,6 +402,7 @@
           </ul>
         </section>
 
+        <!-- Hero Button -->
         <section :ref="(el: any) => (scrollPointData[4].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[4].title }}</h2>
 
@@ -411,12 +416,13 @@
           </ul>
         </section>
 
+        <!-- Button 按鈕 -->
         <section :ref="(el: any) => (scrollPointData[5].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[5].title }}</h2>
           <ul class="card">
             <li>
               <h3 class="card-title">Primary</h3>
-              <table class="button-sample-wrapper">
+              <table class="sample-wrapper-md">
                 <thead>
                   <tr>
                     <th></th>
@@ -449,7 +455,7 @@
 
             <li>
               <h3 class="card-title">Secondary</h3>
-              <table class="button-sample-wrapper">
+              <table class="sample-wrapper-md">
                 <thead>
                   <tr>
                     <th></th>
@@ -483,7 +489,7 @@
             <li>
               <h3 class="card-title">Ghost</h3>
               <div class="dark-wrapper">
-                <table class="button-sample-wrapper">
+                <table class="sample-wrapper-md">
                   <thead>
                     <tr>
                       <th></th>
@@ -519,7 +525,7 @@
             <li>
               <h3 class="card-title">Text</h3>
               <div class="dark-wrapper">
-                <table class="button-sample-wrapper">
+                <table class="sample-wrapper-md">
                   <thead>
                     <tr>
                       <th></th>
@@ -549,12 +555,13 @@
           </ul>
         </section>
 
+        <!-- Input Field 輸入框 -->
         <section :ref="(el: any) => (scrollPointData[6].refs = el as HTMLElement)">
           <h2 class="mb-4 text-h5">{{ scrollPointData[6].title }}</h2>
           <ul class="card">
             <li>
               <div class="dark-wrapper">
-                <table class="button-sample-wrapper">
+                <table class="sample-wrapper-md">
                   <tbody>
                     <tr>
                       <td class="w-24">必填</td>
@@ -565,7 +572,7 @@
                     <tr>
                       <td>基礎</td>
                       <td>
-                        <UIInput v-model:input="inputText" placeholder="請輸入文字" />
+                        <UIInput v-model="inputText" placeholder="請輸入文字" />
                       </td>
                     </tr>
                     <tr>
@@ -578,6 +585,92 @@
                       <td>錯誤訊息</td>
                       <td>
                         <UIInput placeholder="請輸入文字" error="XX為必填" />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Dropdown 下拉 -->
+        <section :ref="(el: any) => (scrollPointData[7].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[7].title }}</h2>
+
+          <ul class="card">
+            <li>
+              <h3 class="card-title">Default</h3>
+              <div class="gary-wrapper">
+                <UIDropdown />
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Section Tab 區塊標籤 -->
+        <section :ref="(el: any) => (scrollPointData[8].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[8].title }}</h2>
+
+          <ul class="card">
+            <li>
+              <div class="dark-wrapper">
+                <table class="sample-wrapper-sm">
+                  <tbody>
+                    <tr>
+                      <td>Default</td>
+                      <td>
+                        <UISectionTab />
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Active</td>
+                      <td>
+                        <UISectionTab active />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Checkbox 確認方塊 -->
+        <section :ref="(el: any) => (scrollPointData[9].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[9].title }}</h2>
+
+          <ul class="card">
+            <li>
+              <div class="dark-wrapper">
+                <table class="sample-wrapper-sm">
+                  <tbody>
+                    <tr>
+                      <td>Default</td>
+                      <td>
+                        <UICheckbox />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Stepper 進度條 -->
+        <section :ref="(el: any) => (scrollPointData[10].refs = el as HTMLElement)">
+          <h2 class="mb-4 text-h5">{{ scrollPointData[10].title }}</h2>
+
+          <ul class="card">
+            <li>
+              <div class="dark-wrapper">
+                <table class="sample-wrapper-md">
+                  <tbody>
+                    <tr>
+                      <td class="w-24">Default</td>
+                      <td>
+                        <UIStepper />
                       </td>
                     </tr>
                   </tbody>
@@ -626,7 +719,11 @@ const scrollPointData = ref<ScrollPoint[]>([
   { title: 'LOGO 標誌', point: 'LOGO', refs: null },
   { title: 'Hero Button 導引按鈕', point: 'Hero Button', refs: null },
   { title: 'Button 按鈕', point: 'Button', refs: null },
-  { title: 'Input Field 輸入框', point: 'Input Field', refs: null }
+  { title: 'Input Field 輸入框', point: 'Input Field', refs: null },
+  { title: 'Dropdown 下拉', point: 'Dropdown', refs: null },
+  { title: 'Section Tab 區塊標籤', point: 'Section Tab', refs: null },
+  { title: 'Checkbox 確認方塊', point: 'Checkbox', refs: null },
+  { title: 'Stepper 進度條', point: 'Stepper', refs: null }
 ])
 const { y: mainY } = useScroll(mainRefs, { behavior: 'smooth' })
 const scrollPoint = (ref: HTMLElement) => {
@@ -701,24 +798,38 @@ ul {
   }
 }
 
-table.button-sample-wrapper {
-  @apply w-full max-w-[600px] table-fixed border-collapse border;
-
-  th,
-  td {
-    @apply truncate border p-2 text-center align-middle;
+table {
+  &.sample-wrapper-md {
+    @apply max-w-[600px];
+  }
+  &.sample-wrapper-sm {
+    @apply max-w-[320px];
   }
 
-  th {
-    @apply text-title;
-  }
+  &.sample-wrapper-sm,
+  &.sample-wrapper-md {
+    @apply w-full table-fixed border-collapse border;
 
-  td:first-child {
-    @apply text-title;
+    th,
+    td {
+      @apply truncate border p-2 text-center align-middle;
+    }
+
+    th {
+      @apply text-title;
+    }
+
+    td:first-child {
+      @apply text-title;
+    }
   }
 }
 
 .dark-wrapper {
   @apply inline-block rounded bg-system-gray-80 p-4 text-white;
+}
+
+.gary-wrapper {
+  @apply inline-block rounded bg-system-gray-40 p-4;
 }
 </style>
