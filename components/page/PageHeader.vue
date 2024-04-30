@@ -1,7 +1,7 @@
 <template>
-  <header v-show="isWindowCheck">
+  <header v-show="commonStore.isClient" ref="pageHeaderRefs">
     <div
-      class="container flex items-center justify-between overflow-hidden py-4 xl:max-w-full xl:px-20 2xl:py-6"
+      class="container flex items-center justify-between overflow-hidden py-4 xl:py-6 2xl:max-w-full 2xl:px-20"
     >
       <NuxtLink to="/">
         <PageLogo
@@ -13,7 +13,7 @@
 
       <!-- Mobile: 選單按鈕 -->
       <button
-        v-if="isMobile"
+        v-if="commonStore.isMobile"
         class="flex h-10 w-10 items-center justify-center text-2xl text-white transition-colors hover:text-system-primary-100"
         type="button"
         @click="toggleModal"
@@ -30,48 +30,37 @@
 
     <!-- Mobile: 選單彈窗 -->
     <Teleport to="body">
-      <div
-        v-if="modalShow"
-        class="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-system-background px-5"
-      >
-        <button
-          class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-5xl text-white transition-colors hover:text-system-primary-100"
-          type="button"
-          @click="toggleModal"
+      <transition name="modal">
+        <div
+          v-if="modalShow"
+          class="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-system-background px-5"
         >
-          <Icon name="ic:baseline-close" />
-        </button>
-        <nav class="flex-1 space-y-10">
-          <UIButton type="ghost" block text="客房旅宿" />
-          <UIButton type="ghost" block text="會員登入" />
-          <UIButton block text="立即訂房" />
-        </nav>
-      </div>
+          <button
+            class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-5xl text-white transition-colors hover:text-system-primary-100"
+            type="button"
+            @click="toggleModal"
+          >
+            <Icon name="ic:baseline-close" />
+          </button>
+          <nav class="flex-1 space-y-10">
+            <UIButton type="ghost" block text="客房旅宿" />
+            <UIButton type="ghost" block text="會員登入" />
+            <UIButton block text="立即訂房" />
+          </nav>
+        </div>
+      </transition>
     </Teleport>
   </header>
 </template>
 
 <script lang="ts" setup>
-/* 檢查是否為 Mobile */
-const isMobile = ref(true)
-const { width } = useWindowSize()
-onMounted(() => {
-  watch(
-    width,
-    () => {
-      isMobile.value = width.value <= 1200
-    },
-    {
-      immediate: true
-    }
-  )
-  isWindowCheck.value = true
-})
+import { useCommonStore } from '@/stores/common'
+const commonStore = useCommonStore()
 
 /* 計算 Logo 尺寸 */
 const svgSize = computed(() => ({
-  height: isMobile.value ? 40 : 72,
-  width: isMobile.value ? 109.76 : 196
+  height: commonStore.isMobile ? 40 : 72,
+  width: commonStore.isMobile ? 109.76 : 196
 }))
 
 /* 彈窗開關 */
@@ -83,15 +72,34 @@ const toggleModal = () => {
   }
 }
 // 滾輪鎖定
-const isWindowCheck = ref(false)
+
 let windowLock: { value: boolean } | undefined
 // RWD 自動關閉彈窗
 onMounted(() => {
   windowLock = useScrollLock(document.body)
-  watch(width, () => {
-    if (width.value >= 1200 && modalShow.value) {
-      toggleModal()
+  watch(
+    () => commonStore.isMobile,
+    () => {
+      if (!commonStore.isMobile && modalShow.value) {
+        toggleModal()
+      }
     }
-  })
+  )
 })
 </script>
+
+<style lang="scss" scoped>
+.modal-enter-active {
+  transition: all 0.3s ease-in;
+}
+
+.modal-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+</style>

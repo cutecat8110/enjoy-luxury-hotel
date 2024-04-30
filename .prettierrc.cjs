@@ -14,6 +14,7 @@ module.exports = {
     '^v-else$',
     '^v-else-if$',
     '^v-for$',
+    '^v-show$',
     '^(?::)?id$',
     '^(?::)?ref',
     '^(?::)?key',

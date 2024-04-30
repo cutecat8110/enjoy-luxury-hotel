@@ -4,6 +4,25 @@
   </NuxtLayout>
 </template>
 
+<script lang="ts" setup>
+import { useCommonStore } from '@/stores/common'
+const commonStore = useCommonStore()
+
+const { width } = useWindowSize()
+onMounted(() => {
+  watch(
+    width,
+    () => {
+      commonStore.isMobile = width.value <= 1200
+    },
+    {
+      immediate: true
+    }
+  )
+  commonStore.isClient = true
+})
+</script>
+
 <style>
 html,
 body {
