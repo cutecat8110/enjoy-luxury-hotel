@@ -1,9 +1,9 @@
 <template>
   <svg
     :class="svgColor"
-    height="72"
+    :height="props.size.height"
+    :width="props.size.width"
     viewBox="0 0 196 72"
-    width="196"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -107,7 +107,12 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-  white: Boolean
+  white: Boolean,
+  mobile: Boolean,
+  size: {
+    type: Object,
+    default: () => ({ height: 72, width: 196 })
+  }
 })
 
 const svgColor = computed(() => {

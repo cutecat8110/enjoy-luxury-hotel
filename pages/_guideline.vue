@@ -1,6 +1,6 @@
 <template>
   <div class="flex h-screen flex-col font-sans">
-    <header class="sticky border-b px-3 py-4 text-h5 2xl:px-6">
+    <header class="sticky border-b bg-white px-3 py-4 text-h5 2xl:px-6">
       <h1 class="text-h5">Guideline</h1>
     </header>
     <div class="flex flex-1 overflow-hidden bg-slate-100">

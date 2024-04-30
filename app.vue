@@ -5,6 +5,15 @@
 </template>
 
 <style>
+html,
+body {
+  @apply bg-system-background;
+}
+
+body {
+  @apply relative;
+}
+
 .page-enter-active,
 .page-leave-active {
   transition: all 0.075s ease-in-out !important;

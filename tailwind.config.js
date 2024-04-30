@@ -12,104 +12,6 @@ module.exports = {
     './app.{js,ts,vue}'
   ],
   theme: {
-    fontSize: {
-      display: [
-        '6.25rem',
-        {
-          lineHeight: 1.2,
-          letterSpacing: '0.05em',
-          fontWeight: '700'
-        }
-      ],
-      h1: [
-        '3rem',
-        {
-          lineHeight: 1.2,
-          letterSpacing: '0.05em',
-          fontWeight: '700'
-        }
-      ],
-      h2: [
-        '2.5rem',
-        {
-          lineHeight: 1.2,
-          letterSpacing: '0.05em',
-          fontWeight: '700'
-        }
-      ],
-      h3: [
-        '2rem',
-        {
-          lineHeight: 1.2,
-          letterSpacing: '0.05em',
-          fontWeight: '700'
-        }
-      ],
-      h4: [
-        '1.75rem',
-        {
-          lineHeight: 1.2,
-          letterSpacing: '0.05em',
-          fontWeight: '700'
-        }
-      ],
-      h5: [
-        '1.5rem',
-        {
-          lineHeight: 1.2,
-          letterSpacing: '0.05em',
-          fontWeight: '700'
-        }
-      ],
-      h6: [
-        '1.25rem',
-        {
-          lineHeight: 1.2,
-          letterSpacing: '0.05em',
-          fontWeight: '700'
-        }
-      ],
-      title: [
-        '1rem',
-        {
-          lineHeight: 1.5,
-          letterSpacing: '0.02em',
-          fontWeight: '700'
-        }
-      ],
-      'sub-title': [
-        '0.875rem',
-        {
-          lineHeight: 1.5,
-          letterSpacing: '0.02em',
-          fontWeight: '700'
-        }
-      ],
-      body: [
-        '1rem',
-        {
-          lineHeight: 1.5,
-          letterSpacing: '0.02em',
-          fontWeight: '500'
-        }
-      ],
-      'body-2': [
-        '0.875rem',
-        {
-          lineHeight: 1.5,
-          letterSpacing: '0.02em',
-          fontWeight: '500'
-        }
-      ],
-      tiny: [
-        '0.75rem',
-        {
-          lineHeight: 1.5,
-          letterSpacing: '0.02em',
-          fontWeight: '500'
-        }
-      ]
-    },
     screens: {
       sm: '576px',
       md: '768px',
@@ -122,6 +24,104 @@ module.exports = {
       padding: '0.75rem'
     },
     extend: {
+      fontSize: {
+        display: [
+          '6.25rem',
+          {
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            fontWeight: '700'
+          }
+        ],
+        h1: [
+          '3rem',
+          {
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            fontWeight: '700'
+          }
+        ],
+        h2: [
+          '2.5rem',
+          {
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            fontWeight: '700'
+          }
+        ],
+        h3: [
+          '2rem',
+          {
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            fontWeight: '700'
+          }
+        ],
+        h4: [
+          '1.75rem',
+          {
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            fontWeight: '700'
+          }
+        ],
+        h5: [
+          '1.5rem',
+          {
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            fontWeight: '700'
+          }
+        ],
+        h6: [
+          '1.25rem',
+          {
+            lineHeight: 1.2,
+            letterSpacing: '0.05em',
+            fontWeight: '700'
+          }
+        ],
+        title: [
+          '1rem',
+          {
+            lineHeight: 1.5,
+            letterSpacing: '0.02em',
+            fontWeight: '700'
+          }
+        ],
+        'sub-title': [
+          '0.875rem',
+          {
+            lineHeight: 1.5,
+            letterSpacing: '0.02em',
+            fontWeight: '700'
+          }
+        ],
+        body: [
+          '1rem',
+          {
+            lineHeight: 1.5,
+            letterSpacing: '0.02em',
+            fontWeight: '500'
+          }
+        ],
+        'body-2': [
+          '0.875rem',
+          {
+            lineHeight: 1.5,
+            letterSpacing: '0.02em',
+            fontWeight: '500'
+          }
+        ],
+        tiny: [
+          '0.75rem',
+          {
+            lineHeight: 1.5,
+            letterSpacing: '0.02em',
+            fontWeight: '500'
+          }
+        ]
+      },
       colors: {
         system: {
           primary: {
@@ -178,7 +178,7 @@ module.exports = {
             maxWidth: '720px'
           },
           '@screen lg': {
-            maxWidth: '960x'
+            maxWidth: '960px'
           },
           '@screen xl': {
             maxWidth: '1140px'
