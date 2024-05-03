@@ -1,5 +1,9 @@
 <template>
-  <header v-show="commonStore.isClient" ref="pageHeaderRefs">
+  <header
+    v-show="commonStore.isClient"
+    ref="pageHeaderRefs"
+    :class="[bgBlack && ' bg-system-background', 'transition-colors duration-300']"
+  >
     <div
       class="container flex items-center justify-between overflow-hidden py-4 xl:max-w-full xl:px-20 xl:py-6"
     >
@@ -72,7 +76,6 @@ const toggleModal = () => {
   }
 }
 // 滾輪鎖定
-
 let windowLock: { value: boolean } | undefined
 // RWD 自動關閉彈窗
 onMounted(() => {
@@ -85,6 +88,16 @@ onMounted(() => {
       }
     }
   )
+})
+
+/* 滾動黑底 */
+const { height } = useWindowSize()
+const { y } = useWindowScroll()
+const bgBlack = ref(false)
+onMounted(() => {
+  watch(y, () => {
+    bgBlack.value = height.value / 4 < y.value
+  })
 })
 </script>
 
