@@ -5,12 +5,14 @@
     <!-- 最新消息 -->
     <section class="relative bg-system-primary-10">
       <NuxtImg
-        class="absolute right-6 top-10 z-0 h-[6.25rem] w-[6.25rem] xl:right-[11.25rem] xl:top-[6.25rem] xl:h-[12.5rem] xl:w-[12.5rem]"
+        class="absolute right-6 top-10 z-0 xl:right-[11.25rem] xl:top-[6.25rem]"
         src="/img/desktop/dot.png"
+        sizes="100px xl:200px"
       />
       <NuxtImg
-        class="absolute -bottom-[3.75rem] left-6 z-0 h-[6.25rem] w-[6.25rem] xl:-bottom-20 xl:left-[12.5rem] xl:h-[12.5rem] xl:w-[12.5rem]"
+        class="absolute -bottom-[3.75rem] left-6 z-0 xl:-bottom-20 xl:left-[12.5rem]"
         src="/img/desktop/dot.png"
+        sizes="100px xl:200px"
       />
       <div
         class="container relative flex flex-col gap-10 py-20 xl:flex-row xl:gap-20 xl:py-[7.5rem]"
@@ -28,22 +30,76 @@
           <li
             v-for="(newItem, index) in news"
             :key="index"
-            class="flex flex-col-reverse gap-6 xl:flex-row-reverse xl:items-center"
+            class="group flex flex-col gap-6 xl:flex-row"
           >
-            <div class="peer cursor-pointer space-y-2 xl:space-y-6">
-              <h3 class="text-h4 xl:text-h3">{{ newItem.title }}</h3>
+            <NuxtImg
+              class="flex-1 cursor-pointer rounded-lg object-cover transition-opacity group-hover:opacity-85"
+              :src="newItem.image"
+              sizes="xl:474px"
+            />
+            <div class="flex cursor-pointer flex-col items-start justify-center gap-2 xl:gap-6">
+              <h3 class="relative text-h4 xl:text-h3">
+                {{ newItem.title }}
+
+                <div
+                  class="absolute -bottom-[0.125rem] h-[0.125rem] w-full rounded-full bg-transparent transition-colors group-hover:bg-system-background xl:-bottom-2"
+                ></div>
+              </h3>
               <p class="text-body-2 xl:text-body">
                 {{ newItem.description }}
               </p>
             </div>
-            <NuxtImg
-              class="flex-1 cursor-pointer rounded-lg object-cover transition-opacity hover:opacity-85 peer-hover:opacity-85"
-              :src="newItem.image"
-            />
           </li>
         </ul>
       </div>
     </section>
+
+    <!-- 關於我們 -->
+    <section class="pb-[7.5rem] pt-20 xl:pb-[12.5rem] xl:pt-[7.5rem]">
+      <div class="relative">
+        <NuxtImg
+          class="absolute inset-0 h-full w-full object-cover"
+          src="/img/desktop/about.png"
+          width="100vw"
+        />
+
+        <div class="container relative flex flex-row-reverse px-5 xl:px-3">
+          <div
+            class="ml-5 translate-y-10 space-y-10 rounded-l-[2.5rem] rounded-tr-[2.5rem] bg-gradient-to-b from-system-background/80 to-system-primary-100/80 p-6 text-white xl:ml-0 xl:w-4/5 xl:translate-y-20 xl:space-y-20 xl:rounded-l-[5rem] xl:rounded-tr-[5rem] xl:p-20"
+          >
+            <div class="flex max-w-[19rem] items-center gap-10">
+              <h2 class="space-y-1 text-nowrap text-h3 xl:text-h1">
+                <div>關於</div>
+                <div>我們</div>
+              </h2>
+
+              <div class="h-[0.125rem] flex-1 rounded-full bg-white" />
+            </div>
+
+            <div class="space-y-4 text-body-2 xl:space-y-10 xl:text-body">
+              <p>
+                享樂酒店，位於美麗島高雄的心臟地帶，是這座城市的璀璨瑰寶與傲人地標。<br />
+                我們的存在，不僅僅是為了提供奢華的住宿體驗，更是為了將高雄的美麗與活力，獻給每一位蒞臨的旅客。
+              </p>
+
+              <p>
+                我們的酒店，擁有時尚典雅的裝潢，每一個細節都充滿著藝術與設計的精緻。<br />
+                我們的員工，都以熱情的服務與專業的態度，讓每一位客人都能感受到賓至如歸的溫暖。
+              </p>
+
+              <p>
+                在這裡，您可以遙望窗外，欣賞高雄的城市景色，感受這座城市的繁華與活力；您也可以舒適地坐在我們的餐廳，品嚐精緻的佳餚，體驗無與倫比的味覺盛宴。
+              </p>
+
+              <p>
+                享樂酒店，不僅是您在高雄的住宿之選，更是您感受高雄魅力的最佳舞台。我們期待著您的蒞臨，讓我們共同編織一段難忘的高雄故事。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <div class="container">
       <div class="h-[2000px] border"></div>
     </div>

@@ -15,7 +15,11 @@
     >
       <SwiperSlide v-for="(slide, index) in 5" :key="slide">
         <div class="flex h-full">
-          <NuxtImg class="flex-1 object-cover" :src="`/img/desktop/banner${index}.png`" />
+          <NuxtImg
+            class="flex-1 object-cover"
+            :src="`/img/desktop/banner${index}.png`"
+            width="100vw"
+          />
           <div class="absolute inset-0 bg-black/30" />
           <div class="absolute inset-0 flex py-[4.5rem] xl:py-[7.5rem]">
             <div class="container flex flex-1 px-5 pt-10 xl:max-w-full xl:px-20 xl:pt-[7.5rem]">
