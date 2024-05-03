@@ -14,9 +14,9 @@ module.exports = {
   theme: {
     screens: {
       sm: '576px',
-      md: '768px',
+      md: '768px', // 768↑ 轉 Tablet
       lg: '992px',
-      xl: '1200px',
+      xl: '1200px', // 1200↑ 轉 Desktop
       '2xl': '1400px'
     },
     container: {

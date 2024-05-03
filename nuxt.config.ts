@@ -14,13 +14,21 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-icon',
     '@nuxt/image',
-    '@vee-validate/nuxt'
+    '@vee-validate/nuxt',
+    'nuxt-swiper'
   ],
 
   vite: {
     vue: {
       script: {
         defineModel: true
+      }
+    },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: '@import "assets/scss/_variable.scss";'
+        }
       }
     }
   },
@@ -61,7 +69,5 @@ export default defineNuxtConfig({
       FieldArray: 'VFieldArray',
       ErrorMessage: 'VErrorMessage'
     }
-  },
-
-  css: ['~/assets/scss/main.scss']
+  }
 })

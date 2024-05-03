@@ -1,7 +1,7 @@
 <template>
   <header v-show="commonStore.isClient" ref="pageHeaderRefs">
     <div
-      class="container flex items-center justify-between overflow-hidden py-4 xl:py-6 2xl:max-w-full 2xl:px-20"
+      class="container flex items-center justify-between overflow-hidden py-4 xl:max-w-full xl:px-20 xl:py-6"
     >
       <NuxtLink to="/">
         <PageLogo
