@@ -24,6 +24,9 @@ module.exports = {
       padding: '0.75rem'
     },
     extend: {
+      aspectRatio: {
+        '10/8': '10 / 8'
+      },
       fontSize: {
         display: [
           '6.25rem',

@@ -100,6 +100,9 @@
       </div>
     </section>
 
+    <!-- 房型介紹 -->
+    <Rooms />
+
     <div class="container">
       <div class="h-[2000px] border"></div>
     </div>
@@ -108,6 +111,7 @@
 
 <script lang="ts" setup>
 import Banner from './components/banner.vue'
+import Rooms from './components/rooms.vue'
 
 const news = ref([
   {

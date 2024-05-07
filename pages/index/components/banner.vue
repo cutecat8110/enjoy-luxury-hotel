@@ -42,13 +42,11 @@
                 >
                   <div class="-ml-10 pr-10 text-white xl:-ml-12 xl:pr-12">
                     <div class="select-none text-h1 xl:text-display">高雄</div>
-                    <div class="mt-2 select-none text-nowrap text-h1 xl:text-display">
-                      豪華住宿之選
-                    </div>
+                    <div class="mt-2 select-none text-h1 xl:text-display">豪華住宿之選</div>
                     <div class="mt-6 select-none text-title xl:text-h3">
                       我們致力於為您提供無與倫比的奢華體驗與優質服務
                     </div>
-                    <UIHeroButton class="mt-[3.75rem] xl:mt-10" />
+                    <UIHeroButton class="mt-[3.75rem] xl:mt-10" text="立即訂房" />
                   </div>
                 </div>
               </div>
