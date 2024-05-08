@@ -10,9 +10,7 @@
 
     <Menu />
 
-    <div class="container">
-      <div class="h-[2000px] border"></div>
-    </div>
+    <Travel />
   </main>
 </template>
 
@@ -22,4 +20,5 @@ import News from './components/news.vue'
 import About from './components/about.vue'
 import Rooms from './components/rooms.vue'
 import Menu from './components/menu.vue'
+import Travel from './components/travel.vue'
 </script>
