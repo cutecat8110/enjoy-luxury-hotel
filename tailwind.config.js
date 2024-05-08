@@ -14,7 +14,7 @@ module.exports = {
   theme: {
     screens: {
       sm: '576px',
-      md: '768px', // 768↑ 轉 Tablet
+      md: '768px',
       lg: '992px',
       xl: '1200px', // 1200↑ 轉 Desktop
       '2xl': '1400px'
@@ -25,7 +25,8 @@ module.exports = {
     },
     extend: {
       aspectRatio: {
-        '10/8': '10 / 8'
+        '5/4': '5 / 4',
+        '4/6': '5 / 4',
       },
       fontSize: {
         display: [

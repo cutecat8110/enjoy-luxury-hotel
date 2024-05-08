@@ -18,6 +18,8 @@ export default defineNuxtConfig({
     'nuxt-swiper'
   ],
 
+  css: ['@/assets/scss/main.scss'],
+
   vite: {
     vue: {
       script: {
@@ -60,9 +62,7 @@ export default defineNuxtConfig({
   },
 
   veeValidate: {
-    // disable or enable auto imports
     autoImports: true,
-    // Use different names for components
     componentNames: {
       Form: 'VForm',
       Field: 'VField',

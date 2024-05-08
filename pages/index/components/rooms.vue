@@ -1,15 +1,10 @@
 <template>
-  <section class="relative py-20">
-    <!-- 背景圖 -->
-    <data class="absolute inset-0 z-0 flex xl:items-end">
-      <NuxtImg src="/img/desktop/bg.png" width="100vw" />
-    </data>
-
+  <section class="section-container">
     <div class="relative grid grid-cols-1 gap-6 xl:grid-cols-2 xl:gap-20">
       <!-- 房型預覽 -->
       <div class="container relative xl:z-0 xl:max-w-full xl:pl-0 xl:pr-5">
         <Swiper
-          class="rooms-swiper aspect-[10/8] rounded-lg xl:aspect-square xl:rounded-l-none"
+          class="rooms-swiper aspect-[5/4] rounded-lg xl:rounded-l-none"
           :autoplay="{
             delay: 7000,
             disableOnInteraction: false
@@ -37,7 +32,7 @@
       </div>
 
       <!-- 房間資訊 -->
-      <div class="pointer-events-none xl:absolute xl:inset-0">
+      <div class="rooms-info-wrapper pointer-events-none xl:absolute xl:inset-0">
         <div class="container xl:grid xl:h-full xl:grid-cols-2 xl:gap-20">
           <div
             class="pointer-events-auto col-start-2 flex flex-col justify-end gap-6 text-white xl:gap-10"
@@ -144,6 +139,23 @@ const changeRoom = (direction: string) => {
 </script>
 
 <style lang="scss" scoped>
+.section-container {
+  background-image: url('/img/desktop/bg.png');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center 100%;
+  @include xl {
+    background: none;
+  }
+  .rooms-info-wrapper {
+    @include xl {
+      background-image: url('/img/desktop/bg.png');
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+  }
+}
+
 :deep(.rooms-swiper) {
   .swiper-pagination {
     @apply bottom-6 flex justify-center gap-2;
