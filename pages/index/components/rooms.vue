@@ -1,6 +1,6 @@
 <template>
   <section class="section-container">
-    <div class="relative grid grid-cols-1 gap-6 xl:grid-cols-2 xl:gap-20">
+    <div key="key" class="relative grid grid-cols-1 gap-6 xl:grid-cols-2 xl:gap-20">
       <!-- 房型預覽 -->
       <div class="container relative xl:z-0 xl:max-w-full xl:pl-0 xl:pr-5">
         <Swiper
@@ -15,6 +15,7 @@
           :pagination="{
             clickable: true
           }"
+          @swiper="setSwiperRefs"
         >
           <SwiperSlide v-for="(slide, index) in rooms[currentRoom].imageUrlList" :key="index">
             <div class="flex h-full">
@@ -76,6 +77,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { Swiper } from 'swiper'
+
 const rooms = ref([
   {
     name: '尊爵雙人房',
@@ -129,29 +132,35 @@ const rooms = ref([
 
 const currentRoom = ref(0)
 
+const swiperRefs = ref<Swiper | null>(null)
+const setSwiperRefs = (swiper: Swiper) => {
+  swiperRefs.value = swiper
+}
+
 const changeRoom = (direction: string) => {
   if (direction === 'prev') {
     currentRoom.value = (currentRoom.value - 1 + rooms.value.length) % rooms.value.length
   } else if (direction === 'next') {
     currentRoom.value = (currentRoom.value + 1) % rooms.value.length
   }
+  swiperRefs.value?.slideTo(0)
 }
 </script>
 
 <style lang="scss" scoped>
 .section-container {
-  background-image: url('/img/desktop/bg.png');
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center 100%;
   @include xl {
-    background: none;
+    background-image: url('/img/desktop/bg.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center 150%;
   }
   .rooms-info-wrapper {
+    background-image: url('/img/desktop/bg.png');
+    background-repeat: no-repeat;
+    background-size: 100%;
     @include xl {
-      background-image: url('/img/desktop/bg.png');
-      background-repeat: no-repeat;
-      background-size: 100%;
+      background: none;
     }
   }
 }

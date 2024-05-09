@@ -62,10 +62,7 @@
 :deep(.banner-swiper) {
   @apply relative h-screen;
   .swiper-pagination {
-    @apply bottom-8 flex justify-center gap-2;
-    @include xl {
-      @apply bottom-6;
-    }
+    @apply bottom-6 flex justify-center gap-2 xl:bottom-8;
   }
 
   .swiper-pagination-bullet {

@@ -8,11 +8,11 @@
           <iframe
             referrerpolicy="no-referrer-when-downgrade"
             class="rounded-lg border-0"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14730.923136894677!2d120.29687795995785!3d22.62652628244432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e0589ae326f55%3A0xb4522189baee996d!2z5paw6IiI5Y2A5Lit5bGx5LiA6LevMjEy6Jmf!5e0!3m2!1szh-TW!2sjp!4v1715157851494!5m2!1szh-TW!2sjp"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1841.2806883489166!2d120.3015499!3d22.6328489!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e048ea28877df%3A0x6e049dcf043775ff!2z5qiC6YC45paH5peF77yITGEgaG90ZWzvvInigJTlha3lkIjlpJzluILmo5LnkIPppKg!5e0!3m2!1szh-TW!2sjp!4v1715159911917!5m2!1szh-TW!2sjp"
             height="360"
             width="100%"
             loading="lazy"
-          ></iframe>
+          />
         </div>
 
         <ul class="grid grid-cols-1 gap-6 xl:grid-cols-3">
