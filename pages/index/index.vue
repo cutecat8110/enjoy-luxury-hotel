@@ -1,5 +1,5 @@
 <template>
-  <main class="flex-1 overflow-x-hidden">
+  <main>
     <Banner />
 
     <News />

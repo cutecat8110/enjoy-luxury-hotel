@@ -10,6 +10,7 @@ module.exports = {
   },
   plugins: ['prettier'],
   rules: {
+    'vue/no-multiple-template-root': 'off',
     'no-undef': 'off',
     'prettier/prettier': [
       'error',

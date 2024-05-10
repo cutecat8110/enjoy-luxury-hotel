@@ -1,5 +1,5 @@
 <template>
-  <section class="section-container bg-system-primary-10">
+  <section class="section-container relative bg-system-primary-10">
     <NuxtImg
       class="absolute right-6 top-10 z-0 xl:right-[11.25rem] xl:top-[6.25rem]"
       src="/img/desktop/dot.png"
@@ -25,7 +25,7 @@
           class="group flex flex-col gap-6 xl:flex-row"
         >
           <NuxtImg
-            class="flex-1 cursor-pointer rounded-lg object-cover transition-opacity group-hover:opacity-85"
+            class="shrink-0 cursor-pointer rounded-lg object-cover transition-opacity group-hover:opacity-85"
             :src="newItem.image"
             sizes="xl:474px"
           />

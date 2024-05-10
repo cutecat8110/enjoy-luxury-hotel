@@ -5,7 +5,7 @@
   >
     {{ props.text }}
     <div
-      class="h-[1px] max-w-20 flex-1 bg-black transition-colors group-hover:bg-white xl:max-w-[9.375rem]"
+      class="h-[1px] max-w-20 flex-1 bg-black transition-all group-hover:max-w-[3.125rem] group-hover:bg-white xl:max-w-[9.375rem] xl:group-hover:max-w-[7.5rem]"
     ></div>
   </button>
 </template>

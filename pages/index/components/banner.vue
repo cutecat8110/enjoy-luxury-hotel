@@ -1,5 +1,5 @@
 <template>
-  <section class="banner-wrapper">
+  <section>
     <Swiper
       class="banner-swiper"
       :autoplay="{
@@ -13,42 +13,39 @@
         clickable: true
       }"
     >
-      <SwiperSlide v-for="(slide, index) in 5" :key="slide">
-        <div class="flex h-full">
-          <NuxtImg
-            class="flex-1 object-cover"
-            :src="`/img/desktop/banner${index}.png`"
-            width="100vw"
-          />
-          <div class="absolute inset-0 bg-black/30" />
-          <div class="absolute inset-0 flex py-[4.5rem] xl:py-[7.5rem]">
-            <div class="container flex flex-1 px-5 pt-10 xl:max-w-full xl:px-20 xl:pt-[7.5rem]">
-              <!-- 主要內容 -->
-              <div
-                class="flex flex-1 flex-col items-center gap-10 xl:flex-row xl:items-stretch xl:gap-[12.5rem]"
-              >
-                <div
-                  class="flex flex-1 flex-col items-center justify-normal text-system-primary-100 xl:items-start xl:justify-center"
-                >
-                  <h1 class="select-none text-h4 xl:text-h2">享樂酒店</h1>
-                  <div class="mt-2 select-none text-title xl:text-h5">Enjoyment Luxury Hotel</div>
-                  <div
-                    class="mt-5 w-[0.125rem] flex-1 rounded-full bg-gradient-to-b from-system-primary-100 to-white xl:mt-10 xl:h-[0.125rem] xl:w-full xl:flex-initial xl:bg-gradient-to-r"
-                  />
-                </div>
+      <SwiperSlide v-for="(banner, index) in bannerUrlList" :key="index" class="flex !h-screen">
+        <!-- 背景 -->
+        <NuxtImg class="h-full w-full object-cover" :src="banner" width="100vw" />
 
-                <div
-                  class="ml-12 flex h-2/3 items-center rounded-[2.5rem] border-r border-t bg-gradient-to-t from-white/30 backdrop-blur-[1.25rem] xl:h-auto xl:w-1/2 xl:rounded-[5rem]"
-                >
-                  <div class="-ml-10 pr-10 text-white xl:-ml-12 xl:pr-12">
-                    <div class="select-none text-h1 xl:text-display">高雄</div>
-                    <div class="mt-2 select-none text-h1 xl:text-display">豪華住宿之選</div>
-                    <div class="mt-6 select-none text-title xl:text-h3">
-                      我們致力於為您提供無與倫比的奢華體驗與優質服務
-                    </div>
-                    <UIHeroButton class="mt-[3.75rem] xl:mt-10" text="立即訂房" />
-                  </div>
+        <!-- 黑色遮罩 -->
+        <div class="absolute inset-0 bg-black/30" />
+
+        <!-- 定位/浮於背景 -->
+        <div class="absolute inset-0 flex py-[4.5rem] xl:py-[7.5rem]">
+          <!-- rwd 容器 -->
+          <div
+            class="container flex flex-1 flex-col items-center gap-10 px-5 pt-10 xl:max-w-full xl:flex-row xl:items-stretch xl:gap-[12.5rem] xl:px-20 xl:pt-[7.5rem]"
+          >
+            <div
+              class="flex flex-1 flex-col items-center justify-normal text-system-primary-100 xl:items-start xl:justify-center"
+            >
+              <h1 class="select-none text-h4 xl:text-h2">享樂酒店</h1>
+              <div class="mt-2 select-none text-title xl:text-h5">Enjoyment Luxury Hotel</div>
+              <div
+                class="mt-5 w-[0.125rem] flex-1 rounded-full bg-gradient-to-b from-system-primary-100 to-white xl:mt-10 xl:h-[0.125rem] xl:w-full xl:flex-initial xl:bg-gradient-to-r"
+              />
+            </div>
+
+            <div
+              class="ml-12 flex h-2/3 items-center rounded-[2.5rem] border-r border-t bg-gradient-to-t from-white/30 backdrop-blur-[1.25rem] xl:h-auto xl:w-1/2 xl:rounded-[5rem]"
+            >
+              <div class="-ml-10 pr-10 text-white xl:-ml-12 xl:pr-12">
+                <div class="select-none text-h1 xl:text-display">高雄</div>
+                <div class="mt-2 select-none text-h1 xl:text-display">豪華住宿之選</div>
+                <div class="mt-6 select-none text-title xl:text-h3">
+                  我們致力於為您提供無與倫比的奢華體驗與優質服務
                 </div>
+                <UIHeroButton class="mt-[3.75rem] xl:mt-10" text="立即訂房" />
               </div>
             </div>
           </div>
@@ -58,13 +55,21 @@
   </section>
 </template>
 
+<script lang="ts" setup>
+const bannerUrlList = ref([
+  '/img/desktop/banner1.png',
+  '/img/desktop/banner2.png',
+  '/img/desktop/banner3.png',
+  '/img/desktop/banner4.png',
+  '/img/desktop/banner5.png'
+])
+</script>
+
 <style lang="scss" scoped>
 :deep(.banner-swiper) {
-  @apply relative h-screen;
   .swiper-pagination {
     @apply bottom-6 flex justify-center gap-2 xl:bottom-8;
   }
-
   .swiper-pagination-bullet {
     @apply m-0 block h-1 w-8 rounded-full bg-system-primary-40 opacity-100 transition-colors hover:bg-system-primary-100;
 

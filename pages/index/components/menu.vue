@@ -1,5 +1,5 @@
 <template>
-  <section class="section-container bg-system-primary-10">
+  <section class="section-container relative bg-system-primary-10">
     <NuxtImg
       class="absolute left-10 top-14 hidden w-[11.5rem] xl:block"
       src="/img/desktop/line.png"

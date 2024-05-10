@@ -35,6 +35,10 @@ export default defineNuxtConfig({
     }
   },
 
+  build: {
+    transpile: ['@googlemaps/js-api-loader']
+  },
+
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
     layoutTransition: {
@@ -45,7 +49,8 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE
+      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      mapApiKey: process.env.MAP_API_KEY
     }
   },
 

@@ -1,24 +1,16 @@
 <template>
   <footer class="section-container bg-system-background text-white xl:pb-[7.5rem]">
-    <!-- <div class="container flex h-14 items-center justify-center text-white">
-      Copyright © 2024
-      <NuxtLink to="/_guideline">guideline</NuxtLink>
-      <button class="rounded border px-4 py-2" type="button" @click="changeLanguage">
-        {{ $t('language') }}
-      </button>
-    </div> -->
-
     <div class="container space-y-20">
       <div class="flex flex-col justify-between gap-10 xl:flex-row">
         <div class="space-y-10">
           <PageLogo white />
           <div class="space-x-4">
-            <button class="link-wrapper" type="button">
+            <NuxtLink class="link-wrapper" target="_blank" to="https://line.me/ti/p/l7E02lIDG4">
               <Icon class="shrink-0" name="bi:line" />
-            </button>
-            <button class="link-wrapper" type="button">
+            </NuxtLink>
+            <NuxtLink class="link-wrapper" target="_blank" to="https://instagram.com/cutecat8110">
               <Icon class="shrink-0" name="bi:instagram" />
-            </button>
+            </NuxtLink>
           </div>
         </div>
 
@@ -33,8 +25,8 @@
       <div
         class="flex flex-col gap-4 text-body-2 xl:flex-row xl:items-center xl:justify-between xl:text-body"
       >
-        <address class="not-italic">402001 台灣台中市南區民生路14巷5號</address>
-        <div class="flex items-center gap-4 xl:flex-row-reverse">
+        <address class="not-italic">402001 台灣台中市南區復興路三段362號</address>
+        <div class="flex flex-wrap items-center gap-4 xl:flex-row-reverse">
           Copyright © 2024 by Hao
 
           <div class="space-x-1">
@@ -77,13 +69,6 @@ const contactInfo = ref([
     details: 'www.github.com/cutecat8110'
   }
 ])
-
-const { locale, setLocaleCookie } = useI18n()
-const changeLanguage = () => {
-  const localeCode = locale.value === 'en' ? 'zh' : 'en'
-  locale.value = localeCode
-  setLocaleCookie(localeCode)
-}
 </script>
 
 <style lang="scss" scoped>

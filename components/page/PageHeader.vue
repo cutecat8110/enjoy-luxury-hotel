@@ -37,7 +37,7 @@
       <transition name="modal">
         <div
           v-if="modalShow"
-          class="fixed left-0 top-0 z-50 flex h-full w-full items-center justify-center bg-system-background px-5"
+          class="fixed left-0 top-0 z-[60] flex h-full w-full items-center justify-center bg-system-background px-5"
         >
           <button
             class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-5xl text-white transition-colors hover:text-system-primary-100"

@@ -1,5 +1,5 @@
 <template>
-  <section class="section-container !pb-[7.5rem] xl:!pb-[12.5rem]">
+  <section class="section-container bg-system-background !pb-[7.5rem] xl:!pb-[12.5rem]">
     <div class="relative">
       <NuxtImg
         class="absolute inset-0 h-full w-full object-cover"

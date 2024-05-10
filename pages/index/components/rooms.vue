@@ -133,6 +133,7 @@ const rooms = ref([
 const currentRoom = ref(0)
 
 const swiperRefs = ref<Swiper | null>(null)
+
 const setSwiperRefs = (swiper: Swiper) => {
   swiperRefs.value = swiper
 }
@@ -149,16 +150,17 @@ const changeRoom = (direction: string) => {
 
 <style lang="scss" scoped>
 .section-container {
+  @apply bg-system-background;
   @include xl {
     background-image: url('/img/desktop/bg.png');
+    background-position: center 150%;
     background-repeat: no-repeat;
     background-size: 100%;
-    background-position: center 150%;
   }
   .rooms-info-wrapper {
+    background-size: 100%;
     background-image: url('/img/desktop/bg.png');
     background-repeat: no-repeat;
-    background-size: 100%;
     @include xl {
       background: none;
     }
