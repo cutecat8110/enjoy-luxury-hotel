@@ -1,3 +1,8 @@
+html,
+body {
+  @apply bg-system-background;
+}
+
 .section-container {
-  @apply  py-20 xl:py-[7.5rem];
+  @apply py-20 xl:py-[7.5rem];
 }

@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div>
     <Banner />
 
     <News />
@@ -11,7 +11,7 @@
     <Menu />
 
     <Travel />
-  </main>
+  </div>
 </template>
 
 <script lang="ts" setup>

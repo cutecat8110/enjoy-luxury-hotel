@@ -1,19 +1,25 @@
 <template>
-  <div class="layout">
-    <PageHeader class="fixed top-0 z-30 w-full" />
+  <div class="default-layout">
+    <PageHeader />
 
-    <slot />
+    <main>
+      <slot />
+    </main>
 
     <PageFooter />
   </div>
 </template>
 
 <style lang="scss" scoped>
-.layout {
+.default-layout {
   @apply relative flex min-h-screen flex-col;
 
   > * {
     @apply overflow-x-hidden;
+  }
+
+  > header {
+    @apply fixed top-0 z-30 w-full;
   }
 
   > main {

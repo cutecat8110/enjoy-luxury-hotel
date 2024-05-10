@@ -27,7 +27,10 @@
       <!-- Desktop: 導航列 -->
       <nav v-else class="space-x-4">
         <UIButton type="ghost" text="客房旅宿" />
-        <UIButton type="ghost" text="會員登入" />
+        <NuxtLink to="/login">
+          <UIButton type="ghost" text="會員登入" />
+        </NuxtLink>
+
         <UIButton text="立即訂房" />
       </nav>
     </div>
@@ -112,7 +115,6 @@ onMounted(() => {
 
 .modal-enter-from,
 .modal-leave-to {
-  transform: translateX(-100%);
   opacity: 0;
 }
 </style>
