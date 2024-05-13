@@ -26,9 +26,9 @@
       </button>
       <!-- Desktop: 導航列 -->
       <nav v-else class="space-x-4">
-        <UIButton type="ghost" text="客房旅宿" />
-        <NuxtLink to="/login">
-          <UIButton type="ghost" text="會員登入" />
+        <UIButton text="客房旅宿" variant="ghost" />
+        <NuxtLink to="/auth/login">
+          <UIButton text="會員登入" variant="ghost" />
         </NuxtLink>
 
         <UIButton text="立即訂房" />
@@ -50,8 +50,8 @@
             <Icon name="ic:baseline-close" />
           </button>
           <nav class="flex-1 space-y-10">
-            <UIButton type="ghost" block text="客房旅宿" />
-            <UIButton type="ghost" block text="會員登入" />
+            <UIButton block text="客房旅宿" variant="ghost" />
+            <UIButton block text="會員登入" variant="ghost" />
             <UIButton block text="立即訂房" />
           </nav>
         </div>

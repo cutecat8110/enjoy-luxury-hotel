@@ -5,24 +5,6 @@
       <div class="space-y-6 text-white xl:space-y-10">
         <div class="space-y-4">
           <div class="text-body">台灣台中市南區復興路三段362號</div>
-          <!-- <iframe
-            referrerpolicy="no-referrer-when-downgrade"
-            class="rounded-lg border-0"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1530.8838746121326!2d120.68030449128133!3d24.133969272075962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34693d1042abccf9%3A0x71ee765369fc0909!2z5paH5YyW6YOo5paH5YyW6LOH55Si5ZyS5Y2A!5e0!3m2!1szh-TW!2sjp!4v1715244995646!5m2!1szh-TW!2sjp"
-            height="360"
-            width="100%"
-            loading="lazy"
-          /> -->
-          <!-- <ClientOnly>
-            <Suspense>
-              <GMapMap
-                class="h-[22.5rem] w-full overflow-hidden rounded-lg"
-                :center="{ lat: 24.133459091186523, lng: 120.68169403076172 }"
-                :options="options"
-                :zoom="18"
-              />
-            </Suspense>
-          </ClientOnly> -->
           <div
             id="GOOGLE_MAP"
             ref="mapRefs"

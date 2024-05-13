@@ -1,43 +1,45 @@
 <template>
-  <label class="block w-full min-w-[280px] space-y-2" :for="props.label">
-    <div
-      v-if="props.label"
-      class="flex items-center justify-between text-sub-title text-white xl:text-title"
-    >
+  <VErrorMessage class="text-white" :name="props.name" />
+  <label class="block w-full min-w-[280px] space-y-2" :for="props.name">
+    <div class="flex items-center justify-between text-sub-title text-white xl:text-title">
       <span>
-        {{ props.label }}
+        {{ attrs.label || props.name }}
       </span>
       <span v-if="props.required" class="text-system-primary-100">必填</span>
     </div>
-    <input
-      :id="props.label"
+
+    <VField
+      :id="props.name"
+      v-bind="attrs"
       v-model="input"
       :class="cssColor"
-      :name="props.label"
-      type="text"
-      :placeholder="props.placeholder"
+      :name="props.name"
+      :type="props.type"
     />
-    <div v-if="props.error" class="text-start text-sub-title text-system-error-120 xl:text-title">
-      {{ props.error }}
-    </div>
+    <VErrorMessage
+      class="block text-sub-title text-system-error-120 xl:text-title"
+      :name="props.name"
+    />
   </label>
 </template>
 
 <script lang="ts" setup>
+const attrs = useAttrs()
+
 const props = defineProps({
-  label: {
+  name: {
     type: String,
     default: ''
   },
-  required: Boolean,
-  placeholder: {
+  type: {
     type: String,
-    default: ''
+    default: 'text'
   },
   error: {
     type: String,
     default: ''
-  }
+  },
+  required: Boolean
 })
 
 const input = defineModel<string>()

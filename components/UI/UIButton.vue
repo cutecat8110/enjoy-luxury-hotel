@@ -1,5 +1,5 @@
 <template>
-  <button :class="[cssColor, props.block ? 'flex w-full' : ' inline-flex']" type="button">
+  <button :class="[cssColor, props.block ? 'flex w-full' : ' inline-flex']" :type="props.type">
     {{ props.text }}
     <div v-if="props.icon" class="flex h-6 w-6 items-center justify-center">
       <Icon class="" :name="props.icon"></Icon>
@@ -8,9 +8,11 @@
 </template>
 
 <script lang="ts" setup>
-type ButtonType = 'primary' | 'secondary' | 'ghost' | 'text'
-
 const props = defineProps({
+  type: {
+    type: String as () => 'button' | 'submit' | 'reset' | undefined,
+    default: 'button'
+  },
   text: {
     type: String,
     default: 'Button'
@@ -19,8 +21,8 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  type: {
-    type: String as PropType<ButtonType>,
+  variant: {
+    type: String as () => 'primary' | 'secondary' | 'ghost' | 'text',
     default: 'primary'
   },
   block: Boolean
@@ -35,6 +37,6 @@ const cssColor = computed<string>(() => {
     ghost:
       'text-nowrap select-none items-center justify-center gap-1 rounded-lg px-8 py-4 text-sub-title xl:text-title text-white transition-colors hover:text-system-primary-100 disabled:text-system-gray-60',
     text: 'text-nowrap select-none items-center justify-center gap-1 rounded-lg text-sub-title xl:text-title text-system-primary-100 underline transition-colors hover:text-system-primary-120 disabled:text-system-gray-60'
-  }[props.type]
+  }[props.variant]
 })
 </script>

@@ -467,19 +467,19 @@
                   <tr>
                     <td>Initial</td>
                     <td>
-                      <UIButton type="secondary" icon="ic:baseline-person" />
+                      <UIButton icon="ic:baseline-person" variant="secondary" />
                     </td>
                     <td>
-                      <UIButton type="secondary" />
+                      <UIButton variant="secondary" />
                     </td>
                   </tr>
                   <tr>
                     <td>Disable</td>
                     <td>
-                      <UIButton type="secondary" icon="ic:baseline-person" disabled />
+                      <UIButton icon="ic:baseline-person" variant="secondary" disabled />
                     </td>
                     <td>
-                      <UIButton type="secondary" disabled />
+                      <UIButton variant="secondary" disabled />
                     </td>
                   </tr>
                 </tbody>
@@ -502,19 +502,19 @@
                     <tr>
                       <td>Initial</td>
                       <td>
-                        <UIButton type="ghost" icon="ic:baseline-person" />
+                        <UIButton icon="ic:baseline-person" variant="ghost" />
                       </td>
                       <td>
-                        <UIButton type="ghost" />
+                        <UIButton variant="ghost" />
                       </td>
                     </tr>
                     <tr>
                       <td>Disable</td>
                       <td>
-                        <UIButton type="ghost" icon="ic:baseline-person" disabled />
+                        <UIButton icon="ic:baseline-person" variant="ghost" disabled />
                       </td>
                       <td>
-                        <UIButton type="ghost" disabled />
+                        <UIButton variant="ghost" disabled />
                       </td>
                     </tr>
                   </tbody>
@@ -538,14 +538,14 @@
                       <td>Initial</td>
                       <td></td>
                       <td>
-                        <UIButton type="text" />
+                        <UIButton variant="text" />
                       </td>
                     </tr>
                     <tr>
                       <td>Disable</td>
                       <td></td>
                       <td>
-                        <UIButton type="text" disabled />
+                        <UIButton variant="text" disabled />
                       </td>
                     </tr>
                   </tbody>
