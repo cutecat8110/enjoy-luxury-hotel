@@ -1,7 +1,9 @@
 <template>
-  <VErrorMessage class="text-white" :name="props.name" />
-  <label class="block w-full min-w-[280px] space-y-2" :for="props.name">
-    <div class="flex items-center justify-between text-sub-title text-white xl:text-title">
+  <label class="block space-y-2" :for="props.name">
+    <div
+      v-if="attrs.label || props.name"
+      class="flex items-center justify-between text-sub-title text-white xl:text-title"
+    >
       <span>
         {{ attrs.label || props.name }}
       </span>
