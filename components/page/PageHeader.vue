@@ -50,9 +50,15 @@
             <Icon name="ic:baseline-close" />
           </button>
           <nav class="flex-1 space-y-10">
-            <UIButton block text="客房旅宿" variant="ghost" />
-            <UIButton block text="會員登入" variant="ghost" />
-            <UIButton block text="立即訂房" />
+            <NuxtLink class="block" to="/">
+              <UIButton block text="客房旅宿" variant="ghost" />
+            </NuxtLink>
+            <NuxtLink class="block" to="/auth/login">
+              <UIButton block text="會員登入" variant="ghost" />
+            </NuxtLink>
+            <NuxtLink class="block" to="/">
+              <UIButton block text="立即訂房" />
+            </NuxtLink>
           </nav>
         </div>
       </transition>

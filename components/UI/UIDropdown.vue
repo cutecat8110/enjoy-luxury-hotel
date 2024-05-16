@@ -1,15 +1,16 @@
 <template>
-  <div :class="[chosen ? 'text-black' : 'text-system-gray-80', 'relative text-body']">
+  <div class="relative text-body text-black">
     <select
       v-model="input"
-      :class="[
-        chosen ? 'border-black' : 'border-transparent',
-        'w-full appearance-none rounded-lg border p-4 pr-12 outline-none focus-visible:border-system-primary-100'
-      ]"
+      class="w-full appearance-none rounded-lg border border-black p-4 pr-12 outline-none focus-visible:border-system-primary-100"
     >
       <option value="" disabled>請選擇</option>
-      <option v-for="(option, index) in props.options" :key="index" :value="option">
-        {{ option }}
+      <option
+        v-for="(option, index) in props.options"
+        :key="index"
+        :value="OptionShow(option, props.value)"
+      >
+        {{ OptionShow(option, props.label) }}
       </option>
     </select>
     <div
@@ -23,20 +24,25 @@
 <script lang="ts" setup>
 const props = defineProps({
   options: {
-    type: Array,
+    type: Array as () => (string | number | Record<string, unknown>)[],
     default: () => ['Title', 'Title', 'Title']
+  },
+  label: {
+    type: String,
+    default: ''
+  },
+  value: {
+    type: String,
+    default: ''
   }
 })
 
 const input = defineModel<string | number>()
 
-const chosen = computed(() => {
-  return input.value !== ''
-})
-</script>
-
-<style lang="scss" scoped>
-.ui-dropdown {
-  @apply relative;
+const OptionShow = (option: string | number | Record<string, unknown>, show: string) => {
+  if (typeof option === 'object' && show) {
+    return option[show] || ''
+  }
+  return option
 }
-</style>
+</script>

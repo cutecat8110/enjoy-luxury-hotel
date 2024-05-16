@@ -1,7 +1,7 @@
 <template>
   <label class="block space-y-2" :for="props.name">
     <div
-      v-if="attrs.label || props.name"
+      v-if="!headless && (attrs.label || props.name)"
       class="flex items-center justify-between text-sub-title text-white xl:text-title"
     >
       <span>
@@ -9,7 +9,6 @@
       </span>
       <span v-if="props.required" class="text-system-primary-100">必填</span>
     </div>
-
     <VField
       :id="props.name"
       v-bind="attrs"
@@ -41,7 +40,8 @@ const props = defineProps({
     type: String,
     default: ''
   },
-  required: Boolean
+  required: Boolean,
+  headless: Boolean
 })
 
 const input = defineModel<string>()

@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 const { $dayjs } = useNuxtApp()
-const emit = defineEmits(['updateBirthday'])
+const emit = defineEmits(['update-birthday'])
 
 // 當下日期
 const now = $dayjs()
@@ -27,7 +27,7 @@ const birthday = ref({
 watch(
   birthday,
   () => {
-    emit('updateBirthday', `${birthday.value.YYYY}-${birthday.value.MM}-${birthday.value.DD}`)
+    emit('update-birthday', `${birthday.value.YYYY}-${birthday.value.MM}-${birthday.value.DD}`)
   },
   { immediate: true, deep: true }
 )

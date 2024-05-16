@@ -1,5 +1,5 @@
 <template>
-  <div class="group flex items-center gap-2">
+  <label class="group flex items-center gap-2" :for="props.id">
     <div class="relative inline-block h-6 w-6">
       <input
         :id="props.id"
@@ -13,8 +13,8 @@
         <Icon name="ic:baseline-check" />
       </div>
     </div>
-    <label class="text-sub-title text-white xl:text-title" for="remember">{{ props.label }}</label>
-  </div>
+    <div class="select-none text-sub-title text-white xl:text-title">{{ props.label }}</div>
+  </label>
 </template>
 
 <script lang="ts" setup>

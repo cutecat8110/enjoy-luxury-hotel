@@ -28,12 +28,13 @@
           v-model="userAuth.confirmPassword"
           name="confirmPassword"
           label="確認密碼"
-          type="confirmPassword"
+          type="password"
           placeholder="請再輸入一次密碼"
           :error="errors.confirmPassword"
         />
       </template>
       <template v-else>
+        {{ errors }}
         <UIInput
           v-model="userAuth.name"
           name="name"
@@ -48,7 +49,10 @@
           placeholder="請輸入手機號碼"
           :error="errors.phone"
         />
-        <Birthday @updateBirthday="updateBirthday" />
+        <Birthday @update-birthday="updateBirthday" />
+        <Address :error="errors.address" @update-address="updateAddress" />
+
+        <UICheckbox id="agree" label="我已閱讀並同意本網站個資使用規範" />
       </template>
     </div>
     <div class="space-y-4">
@@ -66,40 +70,47 @@
 <script lang="ts" setup>
 import UITitle from './components/UI/UITitle.vue'
 import Birthday from './components/birthday.vue'
+import Address from './components/address.vue'
 
 definePageMeta({
   layout: 'auth'
 })
 
 const userAuth = ref({
-  email: 'test@test.com',
-  password: 'test',
-  confirmPassword: 'test',
+  email: '',
+  password: '',
+  confirmPassword: '',
   name: '',
   phone: '',
   birthday: '',
   address: {
-    zipcode: 802,
-    detail: '文山路23號'
+    zipcode: '',
+    detail: ''
   }
 })
 const schema = [
   { email: 'required|email', password: 'required', confirmPassword: 'required' },
   {
     name: 'required',
-    phone: 'required'
+    phone: 'required',
+    address: 'required'
   }
 ]
 
-const current = ref(1)
+const current = ref(0)
 
 const submit = () => {
   if (current.value === 0) {
-    current.value = 1
+    return (current.value = 1)
   }
+  console.log(userAuth.value)
 }
 
 const updateBirthday = (data: string) => {
   userAuth.value.birthday = data
+}
+
+const updateAddress = (data: { zipcode: string; detail: string }) => {
+  userAuth.value.address = data
 }
 </script>
