@@ -20,6 +20,10 @@
 <script lang="ts" setup>
 import Card from './components/card.vue'
 
+definePageMeta({
+  layout: 'landing'
+})
+
 const rooms = ref([
   {
     name: '尊爵雙人房',
@@ -34,7 +38,8 @@ const rooms = ref([
     ],
     areaInfo: '24坪',
     bedInfo: '一張大床',
-    maxPeople: 4
+    maxPeople: 4,
+    _id: '653e4661336cdccc752127a0'
   },
   {
     name: '景觀雙人房',
@@ -49,7 +54,8 @@ const rooms = ref([
     ],
     areaInfo: '24坪',
     bedInfo: '一張大床',
-    maxPeople: 4
+    maxPeople: 4,
+    _id: '653e4661336cdccc752127a0'
   },
   {
     name: '豪華雅緻房',
@@ -64,7 +70,8 @@ const rooms = ref([
     ],
     areaInfo: '24坪',
     bedInfo: '一張大床',
-    maxPeople: 4
+    maxPeople: 4,
+    _id: '653e4661336cdccc752127a0'
   },
   {
     name: '景觀尊榮家庭房',
@@ -79,7 +86,8 @@ const rooms = ref([
     ],
     areaInfo: '24坪',
     bedInfo: '一張大床',
-    maxPeople: 4
+    maxPeople: 4,
+    _id: '653e4661336cdccc752127a0'
   }
 ])
 </script>

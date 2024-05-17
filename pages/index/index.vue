@@ -20,7 +20,8 @@ import About from './components/about.vue'
 import Rooms from './components/rooms.vue'
 import Menu from './components/menu.vue'
 import Travel from './components/travel.vue'
+
 definePageMeta({
-  layout: 'default'
+  layout: 'landing'
 })
 </script>

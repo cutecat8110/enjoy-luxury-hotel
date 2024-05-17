@@ -1,5 +1,5 @@
 <template>
-  <div class="default-layout">
+  <div class="landing-layout">
     <PageHeader />
 
     <main>
@@ -11,7 +11,7 @@
 </template>
 
 <style lang="scss" scoped>
-.default-layout {
+.landing-layout {
   @apply relative flex min-h-screen flex-col;
 
   > * {
@@ -19,7 +19,7 @@
   }
 
   > header {
-    @apply sticky top-0 z-30 w-full bg-system-background;
+    @apply fixed top-0 z-30 w-full;
   }
 
   > main {

@@ -21,7 +21,7 @@
       >
         <SwiperSlide v-for="(slide, index) in props.room.imageUrlList" :key="index">
           <div class="flex h-full">
-            <NuxtImg class="flex-1 object-cover" :src="slide" width="50vw" />
+            <NuxtImg class="flex-1 object-cover" :src="slide" />
           </div>
         </SwiperSlide>
         <div
@@ -70,12 +70,13 @@
         <p class="text-title text-system-primary-100 xl:text-h5">
           {{ formatCurrency(props.room.price) }}
         </p>
-
-        <div
-          class="flex h-6 w-6 cursor-pointer items-center justify-center text-[1.25rem] text-system-primary-100 transition-colors hover:text-system-primary-120"
-        >
-          <Icon name="mdi:arrow-right" />
-        </div>
+        <NuxtLink :to="`/room/${props.room._id}`">
+          <div
+            class="flex h-6 w-6 cursor-pointer items-center justify-center text-[1.25rem] text-system-primary-100 transition-colors hover:text-system-primary-120"
+          >
+            <Icon name="mdi:arrow-right" />
+          </div>
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -87,6 +88,7 @@ const props = defineProps({
     type: Object,
     default: () => ({
       name: '尊爵雙人房',
+      _id: '653e4661336cdccc752127a0',
       description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
       price: 10000,
       imageUrlList: [
