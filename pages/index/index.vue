@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Banner />
+    <CBanner />
 
     <News />
 
@@ -15,7 +15,6 @@
 </template>
 
 <script lang="ts" setup>
-import Banner from './components/banner.vue'
 import News from './components/news.vue'
 import About from './components/about.vue'
 import Rooms from './components/rooms.vue'
