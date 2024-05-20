@@ -1,9 +1,7 @@
 <template>
   <button :class="[cssColor, props.block ? 'flex w-full' : ' inline-flex']" :type="props.type">
     {{ props.text }}
-    <div v-if="props.icon" class="flex h-6 w-6 items-center justify-center">
-      <Icon class="" :name="props.icon"></Icon>
-    </div>
+    <Icon v-if="props.icon" class="text-icon-24" :name="props.icon" />
   </button>
 </template>
 

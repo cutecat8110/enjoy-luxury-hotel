@@ -47,22 +47,11 @@
         <h3 class="text-h4 xl:text-h2">{{ props.room.name }}</h3>
         <p class="text-body-2 text-system-gray-80 xl:text-body">{{ props.room.description }}</p>
       </div>
-      <ul class="inline-grid grid-cols-3 gap-4">
-        <li
-          v-for="(box, index) in boxes"
-          :key="index"
-          class="flex aspect-square flex-1 flex-col justify-center rounded-lg border border-system-primary-100 px-4"
-        >
-          <div class="space-y-2">
-            <div class="flex h-6 w-6 items-center justify-center">
-              <Icon class="text-[1.25rem] text-system-primary-100" :name="box.icon" />
-            </div>
-            <p class="text-nowrap text-sub-title text-system-gray-80 xl:text-title">
-              {{ box.name }}
-            </p>
-          </div>
-        </li>
-      </ul>
+      <CRoomInfo
+        :area-info="props.room.areaInfo"
+        :bed-info="props.room.bedInfo"
+        :max-people="props.room.maxPeople"
+      />
       <div
         class="h-[0.125rem] flex-1 rounded-full bg-white bg-gradient-to-r from-system-primary-100 to-white"
       />
@@ -97,16 +86,13 @@ const props = defineProps({
         '/img/desktop/room2-3.png',
         '/img/desktop/room2-4.png',
         '/img/desktop/room2-5.png'
-      ]
+      ],
+      areaInfo: '24坪',
+      bedInfo: '一張大床',
+      maxPeople: 4
     })
   }
 })
-
-const boxes = computed(() => [
-  { icon: 'IconSize', name: props.room.areaInfo },
-  { icon: 'ic:baseline-bed', name: props.room.bedInfo },
-  { icon: 'ic:baseline-person', name: `2-${props.room.maxPeople}人` }
-])
 </script>
 
 <style lang="scss" scoped>

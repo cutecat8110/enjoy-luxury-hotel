@@ -14,12 +14,10 @@
 
         <ul class="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <li v-for="(travel, index) in travels" :key="index">
-            <div class="flex h-12 w-12 items-center justify-center xl:h-20 xl:w-20">
-              <Icon
-                class="text-[2.25rem] text-system-primary-100 xl:text-[3.75rem]"
-                :name="travel.icon"
-              />
-            </div>
+            <Icon
+              class="text-icon-48 xl:text-icon-80 text-system-primary-100"
+              :name="travel.icon"
+            />
             <h3 class="mt-2 text-title xl:mt-4 xl:text-h5">{{ travel.name }}</h3>
             <p class="mt-2 text-body-2 xl:text-body">{{ travel.description }}</p>
           </li>

@@ -3,7 +3,21 @@
     <Hero :images="room.imageUrlList" />
     <section class="container pb-[4.5rem] pt-[7.5rem]">
       <div class="grid h-[500px] grid-cols-12 gap-[4.5rem]">
-        <div class="col-span-7 border"></div>
+        <div class="col-span-7 space-y-20">
+          <div>
+            <h1 class="text-h1">{{ room.name }}</h1>
+            <p class="text-body">{{ room.description }}</p>
+          </div>
+
+          <section class="space-y-6">
+            <Title title="房型基本資訊" />
+            <CRoomInfo
+              :area-info="room.areaInfo"
+              :bed-info="room.bedInfo"
+              :max-people="room.maxPeople"
+            />
+          </section>
+        </div>
         <div class="col-span-5 border"></div>
       </div>
     </section>
@@ -12,6 +26,7 @@
 
 <script lang="ts" setup>
 import Hero from './components/hero.vue'
+import Title from './components/title.vue'
 
 const room = ref({
   name: '尊爵雙人房',

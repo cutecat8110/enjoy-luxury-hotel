@@ -55,14 +55,14 @@
             <!-- 上下按鈕 -->
             <div class="flex justify-end">
               <button
-                class="flex h-14 w-14 items-center justify-center p-4 text-2xl text-system-primary-100 transition-colors hover:text-system-primary-120"
+                class="text-icon-24 flex h-14 w-14 items-center justify-center p-4 text-system-primary-100 transition-colors hover:text-system-primary-120"
                 type="button"
                 @click="changeRoom('prev')"
               >
                 <Icon class="shrink-0" name="ic:baseline-keyboard-arrow-left"></Icon>
               </button>
               <button
-                class="flex h-14 w-14 items-center justify-center p-4 text-2xl text-system-primary-100 transition-colors hover:text-system-primary-120"
+                class="text-icon-24 flex h-14 w-14 items-center justify-center p-4 text-system-primary-100 transition-colors hover:text-system-primary-120"
                 type="button"
                 @click="changeRoom('next')"
               >

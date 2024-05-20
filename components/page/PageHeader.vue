@@ -18,7 +18,7 @@
       <!-- Mobile: 選單按鈕 -->
       <button
         v-if="commonStore.isMobile"
-        class="flex h-10 w-10 items-center justify-center text-2xl text-white transition-colors hover:text-system-primary-100"
+        class="text-icon-24 flex h-10 w-10 items-center justify-center text-white transition-colors hover:text-system-primary-100"
         type="button"
         @click="toggleModal"
       >
@@ -46,7 +46,7 @@
           class="fixed left-0 top-0 z-[60] flex h-full w-full items-center justify-center bg-system-background px-5"
         >
           <button
-            class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-5xl text-white transition-colors hover:text-system-primary-100"
+            class="text-icon-48 absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-white transition-colors hover:text-system-primary-100"
             type="button"
             @click="toggleModal"
           >
