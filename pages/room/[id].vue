@@ -41,7 +41,7 @@
           </section>
         </div>
 
-        <div v-if="!commonStore.isMobile" class="col-span-5">
+        <div class="col-span-5 hidden xl:block">
           <Booking
             v-model:peopleNum="peopleNum"
             v-model:rangeObj="rangeObj"
@@ -49,7 +49,7 @@
             :room="room"
           />
         </div>
-        <MBooking v-else v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
+        <MBooking v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
       </div>
     </section>
   </div>

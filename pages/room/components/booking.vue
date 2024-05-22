@@ -19,7 +19,18 @@
       {{ formatCurrency(props.room.price) }}
     </p>
 
-    <NuxtLink :to="`/reserve/${props.room._id}`">
+    <NuxtLink
+      class="block"
+      :to="{
+        name: 'reserve-id',
+        params: { id: props.room._id },
+        query: {
+          start: $dayjs(rangeObj.start).format('YYYY-MM-DD'),
+          end: $dayjs(rangeObj.end).format('YYYY-MM-DD'),
+          peopleNum: peopleNum
+        }
+      }"
+    >
       <UIButton block text="立即預訂" />
     </NuxtLink>
   </div>

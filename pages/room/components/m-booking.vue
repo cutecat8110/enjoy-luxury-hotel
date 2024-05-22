@@ -19,7 +19,18 @@
             <p class="truncate text-sub-title underline">{{ rangeStr }}</p>
           </div>
 
-          <NuxtLink :to="`/reserve/${props.room._id}`">
+          <NuxtLink
+            :to="{
+              name: 'reserve-id',
+              params: { id: props.room._id },
+
+              query: {
+                start: $dayjs(rangeObj.start).format('YYYY-MM-DD'),
+                end: $dayjs(rangeObj.end).format('YYYY-MM-DD'),
+                peopleNum: peopleNum
+              }
+            }"
+          >
             <UIButton text="立即預訂" />
           </NuxtLink>
         </template>
