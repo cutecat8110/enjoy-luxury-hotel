@@ -1,5 +1,5 @@
 <template>
-  <div class="default-layout">
+  <div id="default-layout">
     <PageHeader />
 
     <main>
@@ -11,12 +11,8 @@
 </template>
 
 <style lang="scss" scoped>
-.default-layout {
+#default-layout {
   @apply relative flex min-h-screen flex-col;
-
-  > * {
-    @apply overflow-x-hidden;
-  }
 
   > header {
     @apply sticky top-0 z-30 w-full bg-system-background;

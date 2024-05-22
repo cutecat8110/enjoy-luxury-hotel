@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-layout">
+  <div id="landing-layout">
     <PageHeader />
 
     <main>
@@ -11,7 +11,7 @@
 </template>
 
 <style lang="scss" scoped>
-.landing-layout {
+#landing-layout {
   @apply relative flex min-h-screen flex-col;
 
   > * {

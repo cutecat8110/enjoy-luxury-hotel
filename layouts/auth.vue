@@ -1,5 +1,5 @@
 <template>
-  <div class="auth-layout">
+  <div id="auth-layout">
     <NuxtImg
       class="fixed inset-y-0 left-0 z-0 hidden h-full w-1/2 object-cover xl:block"
       src="/img/desktop/register.png"
@@ -13,12 +13,8 @@
 </template>
 
 <style lang="scss" scoped>
-.auth-layout {
+#auth-layout {
   @apply relative flex min-h-screen flex-col;
-
-  > * {
-    @apply overflow-x-hidden;
-  }
 
   > header {
     @apply sticky top-0 z-20 bg-system-background xl:z-auto;

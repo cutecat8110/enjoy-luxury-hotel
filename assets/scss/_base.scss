@@ -6,3 +6,16 @@ body {
 .section-container {
   @apply py-20 xl:py-[7.5rem];
 }
+
+.modal-enter-active {
+  transition: all 0.3s ease-in;
+}
+
+.modal-leave-active {
+  transition: all 0.3s ease-out;
+}
+
+.modal-enter-from,
+.modal-leave-to {
+  opacity: 0;
+}

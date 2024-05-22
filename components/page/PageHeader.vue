@@ -18,7 +18,7 @@
       <!-- Mobile: 選單按鈕 -->
       <button
         v-if="commonStore.isMobile"
-        class="text-icon-24 flex h-10 w-10 items-center justify-center text-white transition-colors hover:text-system-primary-100"
+        class="flex h-10 w-10 items-center justify-center text-icon-24 text-white transition-colors hover:text-system-primary-100"
         type="button"
         @click="toggleModal"
       >
@@ -46,7 +46,7 @@
           class="fixed left-0 top-0 z-[60] flex h-full w-full items-center justify-center bg-system-background px-5"
         >
           <button
-            class="text-icon-48 absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-white transition-colors hover:text-system-primary-100"
+            class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-icon-48 text-white transition-colors hover:text-system-primary-100"
             type="button"
             @click="toggleModal"
           >
@@ -112,18 +112,3 @@ onMounted(() => {
   })
 })
 </script>
-
-<style lang="scss" scoped>
-.modal-enter-active {
-  transition: all 0.3s ease-in;
-}
-
-.modal-leave-active {
-  transition: all 0.3s ease-out;
-}
-
-.modal-enter-from,
-.modal-leave-to {
-  opacity: 0;
-}
-</style>

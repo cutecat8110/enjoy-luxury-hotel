@@ -21,6 +21,16 @@ onMounted(() => {
   )
   commonStore.isClient = true
 })
+
+/* 切換頁至頂 */
+const { y } = useWindowScroll()
+const route = useRoute()
+watch(
+  () => route.name,
+  () => {
+    y.value = 0
+  }
+)
 </script>
 
 <style>

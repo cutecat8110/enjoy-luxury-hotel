@@ -15,7 +15,7 @@
         <ul class="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <li v-for="(travel, index) in travels" :key="index">
             <Icon
-              class="text-icon-48 xl:text-icon-80 text-system-primary-100"
+              class="text-icon-48 text-system-primary-100 xl:text-icon-80"
               :name="travel.icon"
             />
             <h3 class="mt-2 text-title xl:mt-4 xl:text-h5">{{ travel.name }}</h3>

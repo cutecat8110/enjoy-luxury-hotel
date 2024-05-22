@@ -73,11 +73,11 @@ const contactInfo = ref([
 
 <style lang="scss" scoped>
 .link-wrapper {
-  @apply text-icon-24 inline-flex h-10 w-10 items-center justify-center rounded-full border border-white text-white transition-colors hover:border-system-primary-100 hover:text-system-primary-100;
+  @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-white text-icon-24 text-white transition-colors hover:border-system-primary-100 hover:text-system-primary-100;
 }
 
 .hot-link-wrapper {
-  @apply text-icon-20 inline-flex h-8 w-8 items-center justify-center  rounded-full text-system-gray-80 transition-colors hover:border-system-primary-100 hover:text-system-primary-100;
+  @apply inline-flex h-8 w-8 items-center justify-center rounded-full  text-icon-20 text-system-gray-80 transition-colors hover:border-system-primary-100 hover:text-system-primary-100;
 }
 
 .contact-info-wrapper {

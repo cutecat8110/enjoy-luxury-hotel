@@ -50,19 +50,21 @@
             </div>
 
             <!-- 查看按鈕 -->
-            <UIHeroButton text="查看更多" />
+            <NuxtLink :to="`/room/${rooms[currentRoom]._id}`">
+              <UIHeroButton text="查看更多" />
+            </NuxtLink>
 
             <!-- 上下按鈕 -->
             <div class="flex justify-end">
               <button
-                class="text-icon-24 flex h-14 w-14 items-center justify-center p-4 text-system-primary-100 transition-colors hover:text-system-primary-120"
+                class="flex h-14 w-14 items-center justify-center p-4 text-icon-24 text-system-primary-100 transition-colors hover:text-system-primary-120"
                 type="button"
                 @click="changeRoom('prev')"
               >
                 <Icon class="shrink-0" name="ic:baseline-keyboard-arrow-left"></Icon>
               </button>
               <button
-                class="text-icon-24 flex h-14 w-14 items-center justify-center p-4 text-system-primary-100 transition-colors hover:text-system-primary-120"
+                class="flex h-14 w-14 items-center justify-center p-4 text-icon-24 text-system-primary-100 transition-colors hover:text-system-primary-120"
                 type="button"
                 @click="changeRoom('next')"
               >
@@ -90,7 +92,8 @@ const rooms = ref([
       '/img/desktop/room2-3.png',
       '/img/desktop/room2-4.png',
       '/img/desktop/room2-5.png'
-    ]
+    ],
+    _id: '653e4661336cdccc752127a0'
   },
   {
     name: '景觀雙人房',
@@ -102,7 +105,8 @@ const rooms = ref([
       '/img/desktop/room3-3.png',
       '/img/desktop/room3-4.png',
       '/img/desktop/room3-5.png'
-    ]
+    ],
+    _id: '653e4661336cdccc752127a0'
   },
   {
     name: '豪華雅緻房',
@@ -114,7 +118,8 @@ const rooms = ref([
       '/img/desktop/room4-3.png',
       '/img/desktop/room4-4.png',
       '/img/desktop/room4-5.png'
-    ]
+    ],
+    _id: '653e4661336cdccc752127a0'
   },
   {
     name: '景觀尊榮家庭房',
@@ -126,7 +131,8 @@ const rooms = ref([
       '/img/desktop/room5-3.png',
       '/img/desktop/room5-4.png',
       '/img/desktop/room5-5.png'
-    ]
+    ],
+    _id: '653e4661336cdccc752127a0'
   }
 ])
 
