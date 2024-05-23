@@ -4,7 +4,7 @@
       <div class="container flex items-center justify-between">
         <template v-if="progress === 0">
           <p class="truncate text-body-2 text-system-gray-80">
-            {{ `${formatCurrency(props.room.price)} / 晚` }}
+            {{ `${useFormatCurrency(props.room.price)} / 晚` }}
           </p>
           <UIButton text="查看可訂日期" @click="toggleModal" />
         </template>
@@ -14,7 +14,7 @@
             @click="toggleProgress(0), toggleModal()"
           >
             <p class="truncate text-body-2 text-system-gray-80">
-              {{ `${formatCurrency(props.room.price)} / ${totalDays} / ${peopleNum} 人` }}
+              {{ `${useFormatCurrency(props.room.price)} / ${totalDays} / ${peopleNum} 人` }}
             </p>
             <p class="truncate text-sub-title underline">{{ rangeStr }}</p>
           </div>

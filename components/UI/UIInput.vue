@@ -2,7 +2,10 @@
   <label class="block space-y-2" :for="props.name">
     <div
       v-if="!headless && (attrs.label || props.name)"
-      class="flex items-center justify-between text-sub-title text-white xl:text-title"
+      :class="[
+        blackhead ? 'text-black' : 'text-white',
+        'flex items-center justify-between text-sub-title xl:text-title'
+      ]"
     >
       <span>
         {{ attrs.label || props.name }}
@@ -41,7 +44,8 @@ const props = defineProps({
     default: ''
   },
   required: Boolean,
-  headless: Boolean
+  headless: Boolean,
+  blackhead: Boolean
 })
 
 const input = defineModel<string>()

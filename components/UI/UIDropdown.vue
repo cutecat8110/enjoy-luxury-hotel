@@ -2,7 +2,7 @@
   <div class="relative text-body text-black">
     <select
       v-model="input"
-      class="w-full appearance-none rounded-lg border border-black p-4 pr-12 outline-none focus-visible:border-system-primary-100"
+      class="w-full appearance-none rounded-lg border border-system-gray-40 p-4 pr-12 outline-none focus-visible:border-system-primary-100 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-system-primary-100/10"
     >
       <option value="" disabled>請選擇</option>
       <option

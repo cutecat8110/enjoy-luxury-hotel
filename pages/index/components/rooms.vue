@@ -46,7 +46,7 @@
 
             <!-- 價格 -->
             <div class="text-h5 xl:text-h3">
-              {{ formatCurrency(rooms[currentRoom].price) }}
+              {{ useFormatCurrency(rooms[currentRoom].price) }}
             </div>
 
             <!-- 查看按鈕 -->

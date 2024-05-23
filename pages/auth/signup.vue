@@ -50,7 +50,7 @@
           :error="errors.phone"
         />
         <Birthday @update-birthday="updateBirthday" />
-        <Address :error="errors.address" @update-address="updateAddress" />
+        <CAddress v-model="userAuth.address" :error="errors.address" />
 
         <UICheckbox id="agree" label="我已閱讀並同意本網站個資使用規範" />
       </template>
@@ -70,7 +70,6 @@
 <script lang="ts" setup>
 import UITitle from './components/UI/UITitle.vue'
 import Birthday from './components/birthday.vue'
-import Address from './components/address.vue'
 
 definePageMeta({
   layout: 'auth'
@@ -97,7 +96,7 @@ const schema = [
   }
 ]
 
-const current = ref(0)
+const current = ref(1)
 
 const submit = () => {
   if (current.value === 0) {
@@ -108,9 +107,5 @@ const submit = () => {
 
 const updateBirthday = (data: string) => {
   userAuth.value.birthday = data
-}
-
-const updateAddress = (data: { zipcode: string; detail: string }) => {
-  userAuth.value.address = data
 }
 </script>

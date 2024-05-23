@@ -20,7 +20,7 @@ const props = defineProps({
     default: ''
   },
   variant: {
-    type: String as () => 'primary' | 'secondary' | 'ghost' | 'ghost-light' | 'text',
+    type: String as () => 'primary' | 'secondary' | 'ghost' | 'ghost-light' | 'text' | 'text-black',
     default: 'primary'
   },
   block: Boolean
@@ -36,7 +36,9 @@ const cssColor = computed<string>(() => {
       'text-nowrap select-none items-center justify-center gap-1 rounded-lg px-8 py-4 text-sub-title xl:text-title text-white transition-colors hover:text-system-primary-100 disabled:text-system-gray-60',
     'ghost-light':
       'text-nowrap select-none items-center justify-center gap-1 rounded-lg px-8 py-4 text-sub-title xl:text-title text-system-gray-80 transition-colors hover:text-black disabled:text-system-gray-60',
-    text: 'text-nowrap select-none items-center justify-center gap-1 rounded-lg text-sub-title xl:text-title text-system-primary-100 underline transition-colors hover:text-system-primary-120 disabled:text-system-gray-60'
+    text: 'text-nowrap select-none items-center justify-center gap-1 rounded-lg text-sub-title xl:text-title text-system-primary-100 underline transition-colors hover:text-system-primary-120 disabled:text-system-gray-60',
+    'text-black':
+      'text-nowrap select-none items-center justify-center gap-1 rounded-lg text-sub-title xl:text-title text-black underline transition-colors hover:text-system-primary-120 disabled:text-system-gray-80'
   }[props.variant]
 })
 </script>

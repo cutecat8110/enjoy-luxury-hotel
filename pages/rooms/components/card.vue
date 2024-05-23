@@ -57,7 +57,7 @@
       />
       <div class="flex items-center justify-between py-4">
         <p class="text-title text-system-primary-100 xl:text-h5">
-          {{ formatCurrency(props.room.price) }}
+          {{ useFormatCurrency(props.room.price) }}
         </p>
         <NuxtLink :to="`/room/${props.room._id}`">
           <div

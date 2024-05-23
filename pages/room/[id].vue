@@ -1,57 +1,55 @@
 <template>
   <div class="bg-system-primary-10">
     <Hero :images="room.imageUrlList" />
-    <section class="container py-10 xl:pb-[4.5rem] xl:pt-[7.5rem]">
-      <div class="grid-cols-12 gap-[4.5rem] xl:grid">
-        <div class="space-y-6 xl:col-span-7 xl:space-y-20">
-          <div class="space-y-4">
-            <h1 class="text-h3 xl:text-h1">{{ room.name }}</h1>
-            <p class="text-body-2 xl:text-body">{{ room.description }}</p>
-          </div>
-
-          <section class="space-y-4 xl:space-y-6">
-            <CTitle title="房型基本資訊" />
-            <CRoomInfo
-              :area-info="room.areaInfo"
-              :bed-info="room.bedInfo"
-              :max-people="room.maxPeople"
-            />
-          </section>
-
-          <section class="space-y-4 xl:space-y-6">
-            <CTitle title="房間格局" />
-            <CRoomDetail :details="roomLayout" />
-          </section>
-
-          <section class="space-y-4 xl:space-y-6">
-            <CTitle title="房內設備" />
-            <CRoomDetail :details="room.facilityInfo" />
-          </section>
-
-          <section class="space-y-4 xl:space-y-6">
-            <CTitle title="備品提供" />
-            <CRoomDetail :details="room.amenityInfo" />
-          </section>
-
-          <section class="space-y-4 xl:space-y-6">
-            <CTitle title="訂房須知" />
-            <ol class="list-inside list-decimal text-body-2 text-system-gray-80 xl:text-body">
-              <li v-for="(item, index) in guideline" :key="index">{{ item }}</li>
-            </ol>
-          </section>
+    <div class="container grid-cols-12 gap-[4.5rem] py-10 xl:grid xl:pb-[4.5rem] xl:pt-[7.5rem]">
+      <div class="space-y-6 xl:col-span-7 xl:space-y-20">
+        <div class="space-y-4">
+          <h1 class="text-h3 xl:text-h1">{{ room.name }}</h1>
+          <p class="text-body-2 xl:text-body">{{ room.description }}</p>
         </div>
 
-        <div class="col-span-5 hidden xl:block">
-          <Booking
-            v-model:peopleNum="peopleNum"
-            v-model:rangeObj="rangeObj"
-            class="sticky top-[12.5rem]"
-            :room="room"
+        <section class="space-y-4 xl:space-y-6">
+          <CTitle title="房型基本資訊" />
+          <CRoomInfo
+            :area-info="room.areaInfo"
+            :bed-info="room.bedInfo"
+            :max-people="room.maxPeople"
           />
-        </div>
-        <MBooking v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
+        </section>
+
+        <section class="space-y-4 xl:space-y-6">
+          <CTitle title="房間格局" />
+          <CRoomDetail :details="roomLayout" />
+        </section>
+
+        <section class="space-y-4 xl:space-y-6">
+          <CTitle title="房內設備" />
+          <CRoomDetail :details="room.facilityInfo" />
+        </section>
+
+        <section class="space-y-4 xl:space-y-6">
+          <CTitle title="備品提供" />
+          <CRoomDetail :details="room.amenityInfo" />
+        </section>
+
+        <section class="space-y-4 xl:space-y-6">
+          <CTitle title="訂房須知" />
+          <ol class="list-inside list-decimal text-body-2 text-system-gray-80 xl:text-body">
+            <li v-for="(item, index) in guideline" :key="index">{{ item }}</li>
+          </ol>
+        </section>
       </div>
-    </section>
+
+      <div class="col-span-5 hidden xl:block">
+        <Booking
+          v-model:peopleNum="peopleNum"
+          v-model:rangeObj="rangeObj"
+          class="sticky top-[12.5rem]"
+          :room="room"
+        />
+      </div>
+      <MBooking v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
+    </div>
   </div>
 </template>
 
@@ -59,8 +57,6 @@
 import Hero from './components/hero.vue'
 import Booking from './components/booking.vue'
 import MBooking from './components/m-booking.vue'
-import { useCommonStore } from '@/stores/common'
-const commonStore = useCommonStore()
 
 const room = ref({
   name: '尊爵雙人房',
