@@ -3,7 +3,10 @@
     <li
       v-for="(box, index) in boxes"
       :key="index"
-      class="flex aspect-square flex-col justify-center gap-2 rounded-lg border border-system-primary-100 px-4"
+      :class="[
+        border ? 'border border-system-primary-100' : '',
+        'flex aspect-square flex-col justify-center gap-2 rounded-lg  bg-white px-4'
+      ]"
     >
       <Icon class="text-icon-24 text-system-primary-100" :name="box.icon" />
 
@@ -27,7 +30,8 @@ const props = defineProps({
   maxPeople: {
     type: Number,
     required: true
-  }
+  },
+  border: Boolean
 })
 
 const boxes = computed(() => [

@@ -51,6 +51,7 @@
         :area-info="props.room.areaInfo"
         :bed-info="props.room.bedInfo"
         :max-people="props.room.maxPeople"
+        border
       />
       <div
         class="h-[0.125rem] flex-1 rounded-full bg-white bg-gradient-to-r from-system-primary-100 to-white"

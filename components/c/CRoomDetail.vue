@@ -1,6 +1,6 @@
 <template>
-  <div class="c-room-detail-wrapper">
-    <ul class="c-room-detail-container">
+  <div :class="[border ? 'border border-system-gray-40' : '', 'c-room-detail-wrapper']">
+    <ul :class="[auto ? 'auto' : '', 'c-room-detail-container']">
       <li v-for="(detail, index) in details" :key="index">
         <Icon name="ic:baseline-check" />
         {{ detail.title }}
@@ -11,7 +11,9 @@
 
 <script lang="ts" setup>
 defineProps({
-  details: { type: Array as () => { title: string; isProvide: boolean }[], required: true }
+  details: { type: Array as () => { title: string; isProvide: boolean }[], required: true },
+  border: Boolean,
+  auto: Boolean
 })
 </script>
 
@@ -20,7 +22,7 @@ defineProps({
   @apply rounded-lg bg-white p-6;
   ul.c-room-detail-container {
     @apply grid gap-x-10 gap-y-2;
-    grid-template-columns: repeat(auto-fit, minmax(100px, auto));
+    grid-template-columns: repeat(auto-fit, minmax(96px, auto));
 
     @include xl {
       @apply inline-grid;
@@ -34,6 +36,11 @@ defineProps({
     svg {
       @apply text-icon-24 text-system-primary-100;
     }
+  }
+
+  ul.c-room-detail-container.auto {
+    @apply grid;
+    grid-template-columns: repeat(auto-fit, minmax(96px, auto));
   }
 }
 </style>

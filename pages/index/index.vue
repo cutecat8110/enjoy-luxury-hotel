@@ -11,6 +11,8 @@
     <Menu />
 
     <Travel />
+
+    <CWave />
   </div>
 </template>
 

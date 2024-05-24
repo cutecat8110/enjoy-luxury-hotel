@@ -1,6 +1,6 @@
 <template>
   <div class="space-y-10 rounded-[1.25rem] bg-white p-10">
-    <h2 class="border-b border-system-gray-40  pb-4 text-h5">預訂房型</h2>
+    <h2 class="border-b border-system-gray-40 pb-4 text-h5">預訂房型</h2>
 
     <div class="space-y-4">
       <h3 class="text-h2">尊爵雙人房</h3>

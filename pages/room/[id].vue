@@ -44,7 +44,7 @@
         <Booking
           v-model:peopleNum="peopleNum"
           v-model:rangeObj="rangeObj"
-          class="sticky top-[12.5rem]"
+          class="sticky top-[10rem]"
           :room="room"
         />
       </div>

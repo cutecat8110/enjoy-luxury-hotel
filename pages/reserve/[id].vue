@@ -7,7 +7,7 @@
       @submit="submit"
     >
       <NuxtLink
-        class="inline-flex items-center gap-2 text-h3 transition-colors hover:text-system-primary-120"
+        class="inline-flex items-center gap-2 text-h5 transition-colors hover:text-system-primary-120 xl:text-h3"
         :to="{
           name: 'room-id',
           params: { id: route.params.id },
@@ -18,18 +18,19 @@
           }
         }"
       >
-        <Icon class="text-icon-40" name="ic:baseline-keyboard-arrow-left" />
+        <Icon class="text-icon-24 xl:text-icon-40" name="ic:baseline-keyboard-arrow-left" />
         確認訂房資訊
       </NuxtLink>
-      <div class="container grid grid-cols-12 gap-x-[4.5rem] gap-y-10">
-        <div class="col-span-7 space-y-10">
-          <section class="space-y-10">
-            <h3 class="text-h4">訂房資訊</h3>
+
+      <div class="container gap-x-[4.5rem] space-y-10 xl:grid xl:grid-cols-12 xl:space-y-0">
+        <div class="space-y-10 xl:col-span-7">
+          <section class="space-y-8 xl:space-y-10">
+            <h3 class="text-h6 xl:text-h4">訂房資訊</h3>
 
             <ul class="space-y-6">
               <li class="flex items-center justify-between">
                 <div class="space-y-2">
-                  <CTitle title="選擇房型" />
+                  <CTitle title="選擇房型" base />
                   <p class="text-body">
                     {{ room.name }}
                   </p>
@@ -39,7 +40,7 @@
 
               <li class="flex items-center justify-between">
                 <div class="space-y-2">
-                  <CTitle title="訂房日期" />
+                  <CTitle title="訂房日期" base />
                   <div class="space-y-3">
                     <p class="text-body">
                       {{ `入住：${$dayjs(orders.checkInDate).format('M 月 D 日dddd')}` }}
@@ -54,7 +55,7 @@
 
               <li class="flex items-center justify-between">
                 <div class="space-y-2">
-                  <CTitle title="房客人數" />
+                  <CTitle title="房客人數" base />
                   <p class="text-body">
                     {{ `${orders.peopleNum} 人` }}
                   </p>
@@ -64,10 +65,10 @@
             </ul>
           </section>
 
-          <div class="h-[1px] bg-system-gray-60" />
+          <UILine color="darkGray" />
 
-          <section class="space-y-10">
-            <h3 class="text-h4">訂房人資訊</h3>
+          <section class="space-y-8 xl:space-y-10">
+            <h3 class="text-h6 xl:text-h4">訂房人資訊</h3>
 
             <div class="space-y-6">
               <UIInput
@@ -98,13 +99,13 @@
             </div>
           </section>
 
-          <div class="h-[1px] bg-system-gray-60" />
+          <UILine color="darkGray" />
 
-          <section class="space-y-10">
+          <section class="space-y-8 xl:space-y-10">
             <h3 class="text-h4">房間資訊</h3>
 
             <ul class="space-y-6">
-              <li class="space-y-6">
+              <li class="space-y-4 xl:space-y-6">
                 <CTitle title="房型基本資訊" />
                 <CRoomInfo
                   :area-info="room.areaInfo"
@@ -112,23 +113,57 @@
                   :max-people="room.maxPeople"
                 />
               </li>
-              <li class="space-y-6">
+              <li class="space-y-4 xl:space-y-6">
                 <CTitle title="房間格局" />
                 <CRoomDetail :details="roomLayout" />
               </li>
-              <li class="space-y-6">
+              <li class="space-y-4 xl:space-y-6">
                 <CTitle title="房內設備" />
                 <CRoomDetail :details="room.facilityInfo" />
               </li>
-              <li class="space-y-6">
+              <li class="space-y-4 xl:space-y-6">
                 <CTitle title="備品提供" />
                 <CRoomDetail :details="room.amenityInfo" />
               </li>
             </ul>
           </section>
         </div>
-        <div class="col-span-5">
-          <div class="space-y-10 rounded-[1.25rem] bg-white p-10"></div>
+        <div class="xl:col-span-5">
+          <div class="sticky top-[10rem] space-y-10 rounded-[1.25rem] bg-white p-10">
+            <div class="flex h-[17rem] overflow-hidden rounded-lg">
+              <NuxtImg class="flex-1 object-cover" :src="room.imageUrl" />
+            </div>
+
+            <div class="space-y-6">
+              <div class="text-h4">價格詳情</div>
+
+              <div class="flex justify-between text-body">
+                <p>
+                  {{ `${useFormatCurrency(room.price)} × ${totalDays} 晚` }}
+                </p>
+                <p>
+                  {{ useFormatCurrency(room.price * totalDays) }}
+                </p>
+              </div>
+
+              <UILine color="lightGrey" />
+
+              <div class="flex justify-between text-title">
+                <p>總價</p>
+                <p>{{ useFormatCurrency(room.price * totalDays) }}</p>
+              </div>
+            </div>
+
+            <NuxtLink
+              class="block"
+              :to="{
+                name: 'confirmation-id',
+                params: { id: '6533f0ef4cdf5b7f762747b0' }
+              }"
+            >
+              <UIButton block text="確認訂房" />
+            </NuxtLink>
+          </div>
         </div>
       </div>
     </VForm>
@@ -286,6 +321,10 @@ const orders = ref({
     email: ''
   }
 })
+
+const totalDays = computed(() =>
+  $dayjs(orders.value.checkOutDate).diff($dayjs(orders.value.checkInDate), 'day')
+)
 
 const schema = { name: 'required', phone: 'required', email: 'required|email' }
 
