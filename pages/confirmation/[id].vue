@@ -26,7 +26,9 @@
 
         <div class="space-y-6 xl:space-y-10">
           <p class="text-title xl:text-h5">立即查看您的訂單紀錄</p>
-          <UIButton class="flex w-full xl:inline-flex xl:!w-auto" text="前往我的訂單" />
+          <NuxtLink class="block xl:inline-block" to="/user/orders">
+            <UIButton block text="前往我的訂單" />
+          </NuxtLink>
         </div>
 
         <UILine color="lightGrey" />
