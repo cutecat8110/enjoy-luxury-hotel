@@ -2,10 +2,10 @@
   <div
     :class="[
       active ? 'cursor-default text-system-primary-100' : 'cursor-pointer text-white',
-      'group relative  px-6 py-4 text-title transition-colors hover:text-system-primary-100'
+      'group relative inline-block px-6 py-4 text-title transition-colors hover:text-system-primary-100'
     ]"
   >
-    {{ props.name }}
+    {{ props.text }}
     <div
       :class="[
         active ? 'bg-system-primary-100' : 'bg-transparent',
@@ -17,7 +17,7 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-  name: {
+  text: {
     type: String,
     default: 'Item'
   },
