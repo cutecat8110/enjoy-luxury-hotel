@@ -18,7 +18,9 @@
       </div>
     </div>
 
-    <main class="container space-y-10 py-10 xl:space-y-20 xl:pb-[7.5rem] xl:pt-20">
+    <main
+      class="container space-y-10 overflow-x-hidden py-10 xl:space-y-20 xl:pb-[7.5rem] xl:pt-20"
+    >
       <nav>
         <NuxtLink v-slot="{ isActive }" to="/user">
           <UISectionTab :active="isActive" text="個人資料" />

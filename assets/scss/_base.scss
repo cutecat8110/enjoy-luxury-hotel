@@ -7,6 +7,10 @@ body {
   @apply py-20 xl:py-[7.5rem];
 }
 
+.card {
+  @apply space-y-6 rounded-[1.25rem] bg-white p-6 xl:space-y-10 xl:p-10;
+}
+
 .modal-enter-active {
   transition: all 0.3s ease-in;
 }
