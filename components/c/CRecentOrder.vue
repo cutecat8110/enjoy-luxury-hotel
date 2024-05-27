@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-6 rounded-[1.25rem] bg-white p-4 xl:space-y-10 xl:p-10">
+  <div class="card">
     <div class="space-y-2">
       <p class="text-body-2 text-system-gray-80 xl:text-body">
         {{ `預訂參考編號： ${props.order._id}` }}
@@ -23,12 +23,12 @@
       <div class="space-y-2">
         <CTitle
           :title="`入住：${$dayjs(props.order.checkInDate).format('M 月 D 日dddd')}，15:00 可入住`"
-          base
+          size="md"
         />
         <CTitle
           :title="`退房：${$dayjs(props.order.checkOutDate).format('M 月 D 日dddd')}，12:00 前退房`"
-          base
           gray
+          size="md"
         />
       </div>
 
@@ -40,13 +40,13 @@
     <UILine color="lightGrey" />
 
     <div class="space-y-6">
-      <CTitle title="房內設備" base />
-      <CRoomDetail :details="props.order.roomId.facilityInfo" auto border />
+      <CTitle title="房內設備" size="md" />
+      <CRoomDetail :details="props.order.roomId.facilityInfo" border />
     </div>
 
     <div class="space-y-6">
-      <CTitle title="備品提供" base />
-      <CRoomDetail :details="props.order.roomId.amenityInfo" auto border />
+      <CTitle title="備品提供" size="md" />
+      <CRoomDetail :details="props.order.roomId.amenityInfo" border />
     </div>
 
     <slot />

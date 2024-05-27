@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-6 xl:grid-cols-12 xl:gap-10">
+  <div class="col-sm-container">
     <section class="xl:col-span-7">
       <CRecentOrder :order="recentOrder">
         <div class="flex gap-4">
@@ -10,7 +10,7 @@
     </section>
 
     <section class="xl:col-span-5">
-      <div class="space-y-6 rounded-[1.25rem] bg-white p-10 xl:space-y-10">
+      <div class="card">
         <p class="text-title xl:text-h5">歷史訂單</p>
 
         <template v-for="(order, index) in historyOrder" :key="index">
@@ -41,12 +41,12 @@
               <div class="space-y-2">
                 <CTitle
                   :title="`入住：${$dayjs(order.checkInDate).format('M 月 D 日dddd')}`"
-                  base
+                  size="sm"
                 />
                 <CTitle
                   :title="`退房：${$dayjs(order.checkOutDate).format('M 月 D 日dddd')}`"
-                  base
                   gray
+                  size="sm"
                 />
               </div>
 

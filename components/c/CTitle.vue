@@ -12,8 +12,18 @@ const props = defineProps({
     default: ''
   },
   base: Boolean,
-  gray: Boolean
+  gray: Boolean,
+  size: {
+    type: String as () => 'sm' | 'md' | 'lg',
+    default: 'lg'
+  }
 })
 
-const size = computed(() => (props.base ? 'text-sub-title xl:text-title' : 'text-title xl:text-h5'))
+const size = computed(() => {
+  return {
+    sm: 'text-body-2 xl:text-body',
+    md: 'text-sub-title xl:text-title',
+    lg: 'text-title xl:text-h5'
+  }[props.size]
+})
 </script>

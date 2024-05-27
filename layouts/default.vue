@@ -19,7 +19,7 @@
   }
 
   > main {
-    @apply flex-1;
+    @apply flex-1 overflow-x-hidden;
   }
 }
 </style>

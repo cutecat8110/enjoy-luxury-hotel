@@ -1,5 +1,5 @@
 <template>
-  <section class="section-container pb-10 pt-20 xl:pb-20 xl:pt-[7.5rem]">
+  <section class="section-container">
     <div class="container space-y-10 xl:space-y-20">
       <UITitle text1="交通" text2="方式" />
       <div class="space-y-6 text-white xl:space-y-10">

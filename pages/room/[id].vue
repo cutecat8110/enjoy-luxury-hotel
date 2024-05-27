@@ -1,7 +1,7 @@
 <template>
   <div class="bg-system-primary-10">
     <Hero :images="room.imageUrlList" />
-    <div class="container grid-cols-12 gap-[4.5rem] py-10 xl:grid xl:pb-[4.5rem] xl:pt-[7.5rem]">
+    <div class="section-container col-md-container container">
       <div class="space-y-6 xl:col-span-7 xl:space-y-20">
         <div class="space-y-4">
           <h1 class="text-h3 xl:text-h1">{{ room.name }}</h1>
@@ -41,12 +41,7 @@
       </div>
 
       <div class="col-span-5 hidden xl:block">
-        <Booking
-          v-model:peopleNum="peopleNum"
-          v-model:rangeObj="rangeObj"
-          class="sticky top-[10rem]"
-          :room="room"
-        />
+        <Booking v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
       </div>
       <MBooking v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
     </div>

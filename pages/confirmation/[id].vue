@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div
-      class="container space-y-[3.75rem] py-10 xl:grid xl:grid-cols-12 xl:gap-[4.5rem] xl:space-y-0 xl:pb-[4.5rem] xl:pt-[7.5rem]"
-    >
+    <div class="section-container col-md-container container">
       <div class="space-y-10 text-white xl:col-span-7 xl:space-y-20">
         <div class="space-y-8 xl:space-y-10">
           <div class="flex flex-wrap items-center gap-4 xl:gap-10">
@@ -52,7 +50,7 @@
           </ul>
         </div>
       </div>
-      <CRecentOrder class="col-span-5" :order="result"></CRecentOrder>
+      <CRecentOrder class="xl:col-span-5" :order="result"></CRecentOrder>
     </div>
     <CWave />
   </div>

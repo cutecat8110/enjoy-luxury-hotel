@@ -2,7 +2,7 @@
   <div class="bg-system-primary-10">
     <VForm
       v-slot="{ errors }"
-      class="container space-y-10 py-10 xl:py-[7.5rem]"
+      class="section-container container space-y-10"
       :validation-schema="schema"
       @submit="submit"
     >
@@ -22,7 +22,7 @@
         確認訂房資訊
       </NuxtLink>
 
-      <div class="container gap-x-[4.5rem] space-y-10 xl:grid xl:grid-cols-12 xl:space-y-0">
+      <div class="col-md-container container">
         <div class="space-y-10 xl:col-span-7">
           <section class="space-y-8 xl:space-y-10">
             <h3 class="text-h6 xl:text-h4">訂房資訊</h3>
@@ -30,7 +30,7 @@
             <ul class="space-y-6">
               <li class="flex items-center justify-between">
                 <div class="space-y-2">
-                  <CTitle title="選擇房型" base />
+                  <CTitle title="選擇房型" size="md" />
                   <p class="text-body">
                     {{ room.name }}
                   </p>
@@ -40,7 +40,7 @@
 
               <li class="flex items-center justify-between">
                 <div class="space-y-2">
-                  <CTitle title="訂房日期" base />
+                  <CTitle title="訂房日期" size="md" />
                   <div class="space-y-3">
                     <p class="text-body">
                       {{ `入住：${$dayjs(orders.checkInDate).format('M 月 D 日dddd')}` }}
@@ -55,7 +55,7 @@
 
               <li class="flex items-center justify-between">
                 <div class="space-y-2">
-                  <CTitle title="房客人數" base />
+                  <CTitle title="房客人數" size="md" />
                   <p class="text-body">
                     {{ `${orders.peopleNum} 人` }}
                   </p>
@@ -129,7 +129,7 @@
           </section>
         </div>
         <div class="xl:col-span-5">
-          <div class="sticky top-[10rem] space-y-10 rounded-[1.25rem] bg-white p-10">
+          <div class="card">
             <div class="flex h-[17rem] overflow-hidden rounded-lg">
               <NuxtImg class="flex-1 object-cover" :src="room.imageUrl" />
             </div>

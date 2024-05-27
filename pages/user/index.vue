@@ -1,5 +1,5 @@
 <template>
-  <div class="grid gap-6 xl:grid-cols-12 xl:gap-10">
+  <div class="col-sm-container">
     <section class="xl:col-span-5">
       <div class="card">
         <h2 class="text-h6 xl:text-h5">修改密碼</h2>

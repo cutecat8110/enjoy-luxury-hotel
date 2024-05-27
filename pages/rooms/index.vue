@@ -1,7 +1,7 @@
 <template>
   <div>
     <CBanner rooms />
-    <div class="bg-system-primary-10 py-10 xl:pb-[10.5rem] xl:pt-[7.5rem]">
+    <div class="section-container bg-system-primary-10">
       <div class="container space-y-10 xl:space-y-20">
         <div class="space-x-2 xl:space-y-4">
           <p class="text-sub-title text-system-gray-80 xl:text-h6">房型選擇</p>
