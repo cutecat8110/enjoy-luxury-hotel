@@ -52,58 +52,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-span-5">
-        <div class="space-y-6 rounded-[1.25rem] bg-white p-4 xl:space-y-10 xl:p-10">
-          <div class="space-y-2">
-            <p class="text-body-2 text-system-gray-80 xl:text-body">
-              {{ `預訂參考編號： ${result._id}` }}
-            </p>
-            <p class="text-title text-black xl:text-h5">即將來的行程</p>
-          </div>
-
-          <div class="flex h-[9.375rem] overflow-hidden rounded-lg xl:h-[17rem]">
-            <NuxtImg class="flex-1 object-cover" :src="result.roomId.imageUrl" />
-          </div>
-
-          <div class="space-y-6 text-system-gray-80">
-            <div
-              class="flex flex-wrap items-center gap-x-4 gap-y-2 text-nowrap text-sub-title xl:text-h6"
-            >
-              {{ `${result.roomId.name}，${totalDays} 晚` }}
-              <UILine class="h-4" col color="darkGray" />
-              {{ `住宿人數：${result.peopleNum} 位` }}
-            </div>
-
-            <div class="space-y-2">
-              <CTitle
-                :title="`入住：${$dayjs(result.checkInDate).format('M 月 D 日dddd')}，15:00 可入住`"
-                base
-              />
-              <CTitle
-                :title="`退房：${$dayjs(result.checkOutDate).format('M 月 D 日dddd')}，12:00 前退房`"
-                base
-                gray
-              />
-            </div>
-
-            <p class="text-sub-title xl:text-title">
-              {{ useFormatCurrency(result.roomId.price * totalDays) }}
-            </p>
-          </div>
-
-          <UILine color="lightGrey" />
-
-          <div class="space-y-6">
-            <CTitle title="房內設備" base />
-            <CRoomDetail :details="result.roomId.facilityInfo" auto border />
-          </div>
-
-          <div class="space-y-6">
-            <CTitle title="備品提供" base />
-            <CRoomDetail :details="result.roomId.amenityInfo" auto border />
-          </div>
-        </div>
-      </div>
+      <CRecentOrder class="col-span-5" :order="result"></CRecentOrder>
     </div>
     <CWave />
   </div>
@@ -233,9 +182,4 @@ const result = ref({
   createdAt: '2023-10-29T10:26:34.498Z',
   updatedAt: '2023-10-29T10:26:34.498Z'
 })
-const { $dayjs } = useNuxtApp()
-
-const totalDays = computed(() =>
-  $dayjs(result.value.checkOutDate).diff($dayjs(result.value.checkInDate), 'day')
-)
 </script>
