@@ -127,7 +127,7 @@ module.exports = {
         ],
         'icon-20': '1.25rem',
         'icon-24': '1.5rem',
-        'icon-40': '3rem',
+        'icon-40': '2.5rem',
         'icon-48': '3rem',
         'icon-80': '5rem'
       },

@@ -40,8 +40,13 @@
         </section>
       </div>
 
-      <div class="col-span-5 hidden xl:block">
-        <Booking v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
+      <div class="hidden xl:col-span-5 xl:block">
+        <Booking
+          v-model:peopleNum="peopleNum"
+          v-model:rangeObj="rangeObj"
+          class="sticky top-[10rem] z-20"
+          :room="room"
+        />
       </div>
       <MBooking v-model:peopleNum="peopleNum" v-model:rangeObj="rangeObj" :room="room" />
     </div>

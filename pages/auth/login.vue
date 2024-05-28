@@ -24,7 +24,25 @@
       />
       <div class="flex justify-between">
         <UICheckbox id="remember" label="記住帳號" />
-        <UIButton text="忘記密碼?" variant="text" />
+        <UIButton text="忘記密碼?" variant="text" @click="isOpen = true" />
+        <UIModal v-model="isOpen">
+          <template #header> 忘記密碼 </template>
+          <div class="p-4">
+            <UIInput
+              v-model="userAuth.email"
+              name="email"
+              label="電子信箱"
+              placeholder="hello@exsample.com"
+              :error="errors.email"
+              blackhead
+            />
+          </div>
+          <template #footer>
+            <UIButton text="取消" variant="secondary" />
+
+            <UIButton text="驗證" />
+          </template>
+        </UIModal>
       </div>
     </div>
     <UIButton type="submit" block text="會員登入" />
@@ -50,4 +68,6 @@ const schema = { email: 'required|email', password: 'required' }
 const submit = () => {
   console.log('submit')
 }
+
+const isOpen = ref(false)
 </script>

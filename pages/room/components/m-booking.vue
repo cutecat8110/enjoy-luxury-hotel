@@ -1,6 +1,6 @@
 <template>
   <Teleport v-if="rendered" to="#default-layout">
-    <div class="sticky bottom-0 border-t border-system-gray-40 bg-white py-3 xl:hidden">
+    <div class="sticky bottom-0 z-20 border-t border-system-gray-40 bg-white py-3 xl:hidden">
       <div class="container flex items-center justify-between">
         <template v-if="progress === 0">
           <p class="truncate text-body-2 text-system-gray-80">

@@ -129,7 +129,7 @@
           </section>
         </div>
         <div class="xl:col-span-5">
-          <div class="card">
+          <div class="card xl:sticky xl:top-[10rem] xl:z-20">
             <div class="flex h-[17rem] overflow-hidden rounded-lg">
               <NuxtImg class="flex-1 object-cover" :src="room.imageUrl" />
             </div>

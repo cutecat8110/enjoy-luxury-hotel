@@ -15,11 +15,11 @@
   @apply relative flex min-h-screen flex-col;
 
   > header {
-    @apply sticky top-0 z-30 w-full bg-system-background;
+    @apply sticky top-0 z-20 w-full bg-system-background;
   }
 
   > main {
-    @apply flex-1 overflow-x-hidden;
+    @apply flex-1;
   }
 }
 </style>

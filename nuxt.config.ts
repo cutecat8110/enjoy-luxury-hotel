@@ -40,10 +40,9 @@ export default defineNuxtConfig({
   },
 
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' },
+    pageTransition: { name: 'page' },
     layoutTransition: {
-      name: 'layout',
-      mode: 'out-in'
+      name: 'page'
     }
   },
 
