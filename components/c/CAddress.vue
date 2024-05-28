@@ -39,7 +39,8 @@ const address = defineModel<{ zipcode: string; detail: string }>({
 
 const city = ref('')
 
-const { data: citys, refresh: citysRefresh } = await useFetch('/citys', {
+const { getCitysApi, getDistrictApi } = useApi()
+const { data: citys, refresh: citysRefresh } = await getCitysApi({
   immediate: false,
   transform(input) {
     return input.data
@@ -52,7 +53,7 @@ const { data: citys, refresh: citysRefresh } = await useFetch('/citys', {
 })
 citysRefresh()
 
-const { data: districts } = await useFetch('/district', {
+const { data: districts } = await getDistrictApi({
   query: { city },
   immediate: false,
   transform(input) {

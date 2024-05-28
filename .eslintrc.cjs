@@ -12,6 +12,7 @@ module.exports = {
   rules: {
     'vue/no-multiple-template-root': 'off',
     'no-undef': 'off',
+    'import/order': 'off',
     'prettier/prettier': [
       'error',
       {

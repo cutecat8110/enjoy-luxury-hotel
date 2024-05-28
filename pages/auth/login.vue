@@ -3,7 +3,7 @@
     v-slot="{ errors }"
     class="container space-y-10 px-5 py-20 sm:max-w-[26rem] sm:px-0"
     :validation-schema="schema"
-    @submit="submit"
+    @submit="loginRefresh"
   >
     <UITitle text="立即開始旅程" />
     <div class="space-y-4">
@@ -65,9 +65,22 @@ definePageMeta({
 const userAuth = ref({ email: '', password: '' })
 const schema = { email: 'required|email', password: 'required' }
 
-const submit = () => {
-  console.log('submit')
-}
+const { loginApi } = useApi()
+
+const {
+  data,
+  pending,
+  refresh: loginRefresh
+} = await loginApi({
+  params: userAuth,
+  immediate: false,
+  watch: false,
+  onResponse({ response }) {
+    if (response.status === 200) {
+      console.log(response)
+    }
+  }
+})
 
 const isOpen = ref(false)
 </script>
