@@ -6,8 +6,11 @@
     :validation-schema="schema"
     @submit="loginRefresh"
   >
+    <!-- 表頭 -->
     <CAuthTitle text="立即開始旅程" />
+
     <div class="space-y-4">
+      <!-- 表單 -->
       <UIInput
         v-model="userAuth.email"
         name="email"
@@ -25,9 +28,13 @@
         :error="errors.password"
         :disabled="pending"
       />
+
       <div class="flex justify-between">
         <UICheckbox name="remember" text="記住帳號" />
+
+        <!-- 按鈕: 忘記密碼 -->
         <UIButton text="忘記密碼?" variant="text" @click="isOpen = true" />
+        <!-- 彈窗: 忘記密碼 -->
         <UIModal v-model="isOpen">
           <template #header> 忘記密碼 </template>
           <div class="p-4">
@@ -48,10 +55,13 @@
         </UIModal>
       </div>
     </div>
+
+    <!-- 按鈕: 登入 -->
     <UIButton type="submit" block text="會員登入" :disabled="pending" :loading="pending" />
 
     <div class="flex gap-2">
       <p class="text-body-2 text-white xl:text-body">沒有會員嗎？</p>
+      <!-- 連結: 註冊頁 -->
       <NuxtLink class="hot-link-wrapper" to="/auth/signup">
         <UIButton text="前往註冊" variant="text" />
       </NuxtLink>
@@ -60,6 +70,7 @@
 </template>
 
 <script lang="ts" setup>
+/* layout */
 definePageMeta({
   layout: 'auth'
 })

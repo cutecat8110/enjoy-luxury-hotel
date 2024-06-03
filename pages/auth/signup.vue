@@ -16,6 +16,7 @@
       :disabled="apiPending"
     />
 
+    <!-- 表單 -->
     <Transition name="step" mode="out-in">
       <!-- 步驟: 1．信箱、密碼 -->
       <div v-if="progress === 0" class="space-y-4">
@@ -81,7 +82,7 @@
     </Transition>
 
     <div class="space-y-4">
-      <!-- 提交按鈕 -->
+      <!-- 按鈕: 提交 -->
       <UIButton
         type="submit"
         :text="progress == 0 ? '下一步' : '完成註冊'"
@@ -124,7 +125,7 @@ const formData = reactive<SignupData>({
 })
 const formCtrl = ref({ confirmPassword: '', isAgree: false })
 
-// 表單規則
+// 表單: 規則
 const schema = [
   {
     email: 'required|email',
@@ -145,10 +146,10 @@ const schema = [
   }
 ]
 
-// 表單進度
+// 表單: 進度
 const progress = ref(0)
 
-// 表單送出
+// 表單: 送出
 const submit = () => {
   if (progress.value === 0) {
     ceRefresh()
@@ -161,7 +162,7 @@ const submit = () => {
 const { signupApi, checkEmailApi } = useApi()
 const apiPending = computed(() => cePending.value || sPending.value)
 
-// 驗證信箱是否已註冊
+// api: 驗證信箱是否已註冊
 const { pending: cePending, refresh: ceRefresh } = await checkEmailApi({
   body: computed(() => ({
     email: formData.email
@@ -180,7 +181,7 @@ const { pending: cePending, refresh: ceRefresh } = await checkEmailApi({
 })
 cePending.value = false
 
-// 註冊
+// api: 註冊
 const authStore = useAuthStore()
 const { pending: sPending, refresh: sRefresh } = await signupApi({
   body: formData,
