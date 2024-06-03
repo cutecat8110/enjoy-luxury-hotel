@@ -5,12 +5,13 @@
     >
 
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-      <UIDropdown v-model="city" :options="citys" />
+      <UIDropdown v-model="city" :options="citys" :disabled="props.disabled" />
       <UIDropdown
         v-model="address.zipcode"
         label="district"
         value="zip_code"
         :options="districts"
+        :disabled="props.disabled"
       />
     </div>
     <UIInput
@@ -20,21 +21,28 @@
       placeholder="請輸入詳細地址"
       :error="props.error"
       headless
+      :disabled="props.disabled"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { Address } from '@/types'
+
 const props = defineProps({
   error: {
     type: String,
     default: ''
   },
-  blackhead: Boolean
+  blackhead: Boolean,
+  disabled: {
+    type: Boolean,
+    default: true
+  }
 })
 
-const address = defineModel<{ zipcode: string; detail: string }>({
-  default: { zipcode: '', detail: '' }
+const address = defineModel<Address>({
+  default: { zipcode: undefined, detail: '' }
 })
 
 const city = ref('')
@@ -61,7 +69,7 @@ const { data: districts } = await getDistrictApi({
   },
   onResponse({ response }) {
     if (response.status === 200) {
-      address.value.zipcode = response._data.data[0].zip_code
+      address.value.zipcode = Number(response._data.data[0].zip_code)
     }
   }
 })

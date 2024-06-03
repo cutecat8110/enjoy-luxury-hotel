@@ -16,7 +16,7 @@
       :id="props.name"
       v-bind="attrs"
       v-model="input"
-      :class="cssColor"
+      :class="[cssColor, 'disabled:pointer-events-none disabled:bg-system-gray-40']"
       :name="props.name"
       :type="props.type"
     />
@@ -33,7 +33,7 @@ const attrs = useAttrs()
 const props = defineProps({
   name: {
     type: String,
-    default: ''
+    required: true
   },
   type: {
     type: String,

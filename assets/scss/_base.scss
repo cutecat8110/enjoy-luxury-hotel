@@ -19,16 +19,24 @@ body {
   @apply space-y-6 rounded-[1.25rem] bg-white p-6 xl:space-y-10 xl:p-10;
 }
 
+.layout-enter-active,
 .page-enter-active,
 .modal-enter-active {
-  transition: all 0.35s ease-in;
+  transition:
+    opacity 0.35s ease-in,
+    filter 0.35s ease-in;
 }
 
+.layout-leave-active,
 .page-leave-active,
 .modal-leave-active {
-  transition: all 0.35s ease-out;
+  transition:
+    opacity 0.35s ease-out,
+    filter 0.35s ease-out;
 }
 
+.layout-enter-from,
+.layout-leave-to,
 .page-enter-from,
 .page-leave-to {
   opacity: 0;

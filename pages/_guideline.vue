@@ -566,25 +566,38 @@
                     <tr>
                       <td class="w-24">必填</td>
                       <td>
-                        <UIInput label="Label" placeholder="請輸入文字" required />
+                        <UIInput
+                          name="guideline-input-0"
+                          label="Label"
+                          placeholder="請輸入文字"
+                          required
+                        />
                       </td>
                     </tr>
                     <tr>
                       <td>基礎</td>
                       <td>
-                        <UIInput v-model="inputText" placeholder="請輸入文字" />
+                        <UIInput
+                          v-model="inputText"
+                          name="guideline-input-1"
+                          placeholder="請輸入文字"
+                        />
                       </td>
                     </tr>
                     <tr>
                       <td>佔位字</td>
                       <td>
-                        <UIInput placeholder="請輸入文字" />
+                        <UIInput name="guideline-input-2" placeholder="請輸入文字" />
                       </td>
                     </tr>
                     <tr>
                       <td>錯誤訊息</td>
                       <td>
-                        <UIInput placeholder="請輸入文字" error="XX為必填" />
+                        <UIInput
+                          name="guideline-input-3"
+                          placeholder="請輸入文字"
+                          error="XX為必填"
+                        />
                       </td>
                     </tr>
                   </tbody>
@@ -648,7 +661,7 @@
                     <tr>
                       <td>Default</td>
                       <td>
-                        <UICheckbox />
+                        <UICheckbox name="test" />
                       </td>
                     </tr>
                   </tbody>

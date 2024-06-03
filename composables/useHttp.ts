@@ -2,17 +2,14 @@ import { useAuthStore } from '@/stores/auth'
 import type { UseFetchOptions } from 'nuxt/app'
 import type { FetchResponse } from 'ofetch'
 
-interface ResOptions<T> {
-  data: T
-  code: number
-  success: boolean
-  message?: string
-  detail?: string
+interface ResOptions {
+  message: string
+  status: boolean
 }
 
-const handleError = <T>(response: FetchResponse<ResOptions<T>>) => {
+const handleError = (response: FetchResponse<ResOptions>) => {
   const showError = (message: string) => {
-    console.log(response?._data?.message ?? message)
+    console.log('Error Message:', response?._data?.message ?? message)
   }
 
   if (!response._data) {
@@ -43,9 +40,10 @@ const fetch = <T>(url: string, options: UseFetchOptions<T>) => {
     onRequest({ options }) {
       /* 檢查是否已登入 */
       const authStore = useAuthStore()
+      options.headers = new Headers(options.headers)
+      options.headers.set('Content-Type', 'application/json')
       if (!authStore.token) return
       /* 已登入 API 帶 token */
-      options.headers = new Headers(options.headers)
       options.headers.set('Authorization', authStore.token)
     },
     onResponseError({ response }) {

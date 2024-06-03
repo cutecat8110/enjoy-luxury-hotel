@@ -1,62 +1,96 @@
 <template>
   <VForm
+    ref="formRefs"
     v-slot="{ errors }"
     class="container space-y-10 px-5 py-20 sm:max-w-[26rem] sm:px-0"
-    :validation-schema="schema[current]"
+    :validation-schema="schema[progress]"
     @submit="submit"
   >
-    <UITitle text="立即註冊" />
-    <UIStepper :current="1" :steps="['輸入信箱及密碼', '填寫基本資料']" />
-    <div class="space-y-4">
-      <template v-if="current === 0">
+    <!-- 表頭 -->
+    <CAuthTitle text="立即註冊" />
+
+    <!-- 步驟進度 -->
+    <UIStepper
+      v-model="progress"
+      :steps="['輸入信箱及密碼', '填寫基本資料']"
+      :disabled="apiPending"
+    />
+
+    <Transition name="step" mode="out-in">
+      <!-- 步驟: 1．信箱、密碼 -->
+      <div v-if="progress === 0" class="space-y-4">
         <UIInput
-          v-model="userAuth.email"
+          v-model="formData.email"
           name="email"
           label="電子信箱"
           placeholder="hello@exsample.com"
           :error="errors.email"
+          :disabled="apiPending"
         />
         <UIInput
-          v-model="userAuth.password"
+          v-model="formData.password"
           name="password"
           label="密碼"
           type="password"
           placeholder="請輸入密碼"
           :error="errors.password"
+          :disabled="apiPending"
         />
         <UIInput
-          v-model="userAuth.confirmPassword"
+          v-model="formCtrl.confirmPassword"
           name="confirmPassword"
           label="確認密碼"
           type="password"
           placeholder="請再輸入一次密碼"
           :error="errors.confirmPassword"
+          :disabled="apiPending"
         />
-      </template>
-      <template v-else>
+      </div>
+
+      <!-- 步驟: 2．姓名、手機、生日、地址 -->
+      <div v-else class="space-y-4">
         {{ errors }}
         <UIInput
-          v-model="userAuth.name"
+          v-model="formData.name"
           name="name"
           label="姓名"
           placeholder="請輸入姓名"
           :error="errors.name"
+          :disabled="apiPending"
         />
         <UIInput
-          v-model="userAuth.phone"
+          v-model="formData.phone"
           name="phone"
           label="手機號碼"
           placeholder="請輸入手機號碼"
           :error="errors.phone"
+          :disabled="apiPending"
         />
-        <Birthday @update-birthday="updateBirthday" />
-        <CAddress v-model="userAuth.address" :error="errors.address" />
+        <CBirthday v-model="formData.birthday" :disabled="apiPending" />
+        <CAddress v-model="formData.address" :error="errors.address" :disabled="apiPending" />
 
-        <UICheckbox id="agree" label="我已閱讀並同意本網站個資使用規範" />
-      </template>
-    </div>
+        <UICheckbox
+          v-model="formCtrl.isAgree"
+          name="agree"
+          label="網站個資使用規範"
+          :error="errors.agree"
+          text="我已閱讀並同意本網站個資使用規範"
+          :disabled="apiPending"
+        />
+      </div>
+    </Transition>
+
     <div class="space-y-4">
-      <UIButton type="submit" block text="下一步" />
+      <!-- 提交按鈕 -->
+      <UIButton
+        type="submit"
+        :text="progress == 0 ? '下一步' : '完成註冊'"
+        block
+        :disabled="apiPending"
+        :loading="apiPending"
+      />
+
+      <!-- 連結: 登入頁 -->
       <div class="flex gap-2">
         <p class="text-body-2 text-white xl:text-body">已經有會員了嗎？</p>
         <NuxtLink class="hot-link-wrapper" to="/auth/login">
@@ -68,44 +102,111 @@
 </template>
 
 <script lang="ts" setup>
-import UITitle from './components/UI/UITitle.vue'
-import Birthday from './components/birthday.vue'
+import type { SignupData } from '@/types'
 
+/* layout */
 definePageMeta({
   layout: 'auth'
 })
 
-const userAuth = ref({
+/* 註冊表單 */
+const formRefs = ref<HTMLFormElement | null>(null)
+const formData = reactive<SignupData>({
   email: '',
   password: '',
-  confirmPassword: '',
   name: '',
   phone: '',
-  birthday: '',
+  birthday: new Date().toISOString().split('T')[0],
   address: {
-    zipcode: '',
+    zipcode: undefined,
     detail: ''
   }
 })
+const formCtrl = ref({ confirmPassword: '', isAgree: false })
+
+// 表單規則
 const schema = [
-  { email: 'required|email', password: 'required', confirmPassword: 'required' },
   {
-    name: 'required',
-    phone: 'required',
-    address: 'required'
+    email: 'required|email',
+    password: 'required',
+    confirmPassword: 'required|confirmed:@password'
+  },
+  {
+    name: 'required|min:2',
+    phone: (val: string) => {
+      if (!val) return '手機號碼 為必填'
+      if (!/^09\d{8}$/.test(val)) return '請輸入有效的 10 位數手機號碼'
+      return {}
+    },
+    address: 'required',
+    agree: (val: Boolean) => {
+      return !val ? '請閱讀並同意本網站個資使用規範' : {}
+    }
   }
 ]
 
-const current = ref(1)
+// 表單進度
+const progress = ref(0)
 
+// 表單送出
 const submit = () => {
-  if (current.value === 0) {
-    return (current.value = 1)
+  if (progress.value === 0) {
+    ceRefresh()
+    return
   }
-  console.log(userAuth.value)
+  sRefresh()
 }
 
-const updateBirthday = (data: string) => {
-  userAuth.value.birthday = data
-}
+/* api */
+const { signupApi, checkEmailApi } = useApi()
+const apiPending = computed(() => cePending.value || sPending.value)
+
+// 驗證信箱是否已註冊
+const { pending: cePending, refresh: ceRefresh } = await checkEmailApi({
+  body: computed(() => ({
+    email: formData.email
+  })),
+  immediate: false,
+  watch: false,
+  onResponse({ response }) {
+    if (response.status === 200) {
+      if (response._data.result.isEmailExists) {
+        formRefs.value?.setFieldError('email', '電子信箱 已存在')
+        return
+      }
+      progress.value = 1
+    }
+  }
+})
+cePending.value = false
+
+// 註冊
+const authStore = useAuthStore()
+const { pending: sPending, refresh: sRefresh } = await signupApi({
+  body: formData,
+  immediate: false,
+  watch: false,
+  async onResponse({ response }) {
+    if (response.status === 200) {
+      authStore.user = response._data.result
+      authStore.token = response._data.token
+      await navigateTo('/')
+    }
+  }
+})
+sPending.value = false
 </script>
+
+<style lang="scss" scoped>
+.step-enter-active,
+.step-leave-active {
+  transition:
+    opacity 0.35s ease-in,
+    filter 0.35s ease-in;
+}
+.step-enter-from,
+.step-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
+}
+</style>

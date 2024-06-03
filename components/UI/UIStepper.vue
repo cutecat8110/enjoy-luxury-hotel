@@ -1,28 +1,32 @@
 <template>
   <div class="flex items-center justify-between gap-2 text-title">
     <template v-for="(title, index) in props.steps" :key="index">
-      <div
+      <button
         :class="[
-          props.current >= index ? 'text-white' : 'text-system-gray-60',
+          index < progress && !props.disabled ? 'cursor-pointer' : 'pointer-events-none',
+          progress >= index ? ' text-white' : 'text-system-gray-60',
           'flex flex-col  items-center gap-1'
         ]"
+        type="button"
+        :disabled="index >= progress || props.disabled"
+        @click="progress = index"
       >
         <div
           :class="[
-            props.current >= index ? 'bg-system-primary-80' : 'border',
+            progress >= index ? 'bg-system-primary-80' : 'border',
             'flex h-8 w-8 items-center justify-center rounded-full '
           ]"
         >
-          <Icon v-if="index < props.current" name="ic:baseline-check" />
+          <Icon v-if="index < progress" name="ic:baseline-check" />
           <template v-else>
             {{ index + 1 }}
           </template>
         </div>
         {{ title }}
-      </div>
+      </button>
       <div
         v-if="index + 1 !== props.steps.length"
-        :class="[props.current > index ? 'bg-white' : 'bg-system-gray-60', 'h-[2px] flex-1 ']"
+        :class="[progress > index ? 'bg-white' : 'bg-system-gray-60', 'h-[2px] flex-1 ']"
       />
     </template>
   </div>
@@ -34,9 +38,13 @@ const props = defineProps({
     type: Array,
     default: () => ['Title', 'Title', 'Title']
   },
-  current: {
-    type: Number,
-    default: 0
+  disabled: {
+    type: Boolean,
+    default: true
   }
+})
+
+const progress = defineModel<number>({
+  default: 0
 })
 </script>
