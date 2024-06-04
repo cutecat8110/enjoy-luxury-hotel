@@ -161,6 +161,16 @@ const submit = () => {
   sRefresh()
 }
 
+const { $Swal } = useNuxtApp()
+onMounted(() => {
+  $Swal.fire({
+    title: 'test',
+    icon: 'error',
+    showConfirmButton: false,
+    timer: 2000
+  })
+})
+
 /* api */
 const { signupApi, checkEmailApi } = useApi()
 const apiPending = computed(() => cePending.value || sPending.value)
