@@ -3,11 +3,16 @@ export type Address = {
   detail: string
 }
 
-export type SignupData = {
+export type SignupPayload = {
   name: string
   email: string
   password: string
   phone: string
   birthday: string
   address: Address
+}
+
+export type loginPayload = {
+  email: string
+  password: string
 }

@@ -40,6 +40,7 @@ const fetch = <T>(url: string, options: UseFetchOptions<T>) => {
     onRequest({ options }) {
       /* 檢查是否已登入 */
       const authStore = useAuthStore()
+
       options.headers = new Headers(options.headers)
       options.headers.set('Content-Type', 'application/json')
       if (!authStore.token) return

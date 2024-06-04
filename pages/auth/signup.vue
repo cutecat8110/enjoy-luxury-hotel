@@ -18,7 +18,7 @@
 
     <!-- 表單 -->
     <Transition name="step" mode="out-in">
-      <!-- 步驟: 1．信箱、密碼 -->
+      <!-- 步驟: 0．信箱．密碼 -->
       <div v-if="progress === 0" class="space-y-4">
         <UIInput
           v-model="formData.email"
@@ -48,7 +48,7 @@
         />
       </div>
 
-      <!-- 步驟: 2．姓名、手機、生日、地址 -->
+      <!-- 步驟: 1．姓名．手機．生日．地址 -->
       <div v-else class="space-y-4">
         {{ errors }}
         <UIInput
@@ -103,7 +103,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { SignupData } from '@/types'
+import type { SignupPayload } from '@/types'
+
+/* 全局屬性 */
+const authStore = useAuthStore()
 
 /* layout */
 definePageMeta({
@@ -112,18 +115,18 @@ definePageMeta({
 
 /* 註冊表單 */
 const formRefs = ref<HTMLFormElement | null>(null)
-const formData = reactive<SignupData>({
-  email: '',
-  password: '',
-  name: '',
-  phone: '',
+const formData = reactive<SignupPayload>({
+  email: 'test5@gmail.com',
+  password: 'test1234',
+  name: 'test1234',
+  phone: '0980353064',
   birthday: new Date().toISOString().split('T')[0],
   address: {
     zipcode: undefined,
-    detail: ''
+    detail: 'test1234'
   }
 })
-const formCtrl = ref({ confirmPassword: '', isAgree: false })
+const formCtrl = ref({ confirmPassword: 'test1234', isAgree: false })
 
 // 表單: 規則
 const schema = [
@@ -182,14 +185,13 @@ const { pending: cePending, refresh: ceRefresh } = await checkEmailApi({
 cePending.value = false
 
 // api: 註冊
-const authStore = useAuthStore()
 const { pending: sPending, refresh: sRefresh } = await signupApi({
   body: formData,
   immediate: false,
   watch: false,
   async onResponse({ response }) {
     if (response.status === 200) {
-      authStore.user = response._data.result
+      authStore.userName = response._data.result.name
       authStore.token = response._data.token
       await navigateTo('/')
     }

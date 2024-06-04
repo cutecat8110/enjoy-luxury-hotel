@@ -3,9 +3,9 @@
     <label class="text-sub-title text-white xl:text-title">生日</label>
 
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
-      <UIDropdown v-model="birthday.YYYY" :options="YYYY" :disabled="props.disabled" />
-      <UIDropdown v-model="birthday.MM" :options="MM" :disabled="props.disabled" />
-      <UIDropdown v-model="birthday.DD" :options="DD" :disabled="props.disabled" />
+      <UISelect v-model="birthday.YYYY" :options="YYYY" :disabled="props.disabled" />
+      <UISelect v-model="birthday.MM" :options="MM" :disabled="props.disabled" />
+      <UISelect v-model="birthday.DD" :options="DD" :disabled="props.disabled" />
     </div>
   </div>
 </template>

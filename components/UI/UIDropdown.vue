@@ -1,53 +1,41 @@
 <template>
-  <div class="relative text-body text-black">
-    <select
-      v-model="input"
-      class="w-full appearance-none rounded-lg border border-system-gray-40 p-4 pr-12 outline-none focus-visible:border-system-primary-100 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-system-primary-100/10 disabled:bg-system-gray-40 disabled:opacity-100"
-      :disabled="props.disabled"
-    >
-      <option value="" disabled>請選擇</option>
-      <option
-        v-for="(option, index) in props.options"
-        :key="index"
-        :value="OptionShow(option, props.value)"
-      >
-        {{ OptionShow(option, props.label) }}
-      </option>
-    </select>
-    <div
-      class="pointer-events-none absolute inset-y-1/2 right-4 flex h-6 w-6 -translate-y-1/2 items-center justify-center"
-    >
-      <Icon name="ic:baseline-keyboard-arrow-down"></Icon>
+  <div ref="dropdownWrapperRefs" class="relative">
+    <div @click="open = !open">
+      <slot />
     </div>
+    <transition name="dropdown">
+      <div
+        v-if="open"
+        ref="dropdownRefs"
+        class="absolute -bottom-4 right-0 w-[16.25rem] translate-y-full overflow-hidden rounded-[1.25rem] bg-white py-3 shadow-md"
+      >
+        <slot name="item" />
+      </div>
+    </transition>
   </div>
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
-  options: {
-    type: Array as () => (string | number | Record<string, unknown>)[],
-    default: () => ['Title', 'Title', 'Title']
-  },
-  label: {
-    type: String,
-    default: ''
-  },
-  value: {
-    type: String,
-    default: ''
-  },
-  disabled: {
-    type: Boolean,
-    default: true
-  }
+const dropdownRefs = ref<null | HTMLElement>(null)
+const dropdownWrapperRefs = ref<null | HTMLElement>(null)
+const { isOutside: dropdownOutside } = useMouseInElement(dropdownRefs)
+const { isOutside: wrapperOutside } = useMouseInElement(dropdownWrapperRefs)
+
+const open = defineModel<boolean>({
+  default: false
 })
 
-const input = defineModel<string | number>()
-
-const OptionShow = (option: string | number | Record<string, unknown>, show: string) => {
-  if (typeof option === 'object' && show) {
-    return option[show] || ''
+const outsideClose = () => {
+  if (open.value && dropdownOutside.value && wrapperOutside.value) {
+    open.value = false
   }
-  return option
 }
+
+onMounted(() => {
+  document.addEventListener('click', outsideClose)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('click', outsideClose)
+})
 </script>

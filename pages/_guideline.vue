@@ -615,7 +615,7 @@
             <li>
               <h3 class="card-title">Default</h3>
               <div class="gary-wrapper">
-                <UIDropdown />
+                <UISelect />
               </div>
             </li>
           </ul>

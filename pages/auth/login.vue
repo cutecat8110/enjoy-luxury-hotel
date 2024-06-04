@@ -10,9 +10,9 @@
     <CAuthTitle text="立即開始旅程" />
 
     <div class="space-y-4">
-      <!-- 表單 -->
+      <!-- 表單: 電子信箱．密碼 -->
       <UIInput
-        v-model="userAuth.email"
+        v-model="formData.email"
         name="email"
         label="電子信箱"
         placeholder="hello@exsample.com"
@@ -20,7 +20,7 @@
         :disabled="pending"
       />
       <UIInput
-        v-model="userAuth.password"
+        v-model="formData.password"
         name="password"
         label="密碼"
         type="password"
@@ -30,16 +30,19 @@
       />
 
       <div class="flex justify-between">
-        <UICheckbox name="remember" text="記住帳號" />
+        <UICheckbox v-model="remember" name="remember" text="記住帳號" :disabled="pending" />
 
         <!-- 按鈕: 忘記密碼 -->
         <UIButton text="忘記密碼?" variant="text" @click="isOpen = true" />
+
         <!-- 彈窗: 忘記密碼 -->
         <UIModal v-model="isOpen">
+          <!-- 彈窗: 頁首 -->
           <template #header> 忘記密碼 </template>
+
           <div class="p-4">
             <UIInput
-              v-model="userAuth.email"
+              v-model="formData.email"
               name="email"
               label="電子信箱"
               placeholder="hello@exsample.com"
@@ -47,9 +50,10 @@
               blackhead
             />
           </div>
+
+          <!-- 彈窗: 頁尾 -->
           <template #footer>
             <UIButton text="取消" variant="secondary" />
-
             <UIButton text="驗證" />
           </template>
         </UIModal>
@@ -70,25 +74,40 @@
 </template>
 
 <script lang="ts" setup>
+import type { loginPayload } from '@/types'
+
+/* 全局屬性 */
+const authStore = useAuthStore()
+
 /* layout */
 definePageMeta({
   layout: 'auth'
 })
 
+/* 登入表單 */
 const formRefs = ref<HTMLFormElement | null>(null)
-const userAuth = ref({ email: 'cutecat8110@gmail.com', password: 'Vul3xm4000000' })
+const formData = ref<loginPayload>({ email: authStore.email, password: '' })
+
+// 表單: 規則
 const schema = { email: 'required|email', password: 'required' }
 
+// 記住帳號
+const remember = ref(authStore.email !== '')
+
+/* api */
 const { loginApi } = useApi()
 
+// api: 登入
 const { pending, refresh: loginRefresh } = await loginApi({
-  params: userAuth,
+  body: formData,
   immediate: false,
   watch: false,
-  onResponse({ response }) {
-    console.log('0', response)
+  async onResponse({ response }) {
     if (response.status === 200) {
-      console.log('1', response)
+      authStore.userName = response._data.result.name
+      authStore.token = response._data.token
+      authStore.email = remember.value ? formData.value.email : ''
+      await navigateTo('/')
     }
   },
   onResponseError({ response }) {

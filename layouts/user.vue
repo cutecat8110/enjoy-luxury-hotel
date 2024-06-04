@@ -12,7 +12,7 @@
             src="/img/desktop/user1.png"
           />
           <p class="text-h3 text-white xl:text-h1">
-            {{ `Hello，${authStore.user.name}` }}
+            {{ `Hello，${authStore.userName}` }}
           </p>
         </div>
       </div>
@@ -39,7 +39,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useAuthStore } from '@/stores/auth'
 const authStore = useAuthStore()
 </script>
 

@@ -4,9 +4,7 @@
     ref="pageHeaderRefs"
     :class="[bgBlack && ' bg-system-background', 'transition-colors duration-300']"
   >
-    <div
-      class="container flex items-center justify-between overflow-hidden py-4 xl:max-w-full xl:px-20 xl:py-6"
-    >
+    <div class="container flex items-center justify-between py-4 xl:max-w-full xl:px-20 xl:py-6">
       <NuxtLink to="/">
         <PageLogo
           class="shrink-0 transition-colors hover:text-system-primary-100"
@@ -24,15 +22,34 @@
       >
         <Icon name="ic:round-menu"></Icon>
       </button>
+
       <!-- Desktop: 導航列 -->
-      <nav v-else class="space-x-4">
+      <nav v-else class="flex items-center gap-4">
         <NuxtLink to="/rooms">
           <UIButton text="客房旅宿" variant="ghost" />
         </NuxtLink>
 
-        <NuxtLink to="/auth/login">
-          <UIButton text="會員登入" variant="ghost" />
-        </NuxtLink>
+        <Transition name="dropdown" mode="out-in">
+          <UIDropdown v-if="authStore.userName && authStore.token" v-model="userDropdown">
+            <UIButton
+              class="flex-row-reverse"
+              :text="authStore.userName"
+              icon="ic:outline-account-circle"
+              variant="ghost"
+            />
+            <template #item>
+              <NuxtLink to="/user" @click="userDropdown = false">
+                <UIButton block text="我的帳戶" variant="dropdown" />
+              </NuxtLink>
+
+              <UIButton block text="登出" variant="dropdown" @click="logout" />
+            </template>
+          </UIDropdown>
+
+          <NuxtLink v-else to="/auth/login">
+            <UIButton text="會員登入" variant="ghost" />
+          </NuxtLink>
+        </Transition>
 
         <UIButton text="立即訂房" />
       </nav>
@@ -70,8 +87,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useCommonStore } from '@/stores/common'
+/* 全局屬性 */
 const commonStore = useCommonStore()
+const authStore = useAuthStore()
 
 /* 計算 Logo 尺寸 */
 const svgSize = computed(() => ({
@@ -87,8 +105,10 @@ const toggleModal = () => {
     windowLock.value = !windowLock.value
   }
 }
+
 // 滾輪鎖定
 let windowLock: { value: boolean } | undefined
+
 // RWD 自動關閉彈窗
 onMounted(() => {
   windowLock = useScrollLock(document.body)
@@ -111,4 +131,14 @@ onMounted(() => {
     bgBlack.value = height.value / 4 < y.value
   })
 })
+
+/* 用戶下拉 */
+const userDropdown = ref(false)
+
+// 登出
+const logout = () => {
+  userDropdown.value = false
+  authStore.token = ''
+  authStore.userName = ''
+}
 </script>

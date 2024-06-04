@@ -1,1 +1,1 @@
-export type { Address, SignupData } from './auth.ts'
+export type { Address, SignupPayload, loginPayload } from './auth.ts'

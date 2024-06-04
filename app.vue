@@ -6,20 +6,24 @@
 </template>
 
 <script lang="ts" setup>
-import { useCommonStore } from '@/stores/common'
+/* 全局屬性 */
 const commonStore = useCommonStore()
 
+/* 儲存全局屬型 */
 const { width } = useWindowSize()
 onMounted(() => {
   watch(
     width,
     () => {
+      // 判斷: 是否手機板
       commonStore.isMobile = width.value <= 1200
     },
     {
       immediate: true
     }
   )
+
+  // 判斷: 是否客戶端
   commonStore.isClient = true
 })
 

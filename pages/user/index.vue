@@ -1,13 +1,13 @@
 <template>
   <div class="col-sm-container">
-    <section class="xl:col-span-5">
+    <!-- <section class="xl:col-span-5">
       <div class="card">
         <h2 class="text-h6 xl:text-h5">修改密碼</h2>
 
         <ul class="space-y-6">
           <li class="space-y-2">
             <label class="text-body-2 text-system-gray-80 xl:text-body">電子信箱</label>
-            <p class="text-sub-title xl:text-title">{{ authStore.user.email }}</p>
+            <p class="text-sub-title xl:text-title">{{ authStore.user!.email }}</p>
           </li>
           <li class="flex items-center justify-between">
             <div class="space-y-2">
@@ -32,16 +32,16 @@
         <ul class="space-y-6">
           <li class="space-y-2">
             <label class="text-body-2 text-system-gray-80 xl:text-body">姓名</label>
-            <p class="text-sub-title xl:text-title">{{ authStore.user.name }}</p>
+            <p class="text-sub-title xl:text-title">{{ authStore.user!.name }}</p>
           </li>
           <li class="space-y-2">
             <label class="text-body-2 text-system-gray-80 xl:text-body">手機號碼</label>
-            <p class="text-sub-title xl:text-title">{{ authStore.user.phone }}</p>
+            <p class="text-sub-title xl:text-title">{{ authStore.user!.phone }}</p>
           </li>
           <li class="space-y-2">
             <label class="text-body-2 text-system-gray-80 xl:text-body">生日</label>
             <p class="text-sub-title xl:text-title">
-              {{ $dayjs(authStore.user.birthday).format('YYYY 年 M 月 D 日') }}
+              {{ $dayjs(authStore.user!.birthday).format('YYYY 年 M 月 D 日') }}
             </p>
           </li>
           <li class="space-y-2">
@@ -52,12 +52,11 @@
 
         <UIButton text="編輯" variant="secondary" />
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useAuthStore } from '@/stores/auth'
 const authStore = useAuthStore()
 
 definePageMeta({
@@ -69,8 +68,8 @@ const password = ref({
   newPassword: '新密碼'
 })
 
-const address = computed(() => {
-  const { detail, county, city } = authStore.user.address
-  return `${county}${city}${detail}`
-})
+// const address = computed(() => {
+//   const { detail, county, city } = authStore.user!.address
+//   return `${county}${city}${detail}`
+// })
 </script>

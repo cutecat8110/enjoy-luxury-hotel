@@ -2,7 +2,7 @@
   <div id="landing-layout">
     <PageHeader />
 
-    <main>
+    <main class="overflow-x-hidden">
       <slot />
     </main>
 
@@ -13,10 +13,6 @@
 <style lang="scss" scoped>
 #landing-layout {
   @apply relative flex min-h-screen flex-col;
-
-  > * {
-    @apply overflow-x-hidden;
-  }
 
   > header {
     @apply fixed top-0 z-30 w-full;

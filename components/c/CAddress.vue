@@ -5,8 +5,8 @@
     >
 
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-      <UIDropdown v-model="city" :options="citys" :disabled="props.disabled" />
-      <UIDropdown
+      <UISelect v-model="city" :options="citys" :disabled="props.disabled" />
+      <UISelect
         v-model="address.zipcode"
         label="district"
         value="zip_code"

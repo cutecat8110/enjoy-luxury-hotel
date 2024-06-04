@@ -1,6 +1,6 @@
 <template>
   <div class="col-sm-container">
-    <section class="xl:col-span-7">
+    <!-- <section class="xl:col-span-7">
       <CRecentOrder :order="recentOrder">
         <div class="flex gap-4">
           <UIButton v-if="canCheckout" class="flex-1" lock text="取消預訂" variant="secondary" />
@@ -68,7 +68,7 @@
           @click="more = true"
         />
       </div>
-    </section>
+    </section> -->
   </div>
 </template>
 
