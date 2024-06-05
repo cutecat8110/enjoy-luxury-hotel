@@ -3,15 +3,42 @@
     <label class="text-sub-title text-white xl:text-title">生日</label>
 
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
-      <UISelect v-model="birthday.YYYY" :options="YYYY" :disabled="props.disabled" />
-      <UISelect v-model="birthday.MM" :options="MM" :disabled="props.disabled" />
-      <UISelect v-model="birthday.DD" :options="DD" :disabled="props.disabled" />
+      <UISelect
+        v-model="birthday.YYYY"
+        placeholder="--年份--"
+        :error="props.error"
+        :options="YYYY"
+        :disabled="props.disabled"
+      />
+      <UISelect
+        v-model="birthday.MM"
+        placeholder="--月份--"
+        :error="props.error"
+        :options="MM"
+        :disabled="props.disabled"
+      />
+      <UISelect
+        v-model="birthday.DD"
+        placeholder="--日期--"
+        :error="props.error"
+        :options="DD"
+        :disabled="props.disabled"
+      />
     </div>
+    <VField v-model="formatBirthday" class="hidden" name="birthday" />
+    <VErrorMessage
+      class="block text-sub-title text-system-error-120 xl:text-title"
+      name="birthday"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps({
+  error: {
+    type: String,
+    default: ''
+  },
   disabled: {
     type: Boolean,
     default: false
@@ -21,20 +48,22 @@ const props = defineProps({
 const { $dayjs } = useNuxtApp()
 
 const formatBirthday = defineModel<string>({
-  default: new Date().toISOString().split('T')[0]
+  default: ''
 })
 
-const birthday = ref({
-  YYYY: $dayjs(formatBirthday.value).year(),
-  MM: $dayjs(formatBirthday.value).month() + 1, // 月份需要加 1，$dayjs 月份從 0 開始
-  DD: $dayjs(formatBirthday.value).date()
+const birthday = ref<Record<string, string | number>>({
+  YYYY: formatBirthday.value ? $dayjs(formatBirthday.value).year() : '',
+  MM: formatBirthday.value ? $dayjs(formatBirthday.value).month() + 1 : '', // 月份需要加 1，$dayjs 月份從 0 開始
+  DD: formatBirthday.value ? $dayjs(formatBirthday.value).date() : ''
 })
 
 // 當前日期
 watch(
   birthday,
   () => {
-    formatBirthday.value = `${birthday.value.YYYY}-${birthday.value.MM}-${birthday.value.DD}`
+    const { YYYY, MM, DD } = birthday.value
+    const formattedDate = `${YYYY}-${MM}-${DD}`
+    formatBirthday.value = $dayjs(formattedDate, 'YYYY-M-D', true).isValid() ? formattedDate : ''
   },
   { immediate: true, deep: true }
 )
@@ -47,8 +76,8 @@ const YYYY = computed(() => {
 const MM = computed(() => Array.from({ length: 12 }, (_, i) => 1 + i))
 const DD = computed(() => {
   const { YYYY, MM, DD } = birthday.value
-  const daysInMonth = $dayjs(`${YYYY}-${MM}`).daysInMonth()
-  if (DD > daysInMonth) {
+  const daysInMonth = $dayjs(`${YYYY}-${MM}`).daysInMonth() || 31
+  if (typeof DD === 'number' && DD > daysInMonth) {
     birthday.value.DD = daysInMonth
   }
   return Array.from({ length: daysInMonth }, (_, i) => 1 + i)

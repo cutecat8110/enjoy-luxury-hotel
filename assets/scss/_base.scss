@@ -57,7 +57,11 @@ body {
 
 .dropdown-enter-from,
 .dropdown-leave-to,
-.dropdown-enter-from,
-.dropdown-leave-to {
+.modal-enter-from,
+.modal-leave-to {
   opacity: 0;
+}
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-default-outline:focus {
+  box-shadow: 0 0 0 3px rgba(191, 157, 125, 0.1) !important;
 }

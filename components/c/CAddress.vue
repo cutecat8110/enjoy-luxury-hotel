@@ -5,21 +5,34 @@
     >
 
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
-      <UISelect v-model="city" :options="citys" :disabled="props.disabled" />
+      <UISelect
+        v-model="city"
+        placeholder="--縣市--"
+        :error="props.zipcodeError"
+        :options="citys"
+        :disabled="props.disabled"
+      />
       <UISelect
         v-model="address.zipcode"
         label="district"
         value="zip_code"
+        placeholder="--地區--"
+        :error="props.zipcodeError"
         :options="districts"
         :disabled="props.disabled"
       />
     </div>
+    <VField v-model="address.zipcode" class="hidden" name="zipcode" label="縣市、地區" />
+    <VErrorMessage
+      class="block text-sub-title text-system-error-120 xl:text-title"
+      name="zipcode"
+    />
     <UIInput
       v-model="address.detail"
-      name="address"
-      label="地址"
+      name="detail"
+      label="詳細地址"
       placeholder="請輸入詳細地址"
-      :error="props.error"
+      :error="props.detailError"
       headless
       :disabled="props.disabled"
     />
@@ -30,7 +43,11 @@
 import type { Address } from '@/types'
 
 const props = defineProps({
-  error: {
+  zipcodeError: {
+    type: String,
+    default: ''
+  },
+  detailError: {
     type: String,
     default: ''
   },
@@ -42,7 +59,7 @@ const props = defineProps({
 })
 
 const address = defineModel<Address>({
-  default: { zipcode: undefined, detail: '' }
+  default: { zipcode: '', detail: '' }
 })
 
 const city = ref('')
@@ -52,11 +69,6 @@ const { data: citys, refresh: citysRefresh } = await getCitysApi({
   immediate: false,
   transform(input) {
     return input.data
-  },
-  onResponse({ response }) {
-    if (response.status === 200) {
-      city.value = response._data.data[0]
-    }
   }
 })
 citysRefresh()
@@ -66,11 +78,16 @@ const { data: districts } = await getDistrictApi({
   immediate: false,
   transform(input) {
     return input.data
-  },
-  onResponse({ response }) {
-    if (response.status === 200) {
-      address.value.zipcode = Number(response._data.data[0].zip_code)
-    }
   }
 })
+
+if (address.value.zipcode) {
+  const { data } = await getDistrictApi({
+    query: { zip_code: address.value.zipcode },
+    transform(input) {
+      return input.data
+    }
+  })
+  city.value = data.value[0].city
+}
 </script>

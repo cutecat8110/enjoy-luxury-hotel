@@ -1,5 +1,5 @@
 export type Address = {
-  zipcode: number | undefined
+  zipcode: string
   detail: string
 }
 

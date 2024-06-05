@@ -50,7 +50,6 @@
 
       <!-- 步驟: 1．姓名．手機．生日．地址 -->
       <div v-else class="space-y-4">
-        {{ errors }}
         <UIInput
           v-model="formData.name"
           name="name"
@@ -59,6 +58,7 @@
           :error="errors.name"
           :disabled="apiPending"
         />
+
         <UIInput
           v-model="formData.phone"
           name="phone"
@@ -67,8 +67,15 @@
           :error="errors.phone"
           :disabled="apiPending"
         />
-        <CBirthday v-model="formData.birthday" :disabled="apiPending" />
-        <CAddress v-model="formData.address" :error="errors.address" :disabled="apiPending" />
+
+        <CBirthday v-model="formData.birthday" :error="errors.birthday" :disabled="apiPending" />
+
+        <CAddress
+          v-model="formData.address"
+          :detail-error="errors.detail"
+          :zipcode-error="errors.zipcode"
+          :disabled="apiPending"
+        />
 
         <UICheckbox
           v-model="formCtrl.isAgree"
@@ -107,6 +114,8 @@ import type { SignupPayload } from '@/types'
 
 /* 全局屬性 */
 const authStore = useAuthStore()
+const styleStore = useStyleStore()
+const { $Swal, $dayjs } = useNuxtApp()
 
 /* layout */
 definePageMeta({
@@ -116,14 +125,14 @@ definePageMeta({
 /* 註冊表單 */
 const formRefs = ref<HTMLFormElement | null>(null)
 const formData = reactive<SignupPayload>({
-  email: 'test5@gmail.com',
+  email: 'test8@gmail.com',
   password: 'test1234',
-  name: 'test1234',
-  phone: '0980353064',
-  birthday: new Date().toISOString().split('T')[0],
+  name: '',
+  phone: '',
+  birthday: '1994-1-18',
   address: {
-    zipcode: undefined,
-    detail: 'test1234'
+    zipcode: '',
+    detail: ''
   }
 })
 const formCtrl = ref({ confirmPassword: 'test1234', isAgree: false })
@@ -142,7 +151,11 @@ const schema = [
       if (!/^09\d{8}$/.test(val)) return '請輸入有效的 10 位數手機號碼'
       return {}
     },
-    address: 'required',
+    birthday: (val: string) => {
+      return $dayjs(val, 'YYYY-M-D', true).isValid() ? {} : '生日 為必填'
+    },
+    zipcode: 'required',
+    detail: 'required',
     agree: (val: Boolean) => {
       return !val ? '請閱讀並同意本網站個資使用規範' : {}
     }
@@ -160,16 +173,6 @@ const submit = () => {
   }
   sRefresh()
 }
-
-const { $Swal } = useNuxtApp()
-onMounted(() => {
-  $Swal.fire({
-    title: 'test',
-    icon: 'error',
-    showConfirmButton: false,
-    timer: 2000
-  })
-})
 
 /* api */
 const { signupApi, checkEmailApi } = useApi()
@@ -199,11 +202,20 @@ const { pending: sPending, refresh: sRefresh } = await signupApi({
   body: formData,
   immediate: false,
   watch: false,
-  async onResponse({ response }) {
+  onResponse({ response }) {
     if (response.status === 200) {
       authStore.userName = response._data.result.name
       authStore.token = response._data.token
-      await navigateTo('/')
+      $Swal?.fire({
+        title: '註冊成功!',
+        text: '開始你的享樂旅行',
+        icon: 'success',
+        confirmButtonText: '前往',
+        confirmButtonColor: styleStore.confirmButtonColor,
+        willClose: async () => {
+          await navigateTo('/')
+        }
+      })
     }
   }
 })

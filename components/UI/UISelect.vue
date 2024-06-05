@@ -2,14 +2,15 @@
   <div class="relative text-body text-black">
     <select
       v-model="input"
-      class="w-full appearance-none rounded-lg border border-system-gray-40 p-4 pr-12 outline-none focus-visible:border-system-primary-100 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-system-primary-100/10 disabled:bg-system-gray-40 disabled:opacity-100"
+      :class="[cssColor, 'disabled:bg-system-gray-40 disabled:opacity-100']"
       :disabled="props.disabled"
     >
-      <option value="" disabled>請選擇</option>
+      <option value="" disabled>{{ props.placeholder }}</option>
       <option
         v-for="(option, index) in props.options"
         :key="index"
         :value="OptionShow(option, props.value)"
+        :disabled="props.disabled"
       >
         {{ OptionShow(option, props.label) }}
       </option>
@@ -39,6 +40,14 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: true
+  },
+  placeholder: {
+    type: String,
+    default: '請選擇'
+  },
+  error: {
+    type: String,
+    default: ''
   }
 })
 
@@ -50,4 +59,10 @@ const OptionShow = (option: string | number | Record<string, unknown>, show: str
   }
   return option
 }
+
+const cssColor = computed<string>(() => {
+  return props.error
+    ? 'w-full appearance-none rounded-lg border border-system-error-100 p-4 pr-12 outline-none focus-visible:border-system-error-100 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-system-error-100/10'
+    : 'w-full appearance-none rounded-lg border border-system-gray-40 p-4 pr-12 outline-none focus-visible:border-system-primary-100 focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-0 focus-visible:outline-system-primary-100/10'
+})
 </script>
