@@ -77,6 +77,10 @@ export default defineNuxtConfig({
   },
 
   image: {
+    domains: ['i.imgur.com'],
+    alias: {
+      imgur: 'https://i.imgur.com'
+    },
     screens: {
       sm: 576,
       md: 768,

@@ -22,7 +22,6 @@ onMounted(() => {
       immediate: true
     }
   )
-
   // 判斷: 是否客戶端
   commonStore.isClient = true
 })

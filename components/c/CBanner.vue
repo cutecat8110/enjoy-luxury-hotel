@@ -75,12 +75,13 @@ const props = defineProps({
   rooms: Boolean
 })
 
+/* 輪播圖 */
 const bannerUrlList = ref([
-  '/img/desktop/banner1.png',
-  '/img/desktop/banner2.png',
-  '/img/desktop/banner3.png',
-  '/img/desktop/banner4.png',
-  '/img/desktop/banner5.png'
+  'imgur/SAbetYU.jpg',
+  'imgur/eMl6NuV.png',
+  'imgur/zqBWS1u.png',
+  'imgur/24uhdiO.png',
+  'imgur/NSnPlgZ.png'
 ])
 </script>
 

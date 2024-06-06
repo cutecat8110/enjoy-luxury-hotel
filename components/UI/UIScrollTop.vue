@@ -1,9 +1,11 @@
 <template>
-  <Transition name="scroll-top">
-    <div v-if="scrollTopIsShow" class="ui-scroll-top" @click="scrollTop()">
-      <Icon name="ic:baseline-keyboard-arrow-up" />
-    </div>
-  </Transition>
+  <ClientOnly>
+    <Transition name="scroll-top">
+      <div v-if="scrollTopIsShow" class="ui-scroll-top" @click="scrollTop()">
+        <Icon name="ic:baseline-keyboard-arrow-up" />
+      </div>
+    </Transition>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>
