@@ -20,6 +20,8 @@ module.exports = {
     '^(?::)?key',
     '^v-(?!loading$!if$!else$!else-if$!for$)',
     '^v-loading$',
+    '^v-slot$',
+    '^v-model$',
     '^(?::)?model',
     '^(?::)?class$',
     '^(?::)?name$',

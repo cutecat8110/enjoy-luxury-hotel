@@ -22,7 +22,7 @@
         :disabled="props.disabled"
       />
     </div>
-    <VField v-model="address.zipcode" class="hidden" name="zipcode" label="縣市、地區" />
+    <VField v-model.trim="address.zipcode" class="hidden" name="zipcode" label="縣市、地區" />
     <VErrorMessage
       class="block text-sub-title text-system-error-120 xl:text-title"
       name="zipcode"

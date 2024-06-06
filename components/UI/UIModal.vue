@@ -11,12 +11,13 @@
             ref="modalRefs"
             :class="[
               props.fullscreen ? 'min-h-screen' : modalStyle,
-              props.black ? ' bg-system-background' : ' bg-white'
+              props.black ? ' bg-system-background' : ' bg-white',
+              'shadow-md'
             ]"
           >
             <div
               v-if="$slots.header"
-              class="flex items-center justify-between border-b border-system-gray-40 p-3"
+              class="flex items-center justify-between border-b border-system-gray-40 p-4"
             >
               <h2 class="text-h6 xl:text-h5">
                 <slot name="header"> </slot>
@@ -36,10 +37,15 @@
 
             <div
               v-if="$slots.footer"
-              :class="[footerStyle, 'flex items-center gap-4 border-t border-system-gray-40 p-3']"
+              :class="[
+                footerStyle,
+                'flex flex-wrap items-center gap-4 border-t border-system-gray-40 p-3'
+              ]"
             >
               <slot name="footer"> </slot>
             </div>
+
+            <slot name="form" />
           </div>
         </div>
       </div>
@@ -60,8 +66,14 @@ const props = defineProps({
   black: {
     type: Boolean,
     default: false
+  },
+  focus: {
+    type: Boolean,
+    default: false
   }
 })
+
+const { $gsap } = useNuxtApp()
 
 const wrapperStyle = computed(() => {
   return (
@@ -77,7 +89,7 @@ const modalStyle = computed(() => {
   return (
     !props.fullscreen &&
     {
-      center: 'rounded-[1.25rem] sm:max-w-[26rem] container px-0',
+      center: 'rounded-[1.25rem] sm:max-w-[28rem] container px-0',
       bottom: 'rounded-t-[1.25rem]'
     }[props.position]
   )
@@ -105,7 +117,7 @@ const modalRefs = ref(null)
 const { isOutside } = useMouseInElement(modalRefs)
 const close = () => {
   if (isOutside.value) {
-    toggleModal()
+    !props.focus ? toggleModal() : focusModal()
   }
 }
 // 設定滾輪控制器
@@ -113,4 +125,16 @@ let windowLock: { value: boolean } | undefined
 onMounted(() => {
   windowLock = useScrollLock(document.body)
 })
+
+/* 聚焦 */
+const focusModal = () => {
+  $gsap.to(modalRefs.value, {
+    duration: 0.175,
+    scale: 1.02,
+    ease: 'ease-in',
+    yoyo: true,
+    repeat: 1
+  })
+  $gsap.to(modalRefs.value, { duration: 0.175, scale: 1, ease: 'ease-out', delay: 1 })
+}
 </script>

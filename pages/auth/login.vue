@@ -32,31 +32,7 @@
       <div class="flex justify-between">
         <UICheckbox v-model="remember" name="remember" text="記住帳號" :disabled="pending" />
 
-        <!-- 按鈕: 忘記密碼 -->
-        <UIButton text="忘記密碼?" variant="text" @click="isOpen = true" />
-
-        <!-- 彈窗: 忘記密碼 -->
-        <UIModal v-model="isOpen">
-          <!-- 彈窗: 頁首 -->
-          <template #header> 忘記密碼 </template>
-
-          <div class="p-4">
-            <UIInput
-              v-model="formData.email"
-              name="email"
-              label="電子信箱"
-              placeholder="hello@exsample.com"
-              :error="errors.email"
-              blackhead
-            />
-          </div>
-
-          <!-- 彈窗: 頁尾 -->
-          <template #footer>
-            <UIButton text="取消" variant="secondary" />
-            <UIButton text="驗證" />
-          </template>
-        </UIModal>
+        <Forgot />
       </div>
     </div>
 
@@ -74,6 +50,7 @@
 </template>
 
 <script lang="ts" setup>
+import Forgot from './components/forgot.vue'
 import type { loginPayload } from '@/types'
 
 /* 全局屬性 */
@@ -86,13 +63,19 @@ definePageMeta({
 
 /* 登入表單 */
 const formRefs = ref<HTMLFormElement | null>(null)
-const formData = ref<loginPayload>({ email: authStore.email, password: '' })
+const formData = ref<loginPayload>({ email: '', password: '' })
 
 // 表單: 規則
 const schema = { email: 'required|email', password: 'required' }
 
 // 記住帳號
-const remember = ref(authStore.email !== '')
+const remember = ref(false)
+
+// 客戶端初始化
+onMounted(() => {
+  formData.value.email = authStore.email
+  remember.value = authStore.email !== ''
+})
 
 /* api */
 const { loginApi } = useApi()
@@ -120,7 +103,7 @@ const { pending, refresh: loginRefresh } = await loginApi({
       case '密碼不能只有英文':
       case '密碼不能只有數字':
       case '密碼需至少 8 碼以上，並英數混合':
-        formRefs.value?.setFieldError('password', '密碼錯誤')
+        formRefs.value?.setFieldError('password', '密碼 錯誤')
         break
       default:
         break
@@ -128,6 +111,4 @@ const { pending, refresh: loginRefresh } = await loginApi({
   }
 })
 pending.value = false
-
-const isOpen = ref(false)
 </script>

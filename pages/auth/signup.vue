@@ -17,7 +17,7 @@
     />
 
     <!-- 表單 -->
-    <Transition name="step" mode="out-in">
+    <Transition name="modal" mode="out-in">
       <!-- 步驟: 0．信箱．密碼 -->
       <div v-if="progress === 0" class="space-y-4">
         <UIInput
@@ -215,7 +215,7 @@ const { pending: sPending, refresh: sRefresh } = await signupApi({
       authStore.token = response._data.token
       $Swal?.fire({
         title: '註冊成功!',
-        text: '開始你的享樂之旅',
+        text: '開始您的享樂旅行',
         icon: 'success',
         confirmButtonText: '前往',
         confirmButtonColor: styleStore.confirmButtonColor,
@@ -228,17 +228,3 @@ const { pending: sPending, refresh: sRefresh } = await signupApi({
 })
 sPending.value = false
 </script>
-
-<style lang="scss" scoped>
-.step-enter-active,
-.step-leave-active {
-  transition:
-    opacity 0.35s ease-in,
-    filter 0.35s ease-in;
-}
-.step-enter-from,
-.step-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
-}
-</style>

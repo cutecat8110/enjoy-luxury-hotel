@@ -15,7 +15,7 @@
     <VField
       :id="props.name"
       v-bind="attrs"
-      v-model="input"
+      v-model.trim="input"
       :class="[cssColor, 'disabled:pointer-events-none disabled:bg-system-gray-40']"
       :name="props.name"
       :type="props.type"
