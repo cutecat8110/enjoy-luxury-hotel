@@ -115,7 +115,7 @@ import type { SignupPayload } from '@/types'
 /* 全局屬性 */
 const authStore = useAuthStore()
 const styleStore = useStyleStore()
-const { $Swal, $dayjs } = useNuxtApp()
+const { $Swal, $dayjs, $validator } = useNuxtApp()
 
 /* layout */
 definePageMeta({
@@ -125,23 +125,30 @@ definePageMeta({
 /* 註冊表單 */
 const formRefs = ref<HTMLFormElement | null>(null)
 const formData = reactive<SignupPayload>({
-  email: 'test8@gmail.com',
-  password: 'test1234',
+  email: '',
+  password: '',
   name: '',
   phone: '',
-  birthday: '1994-1-18',
+  birthday: '',
   address: {
     zipcode: '',
     detail: ''
   }
 })
-const formCtrl = ref({ confirmPassword: 'test1234', isAgree: false })
+const formCtrl = ref({ confirmPassword: '', isAgree: false })
 
 // 表單: 規則
 const schema = [
   {
     email: 'required|email',
-    password: 'required',
+    password: (val: string) => {
+      if (!val) return '密碼 為必填'
+      if (!$validator.isLength(val, { min: 8 })) return '密碼需至少 8 碼以上'
+      if ($validator.isAlpha(val)) return '密碼不能只有英文'
+      if ($validator.isNumeric(val)) return '密碼不能只有數字'
+      if (!$validator.isAlphanumeric(val)) return '密碼需至少 8 碼以上，並英數混合'
+      return {}
+    },
     confirmPassword: 'required|confirmed:@password'
   },
   {
@@ -208,7 +215,7 @@ const { pending: sPending, refresh: sRefresh } = await signupApi({
       authStore.token = response._data.token
       $Swal?.fire({
         title: '註冊成功!',
-        text: '開始你的享樂旅行',
+        text: '開始你的享樂之旅',
         icon: 'success',
         confirmButtonText: '前往',
         confirmButtonColor: styleStore.confirmButtonColor,
