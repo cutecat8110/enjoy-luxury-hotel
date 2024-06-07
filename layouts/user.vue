@@ -3,13 +3,13 @@
     <PageHeader />
     <div class="relative flex h-[17rem] xl:h-[24rem]">
       <!-- 背景 -->
-      <NuxtImg class="h-full w-full object-cover" src="/img/desktop/hero.png" />
+      <NuxtImg class="h-full w-full object-cover" src="imgur/9Ae9QeE.png" />
 
       <div class="absolute inset-0 flex items-center">
         <div class="container flex flex-wrap items-center gap-4 px-5 xl:gap-6 xl:px-3">
           <NuxtImg
             class="h-[4.5rem] w-[4.5rem] rounded-full object-cover xl:h-[9rem] xl:w-[9rem]"
-            src="/img/desktop/user1.png"
+            src="imgur/darOkIL.png"
           />
           <p class="text-h3 text-white xl:text-h1">
             {{ `Hello，${authStore.userName}` }}
