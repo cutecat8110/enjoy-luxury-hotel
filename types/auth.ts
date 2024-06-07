@@ -12,7 +12,13 @@ export type SignupPayload = {
   address: Address
 }
 
-export type loginPayload = {
+export type LoginPayload = {
   email: string
   password: string
+}
+
+export type ForgotPayload = {
+  email: string
+  code: string
+  newPassword: string
 }

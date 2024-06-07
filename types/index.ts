@@ -1,2 +1,2 @@
-export type { Address, SignupPayload, loginPayload } from './auth.ts'
-export type { newsPayload } from './home.ts'
+export type { Address, ForgotPayload, LoginPayload, SignupPayload } from './auth.ts'
+export type { NewsPayload } from './home.ts'

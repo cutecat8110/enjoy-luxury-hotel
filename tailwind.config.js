@@ -26,7 +26,7 @@ module.exports = {
     extend: {
       aspectRatio: {
         '5/4': '5 / 4',
-        '4/6': '5 / 4'
+        '4/6': '4 / 6'
       },
       fontSize: {
         display: [

@@ -51,7 +51,7 @@
 
 <script lang="ts" setup>
 import Forgot from './components/forgot.vue'
-import type { loginPayload } from '@/types'
+import type { LoginPayload } from '@/types'
 
 /* 全局屬性 */
 const authStore = useAuthStore()
@@ -63,7 +63,7 @@ definePageMeta({
 
 /* 登入表單 */
 const formRefs = ref<HTMLFormElement | null>(null)
-const formData = ref<loginPayload>({ email: '', password: '' })
+const formData = ref<LoginPayload>({ email: '', password: '' })
 
 // 表單: 規則
 const schema = { email: 'required|email', password: 'required' }

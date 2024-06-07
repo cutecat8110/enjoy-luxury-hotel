@@ -6,7 +6,7 @@
     />
     <NuxtImg
       class="absolute -top-10 right-20 z-0 hidden xl:block"
-      src="/img/desktop/dot.png"
+      src="/img/dot.png"
       sizes="200px"
     />
     <div class="container relative space-y-20">

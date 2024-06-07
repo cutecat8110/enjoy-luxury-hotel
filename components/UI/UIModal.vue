@@ -12,7 +12,7 @@
             :class="[
               props.fullscreen ? 'min-h-screen' : modalStyle,
               props.black ? ' bg-system-background' : ' bg-white',
-              'shadow-md'
+              'overflow-hidden shadow-2xl'
             ]"
           >
             <div
@@ -70,6 +70,10 @@ const props = defineProps({
   focus: {
     type: Boolean,
     default: false
+  },
+  size: {
+    type: String as () => 'sm' | 'md' | 'lg',
+    default: 'sm'
   }
 })
 
@@ -89,7 +93,11 @@ const modalStyle = computed(() => {
   return (
     !props.fullscreen &&
     {
-      center: 'rounded-[1.25rem] sm:max-w-[28rem] container px-0',
+      center: {
+        sm: 'rounded-[1.25rem] sm:max-w-[28rem] container px-0',
+        md: 'rounded-[1.25rem] sm:max-w-[54rem] container px-0',
+        lg: 'rounded-[1.25rem] sm:max-w-[67rem] container px-0'
+      }[props.size],
       bottom: 'rounded-t-[1.25rem]'
     }[props.position]
   )
@@ -108,9 +116,6 @@ const modalShow = defineModel<Boolean>({
 })
 const toggleModal = () => {
   modalShow.value = !modalShow.value
-  if (windowLock) {
-    windowLock.value = !windowLock.value
-  }
 }
 // 點擊遮罩關閉談窗
 const modalRefs = ref(null)
@@ -124,6 +129,12 @@ const close = () => {
 let windowLock: { value: boolean } | undefined
 onMounted(() => {
   windowLock = useScrollLock(document.body)
+
+  watchEffect(() => {
+    if (windowLock) {
+      windowLock.value = !!modalShow.value
+    }
+  })
 })
 
 /* 聚焦 */

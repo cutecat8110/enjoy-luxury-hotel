@@ -93,6 +93,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { ForgotPayload } from '@/types'
+
 /* 全局屬性 */
 const { $Swal, $validator } = useNuxtApp()
 const styleStore = useStyleStore()
@@ -113,7 +115,7 @@ const openForgot = () => {
 
 /* 驗證表單 */
 const formRefs = ref<HTMLFormElement | null>(null)
-const formData = reactive({ email: '', code: '', newPassword: '' })
+const formData = reactive<ForgotPayload>({ email: '', code: '', newPassword: '' })
 
 // 表單: 規則
 const schema = ref({
