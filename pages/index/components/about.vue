@@ -1,18 +1,22 @@
 <template>
   <section class="section-container bg-system-background !pb-[7.5rem] xl:!pb-[12.5rem]">
     <div class="relative">
+      <!-- 背景圖片 -->
       <NuxtImg
         class="absolute inset-0 h-full w-full object-cover"
-        src="/img/desktop/about.png"
+        src="/imgur/STdNjcx.jpg"
         width="100vw"
       />
 
+      <!-- 內容容器 -->
       <div class="container relative flex flex-row-reverse px-5 xl:px-3">
         <div
           class="ml-5 translate-y-10 space-y-10 rounded-l-[2.5rem] rounded-tr-[2.5rem] bg-gradient-to-b from-system-background/80 to-system-primary-100/80 p-6 text-white xl:ml-0 xl:w-4/5 xl:translate-y-20 xl:space-y-20 xl:rounded-l-[5rem] xl:rounded-tr-[5rem] xl:p-20"
         >
+          <!-- 標題 -->
           <UITitle text1="關於" text2="我們" white />
 
+          <!-- 描述 -->
           <div class="space-y-4 text-body-2 xl:space-y-10 xl:text-body">
             <p>
               享樂酒店，位於美麗島高雄的心臟地帶，是這座城市的璀璨瑰寶與傲人地標。<br />

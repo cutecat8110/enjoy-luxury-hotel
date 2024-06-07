@@ -23,7 +23,7 @@
         <div class="h-[0.125rem] rounded-full bg-gradient-to-r from-system-primary-100 to-white" />
       </div>
 
-      <!-- 內容 -->
+      <!-- 內容容器 -->
       <ul class="space-y-10">
         <li
           v-for="(newItem, index) in news"
@@ -31,7 +31,7 @@
           class="group flex flex-col gap-6 xl:flex-row"
           @click="openNew(index)"
         >
-          <!-- 消息: 圖片 -->
+          <!-- 圖片 -->
           <NuxtImg
             class="shrink-0 cursor-pointer rounded-lg object-cover transition-opacity group-hover:opacity-85"
             :src="newItem.image"
@@ -39,7 +39,7 @@
           />
 
           <div class="flex cursor-pointer flex-col items-start justify-center gap-2 xl:gap-6">
-            <!-- 消息: 標題 -->
+            <!-- 標題 -->
             <h3 class="relative text-h4 xl:text-h3">
               {{ newItem.title }}
               <div
@@ -47,7 +47,7 @@
               />
             </h3>
 
-            <!-- 消息: 描述 -->
+            <!-- 描述 -->
             <p class="text-body-2 xl:text-body">
               {{ newItem.description }}
             </p>
