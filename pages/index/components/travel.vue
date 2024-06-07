@@ -1,10 +1,15 @@
 <template>
   <section class="section-container">
     <div class="container space-y-10 xl:space-y-20">
+      <!-- 大標題 -->
       <UITitle text1="交通" text2="方式" />
+
       <div class="space-y-6 text-white xl:space-y-10">
         <div class="space-y-4">
+          <!-- 地址 -->
           <div class="text-body">台灣台中市南區復興路三段362號</div>
+
+          <!-- google 地圖 -->
           <div
             id="GOOGLE_MAP"
             ref="mapRefs"
@@ -12,13 +17,19 @@
           />
         </div>
 
+        <!-- 交通方式 -->
         <ul class="grid grid-cols-1 gap-6 xl:grid-cols-3">
           <li v-for="(travel, index) in travels" :key="index">
+            <!-- 圖示 -->
             <Icon
               class="text-icon-48 text-system-primary-100 xl:text-icon-80"
               :name="travel.icon"
             />
+
+            <!-- 名稱 -->
             <h3 class="mt-2 text-title xl:mt-4 xl:text-h5">{{ travel.name }}</h3>
+
+            <!-- 描述 -->
             <p class="mt-2 text-body-2 xl:text-body">{{ travel.description }}</p>
           </li>
         </ul>
@@ -29,9 +40,10 @@
 
 <script lang="ts" setup>
 import { Loader } from '@googlemaps/js-api-loader'
-import googleMap from './google-map.json'
+import googleMapStyles from './google-map-styles.json'
 import UITitle from './UI/UITitle.vue'
 
+/* 交通方式 */
 const travels = [
   {
     icon: 'ic:baseline-directions-car',
@@ -53,31 +65,30 @@ const travels = [
   }
 ]
 
+/* google 地圖 */
 const mapRefs = ref<HTMLElement | null>(null)
 
+// 座標
+const location = { lat: 24.133459091186523, lng: 120.68169403076172 }
+
+// ApiKey
+const runtimeConfig = useRuntimeConfig()
+const loader = new Loader({
+  apiKey: runtimeConfig.public.mapApiKey,
+  version: 'weekly'
+})
+
+// 實例化
 onMounted(() => {
-  const location = { lat: 24.133459091186523, lng: 120.68169403076172 }
-
-  const runtimeConfig = useRuntimeConfig()
-  const loader = new Loader({
-    apiKey: runtimeConfig.public.mapApiKey,
-    version: 'weekly'
-  })
-
-  loader.load().then(async () => {
+  loader.importLibrary('maps').then(async () => {
     const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const map = new Map(mapRefs.value as HTMLElement, {
       center: location,
-      zoom: 17,
-      zoomControl: false,
-      mapTypeControl: false,
-      scaleControl: false,
-      streetViewControl: false,
-      rotateControl: false,
-      fullscreenControl: false,
-      styles: googleMap
+      zoom: 18,
+      disableDefaultUI: true,
+      styles: googleMapStyles
     })
   })
 })
