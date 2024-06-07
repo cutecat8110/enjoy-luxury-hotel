@@ -1,4 +1,4 @@
-export type NewsPayload = {
+export type NewResponse = {
   _id: string
   title: string
   description: string

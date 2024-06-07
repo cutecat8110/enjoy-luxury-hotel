@@ -22,7 +22,7 @@
 
   > main {
     @apply relative flex flex-1 items-center justify-center bg-system-background xl:-mt-[7.5rem] xl:ml-[50%] xl:w-1/2;
-    background-image: url('/img/desktop/line3.png');
+    background-image: url('/img/line3.png');
     background-size: 100vw;
     background-position-x: center;
     background-position-y: 20%;

@@ -88,10 +88,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { NewsPayload } from '@/types'
-
-/* 全局屬性 */
-const { $gsap } = useNuxtApp()
+import type { NewResponse } from '@/types'
 
 const newOpen = ref(false)
 
@@ -106,8 +103,8 @@ const openNew = (index: number) => {
 const { getNewsApi } = useApi()
 
 // api: 取得最新消息
-const { data: news }: { data: Ref<NewsPayload[] | null> } = await getNewsApi({
-  transform(res: any): NewsPayload[] {
+const { data: news }: { data: Ref<NewResponse[] | null> } = await getNewsApi({
+  transform(res: any): NewResponse[] {
     return res.result
   }
 })

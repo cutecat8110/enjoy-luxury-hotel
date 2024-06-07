@@ -1,5 +1,5 @@
 <template>
-  <section class="section-container">
+  <section v-if="rooms" class="section-container">
     <div key="key" class="relative grid grid-cols-1 gap-6 xl:grid-cols-2 xl:gap-20">
       <!-- 房型預覽 -->
       <div class="container relative xl:z-0 xl:max-w-full xl:pl-0 xl:pr-5">
@@ -28,7 +28,7 @@
       <!-- 波浪背景 -->
       <div class="absolute -top-[6.5rem] left-1/4 xl:relative xl:left-auto xl:top-auto">
         <div class="w-[120vw] xl:-ml-[8.75rem] xl:w-[56vw] xl:pt-[3.75rem]">
-          <NuxtImg src="/img/desktop/line3.png" width="100vw" />
+          <NuxtImg src="/img/line3.png" width="100vw" />
         </div>
       </div>
 
@@ -79,93 +79,54 @@
 </template>
 
 <script lang="ts" setup>
+import type { RoomResponse } from '@/types'
 import type { Swiper } from 'swiper'
 
-const rooms = ref([
-  {
-    name: '尊爵雙人房',
-    description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room2-1.png',
-      '/img/desktop/room2-2.png',
-      '/img/desktop/room2-3.png',
-      '/img/desktop/room2-4.png',
-      '/img/desktop/room2-5.png'
-    ],
-    _id: '653e4661336cdccc752127a0'
-  },
-  {
-    name: '景觀雙人房',
-    description: '景觀雙人房擁有絕美的高雄市景觀，讓您在舒適的環境中欣賞城市之美。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room3-1.png',
-      '/img/desktop/room3-2.png',
-      '/img/desktop/room3-3.png',
-      '/img/desktop/room3-4.png',
-      '/img/desktop/room3-5.png'
-    ],
-    _id: '653e4661336cdccc752127a0'
-  },
-  {
-    name: '豪華雅緻房',
-    description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room4-1.png',
-      '/img/desktop/room4-2.png',
-      '/img/desktop/room4-3.png',
-      '/img/desktop/room4-4.png',
-      '/img/desktop/room4-5.png'
-    ],
-    _id: '653e4661336cdccc752127a0'
-  },
-  {
-    name: '景觀尊榮家庭房',
-    description: '景觀尊榮家庭房不僅有寬敞的空間，還有絕美的市景視野，是帶給家庭最尊榮的待遇。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room5-1.png',
-      '/img/desktop/room5-2.png',
-      '/img/desktop/room5-3.png',
-      '/img/desktop/room5-4.png',
-      '/img/desktop/room5-5.png'
-    ],
-    _id: '653e4661336cdccc752127a0'
-  }
-])
-
-const currentRoom = ref(0)
-
+/* 輪播 */
+// 設定 Refs
 const swiperRefs = ref<Swiper | null>(null)
-
 const setSwiperRefs = (swiper: Swiper) => {
   swiperRefs.value = swiper
 }
 
+// 當前預覽房型
+const currentRoom = ref(0)
+
+// 變更預覽房型
 const changeRoom = (direction: string) => {
-  if (direction === 'prev') {
-    currentRoom.value = (currentRoom.value - 1 + rooms.value.length) % rooms.value.length
-  } else if (direction === 'next') {
-    currentRoom.value = (currentRoom.value + 1) % rooms.value.length
+  if (rooms.value) {
+    if (direction === 'prev') {
+      currentRoom.value = (currentRoom.value - 1 + rooms.value.length) % rooms.value.length
+    } else if (direction === 'next') {
+      currentRoom.value = (currentRoom.value + 1) % rooms.value.length
+    }
+    swiperRefs.value?.slideTo(0)
   }
-  swiperRefs.value?.slideTo(0)
 }
+
+/* api */
+const { getRoomsApi } = useApi()
+
+// api: 取得所有房型
+const { data: rooms }: { data: Ref<RoomResponse[] | null> } = await getRoomsApi({
+  transform(res: any): RoomResponse[] {
+    return res.result
+  }
+})
 </script>
 
 <style lang="scss" scoped>
 .section-container {
   @apply bg-system-background;
   @include xl {
-    background-image: url('/img/desktop/bg.png');
+    background-image: url('/img/bg.png');
     background-position: center 150%;
     background-repeat: no-repeat;
     background-size: 100%;
   }
   .rooms-info-wrapper {
     background-size: 100%;
-    background-image: url('/img/desktop/bg.png');
+    background-image: url('/img/bg.png');
     background-repeat: no-repeat;
     @include xl {
       background: none;
