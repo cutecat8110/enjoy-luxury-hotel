@@ -5,6 +5,7 @@
     :class="[bgBlack && ' bg-system-background', 'transition-colors duration-300']"
   >
     <div class="container flex items-center justify-between py-4 xl:max-w-full xl:px-20 xl:py-6">
+      <!-- 連結: 首頁 -->
       <NuxtLink to="/">
         <PageLogo
           class="shrink-0 transition-colors hover:text-system-primary-100"

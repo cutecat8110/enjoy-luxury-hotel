@@ -1,14 +1,21 @@
 <template>
   <div>
+    <!-- 全屏輪播 -->
     <CBanner rooms />
-    <div class="section-container bg-system-primary-10">
+
+    <div v-if="rooms" class="section-container bg-system-primary-10">
+      <!-- 區塊容器 -->
       <div class="container space-y-10 xl:space-y-20">
+        <!-- 大標題 -->
         <div class="space-x-2 xl:space-y-4">
           <p class="text-sub-title text-system-gray-80 xl:text-h6">房型選擇</p>
           <p class="text-h3 text-system-primary-100 xl:text-h1">各種房型，任您挑選</p>
         </div>
+
+        <!-- 房型列表 -->
         <ol class="space-y-6 xl:space-y-12">
           <li v-for="(room, index) in rooms" :key="index">
+            <!-- 房型卡片 -->
             <Card :room="room" />
           </li>
         </ol>
@@ -18,76 +25,21 @@
 </template>
 
 <script lang="ts" setup>
+import type { RoomResponse } from '@/types'
 import Card from './components/card.vue'
 
+/* layout */
 definePageMeta({
   layout: 'landing'
 })
 
-const rooms = ref([
-  {
-    name: '尊爵雙人房',
-    description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room2-1.png',
-      '/img/desktop/room2-2.png',
-      '/img/desktop/room2-3.png',
-      '/img/desktop/room2-4.png',
-      '/img/desktop/room2-5.png'
-    ],
-    areaInfo: '24坪',
-    bedInfo: '一張大床',
-    maxPeople: 4,
-    _id: '653e4661336cdccc752127a0'
-  },
-  {
-    name: '景觀雙人房',
-    description: '景觀雙人房擁有絕美的高雄市景觀，讓您在舒適的環境中欣賞城市之美。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room3-1.png',
-      '/img/desktop/room3-2.png',
-      '/img/desktop/room3-3.png',
-      '/img/desktop/room3-4.png',
-      '/img/desktop/room3-5.png'
-    ],
-    areaInfo: '24坪',
-    bedInfo: '一張大床',
-    maxPeople: 4,
-    _id: '653e4661336cdccc752127a0'
-  },
-  {
-    name: '豪華雅緻房',
-    description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room4-1.png',
-      '/img/desktop/room4-2.png',
-      '/img/desktop/room4-3.png',
-      '/img/desktop/room4-4.png',
-      '/img/desktop/room4-5.png'
-    ],
-    areaInfo: '24坪',
-    bedInfo: '一張大床',
-    maxPeople: 4,
-    _id: '653e4661336cdccc752127a0'
-  },
-  {
-    name: '景觀尊榮家庭房',
-    description: '景觀尊榮家庭房不僅有寬敞的空間，還有絕美的市景視野，是帶給家庭最尊榮的待遇。',
-    price: 10000,
-    imageUrlList: [
-      '/img/desktop/room5-1.png',
-      '/img/desktop/room5-2.png',
-      '/img/desktop/room5-3.png',
-      '/img/desktop/room5-4.png',
-      '/img/desktop/room5-5.png'
-    ],
-    areaInfo: '24坪',
-    bedInfo: '一張大床',
-    maxPeople: 4,
-    _id: '653e4661336cdccc752127a0'
+/* api */
+const { getRoomsApi } = useApi()
+
+// api: 取得所有房型
+const { data: rooms }: { data: Ref<RoomResponse[] | null> } = await getRoomsApi({
+  transform(res: any): RoomResponse[] {
+    return res.result
   }
-])
+})
 </script>

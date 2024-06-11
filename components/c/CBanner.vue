@@ -14,7 +14,7 @@
       }"
     >
       <SwiperSlide v-for="(banner, index) in bannerUrlList" :key="index" class="flex !h-screen">
-        <!-- 背景 -->
+        <!-- 背景圖片 -->
         <NuxtImg class="h-full w-full object-cover" :src="banner" width="100vw" />
 
         <!-- 黑色遮罩 -->

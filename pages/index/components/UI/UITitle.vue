@@ -1,5 +1,6 @@
 <template>
   <div class="flex max-w-[19rem] items-center gap-10">
+    <!-- 標題 -->
     <h2
       :class="[
         props.white ? 'text-white' : ' text-system-primary-100',
@@ -9,16 +10,14 @@
       <div>{{ props.text1 }}</div>
       <div>{{ props.text2 }}</div>
     </h2>
-    <div
-      :class="[
-        props.white ? 'bg-white' : 'bg-gradient-to-r from-system-primary-100 to-white',
-        'h-[0.125rem] flex-1 rounded-full bg-white'
-      ]"
-    />
+
+    <!-- 裝飾線 -->
+    <UILine class="!h-[0.125rem] flex-1" :color="props.white ? 'white' : 'primary'" />
   </div>
 </template>
 
 <script lang="ts" setup>
+/* props */
 const props = defineProps({
   white: Boolean,
   text1: {

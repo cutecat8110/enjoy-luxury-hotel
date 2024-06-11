@@ -25,14 +25,14 @@
         </Swiper>
       </div>
 
-      <!-- 波浪背景 -->
+      <!-- 條紋裝飾 -->
       <div class="absolute -top-[6.5rem] left-1/4 xl:relative xl:left-auto xl:top-auto">
         <div class="w-[120vw] xl:-ml-[8.75rem] xl:w-[56vw] xl:pt-[3.75rem]">
           <NuxtImg src="/img/line3.png" width="100vw" />
         </div>
       </div>
 
-      <!-- 房間資訊 -->
+      <!-- 房型資訊 -->
       <div class="rooms-info-wrapper pointer-events-none xl:absolute xl:inset-0">
         <div class="container xl:grid xl:h-full xl:grid-cols-2 xl:gap-20">
           <div
@@ -44,17 +44,17 @@
               <p class="text-body-2 xl:text-body">{{ rooms[currentRoom].description }}</p>
             </div>
 
-            <!-- 價格 -->
+            <!-- 房型價格 -->
             <div class="text-h5 xl:text-h3">
               {{ useFormatCurrency(rooms[currentRoom].price) }}
             </div>
 
-            <!-- 查看按鈕 -->
+            <!-- 連結: 房型詳細 -->
             <NuxtLink :to="`/room/${rooms[currentRoom]._id}`">
               <UIHeroButton text="查看更多" />
             </NuxtLink>
 
-            <!-- 上下按鈕 -->
+            <!-- 房型選擇按鈕 -->
             <div class="flex justify-end">
               <button
                 class="flex h-14 w-14 items-center justify-center p-4 text-icon-24 text-system-primary-100 transition-colors hover:text-system-primary-120"

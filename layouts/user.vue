@@ -2,7 +2,7 @@
   <div id="default-layout">
     <PageHeader />
     <div class="relative flex h-[17rem] xl:h-[24rem]">
-      <!-- 背景 -->
+      <!-- 背景圖片 -->
       <NuxtImg class="h-full w-full object-cover" src="imgur/9Ae9QeE.png" />
 
       <div class="absolute inset-0 flex items-center">

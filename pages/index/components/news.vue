@@ -53,9 +53,12 @@
             </p>
           </div>
         </li>
+
+        <!-- 彈窗 -->
         <UIModal v-model="newOpen">
           <div class="bg-system-primary-10">
             <div class="flex items-center justify-between p-4">
+              <!-- 標題 -->
               <CTitle :title="news[currentNew].title" />
 
               <!-- 彈窗關閉按鈕 -->
@@ -67,7 +70,10 @@
                 <Icon name="ic:baseline-close" />
               </button>
             </div>
+
+            <!-- 內容區塊 -->
             <div class="space-y-4 p-4 pt-0">
+              <!-- 圖片 -->
               <div class="aspect-[5/4] overflow-hidden rounded-lg xl:aspect-video">
                 <NuxtImg
                   ref="fluidImageRefs"
@@ -76,6 +82,8 @@
                   sizes="xl:474px"
                 />
               </div>
+
+              <!-- 描述 -->
               <p class="text-body-2 xl:text-body">
                 {{ news[currentNew].description }}
               </p>
@@ -90,10 +98,9 @@
 <script lang="ts" setup>
 import type { NewResponse } from '@/types'
 
+/* 彈窗 */
 const newOpen = ref(false)
-
 const currentNew = ref(0)
-
 const openNew = (index: number) => {
   currentNew.value = index
   newOpen.value = true

@@ -1,6 +1,6 @@
 <template>
   <section v-if="menu" class="section-container relative bg-system-primary-10">
-    <!-- 線狀裝飾 -->
+    <!-- 條紋裝飾 -->
     <NuxtImg class="absolute left-10 top-14 hidden w-[11.5rem] xl:block" src="/img/line.png" />
 
     <!-- 點狀裝飾 -->
