@@ -1,10 +1,11 @@
 <template>
   <button
-    class="rounded-lg border border-black p-4 text-left transition-colors hover:bg-system-gray-10"
+    class="rounded-lg border border-black bg-white p-4 text-left transition-colors hover:bg-system-gray-10 disabled:bg-white"
     type="button"
+    :disabled="disabled"
   >
     <p class="text-tiny">{{ title }}</p>
-    <p class="truncate text-body">{{ date }}</p>
+    <p class="truncate text-body">{{ date ? date : '--日期--' }}</p>
   </button>
 </template>
 
@@ -17,6 +18,10 @@ defineProps({
   date: {
     type: String,
     required: true
+  },
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
 </script>

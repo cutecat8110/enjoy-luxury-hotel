@@ -1,17 +1,30 @@
 <template>
   <section class="hero xl:p-20">
+    <!-- Desktop: 格線預覽 -->
     <div class="relative hidden grid-cols-12 gap-2 overflow-hidden rounded-[1.25rem] xl:grid">
+      <!-- 主預覽圖 -->
       <div class="col-span-7 flex aspect-video">
-        <NuxtImg class="flex-1 object-cover" :src="images[0]" />
+        <NuxtImg class="flex-1 object-cover" :src="props.images[0]" />
       </div>
+
+      <!-- 四格預覽小圖 -->
       <ol class="col-span-5 grid grid-cols-2 place-content-stretch gap-2">
-        <li v-for="(image, index) in images.slice(1)" :key="index" class="flex">
+        <li v-for="(image, index) in props.images.slice(1)" :key="index" class="flex">
           <NuxtImg class="flex-1 object-cover" :src="image" />
         </li>
       </ol>
-      <UIButton class="absolute bottom-10 right-10" text="看更多" variant="secondary" />
+
+      <!-- 按鈕: 開啟燈箱 -->
+      <UIButton
+        class="absolute bottom-10 right-10"
+        text="看更多"
+        variant="secondary"
+        @click="show"
+      />
     </div>
-    <div class="flex aspect-video xl:!hidden">
+
+    <!-- Mobile: 輪播預覽 -->
+    <div v-show="commonStore.isMobile" class="flex aspect-video">
       <Swiper
         class="room-swiper flex-1"
         :autoplay="{
@@ -25,39 +38,50 @@
           clickable: true
         }"
       >
-        <SwiperSlide v-for="(slide, index) in images" :key="index">
+        <!-- 預覽圖 -->
+        <SwiperSlide v-for="(slide, index) in props.images" :key="index">
           <div class="flex h-full">
             <NuxtImg class="flex-1 object-cover" :src="slide" />
           </div>
         </SwiperSlide>
 
-        <Teleport v-if="isMounted" to=".swiper-pagination">
-          <UIButton class="ml-auto" text="看更多" variant="secondary" />
-        </Teleport>
+        <!-- 按鈕: 開啟燈箱 -->
+        <ClientOnly>
+          <Teleport to=".swiper-pagination">
+            <UIButton class="ml-auto" text="看更多" variant="secondary" @click="show" />
+          </Teleport>
+        </ClientOnly>
       </Swiper>
     </div>
+
+    <!-- 燈箱: 圖片預覽 -->
+    <vue-easy-lightbox :imgs="images" :visible="lightboxShow" loop @hide="close" />
   </section>
 </template>
 
 <script lang="ts" setup>
-defineProps({
+/* props */
+const props = defineProps({
   images: {
     type: Array as PropType<string[]>,
-    default: () => [
-      '/img/desktop/room2-1.png',
-      '/img/desktop/room2-2.png',
-      '/img/desktop/room2-3.png',
-      '/img/desktop/room2-4.png',
-      '/img/desktop/room2-5.png'
-    ]
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
   }
 })
-const isMounted = ref(false)
-onMounted(() => {
-  nextTick(() => {
-    isMounted.value = true
-  })
-})
+
+/* 全局屬性 */
+const commonStore = useCommonStore()
+
+/* 圖片預覽 */
+const lightboxShow = ref(false)
+const images = computed(() =>
+  props.images.map((src, i) => ({ src, title: `${props.name} - ${i + 1}` }))
+)
+const show = () => (lightboxShow.value = true)
+const close = () => (lightboxShow.value = false)
 </script>
 
 <style lang="scss" scoped>
@@ -83,5 +107,11 @@ onMounted(() => {
       @apply scale-100;
     }
   }
+}
+</style>
+
+<style lang="scss" scoped>
+:deep(.vel-modal) {
+  @apply bg-black/40 backdrop-blur-[1.25rem];
 }
 </style>

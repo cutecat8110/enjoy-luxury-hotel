@@ -5,7 +5,7 @@
 <script lang="ts" setup>
 const props = defineProps({
   color: {
-    type: String as () => 'black' | 'darkGray' | 'lightGrey' | 'primary' | 'white',
+    type: String as PropType<'black' | 'darkGray' | 'lightGrey' | 'primary' | 'white'>,
     default: 'black'
   },
   col: Boolean

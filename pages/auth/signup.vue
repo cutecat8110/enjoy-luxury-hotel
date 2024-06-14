@@ -131,7 +131,7 @@ const formData = reactive<SignupPayload>({
   phone: '',
   birthday: '',
   address: {
-    zipcode: '',
+    zipcode: 0,
     detail: ''
   }
 })

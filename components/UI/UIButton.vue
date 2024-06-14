@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 const props = defineProps({
   type: {
-    type: String as () => 'button' | 'submit' | 'reset' | undefined,
+    type: String as PropType<'button' | 'submit' | 'reset' | undefined>,
     default: 'button'
   },
   text: {
@@ -23,14 +23,9 @@ const props = defineProps({
     default: ''
   },
   variant: {
-    type: String as () =>
-      | 'primary'
-      | 'secondary'
-      | 'ghost'
-      | 'ghost-light'
-      | 'text'
-      | 'text-black'
-      | 'dropdown',
+    type: String as PropType<
+      'primary' | 'secondary' | 'ghost' | 'ghost-light' | 'text' | 'text-black' | 'dropdown'
+    >,
     default: 'primary'
   },
   block: Boolean,

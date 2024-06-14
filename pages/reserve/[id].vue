@@ -313,7 +313,7 @@ const orders = ref({
   peopleNum,
   userInfo: {
     address: {
-      zipcode: '',
+      zipcode: 0,
       detail: ''
     },
     name: '',

@@ -5,7 +5,7 @@
       :class="[cssColor, 'disabled:bg-system-gray-40 disabled:opacity-100']"
       :disabled="props.disabled"
     >
-      <option value="" disabled>{{ props.placeholder }}</option>
+      <option :value="placeholderValue" disabled>{{ props.placeholder }}</option>
       <option
         v-for="(option, index) in props.options"
         :key="index"
@@ -26,7 +26,7 @@
 <script lang="ts" setup>
 const props = defineProps({
   options: {
-    type: Array as () => (string | number | Record<string, unknown>)[],
+    type: Array as PropType<(string | number | Record<string, unknown>)[]>,
     default: () => ['Title', 'Title', 'Title']
   },
   label: {
@@ -44,6 +44,10 @@ const props = defineProps({
   placeholder: {
     type: String,
     default: '請選擇'
+  },
+  placeholderValue: {
+    type: [String, Number],
+    default: ''
   },
   error: {
     type: String,

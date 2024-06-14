@@ -3,6 +3,7 @@
     <ul class="c-room-detail-container">
       <li v-for="(detail, index) in details" :key="index">
         <Icon name="ic:baseline-check" />
+        <!-- 名稱 -->
         {{ detail.title }}
       </li>
     </ul>
@@ -10,8 +11,11 @@
 </template>
 
 <script lang="ts" setup>
+import type { InfoDetail } from '@/types'
+
+/* props */
 defineProps({
-  details: { type: Array as () => { title: string; isProvide: boolean }[], required: true },
+  details: { type: Array as PropType<InfoDetail[]>, required: true },
   border: Boolean
 })
 </script>

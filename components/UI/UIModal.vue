@@ -56,7 +56,7 @@
 <script lang="ts" setup>
 const props = defineProps({
   position: {
-    type: String as () => 'center' | 'bottom',
+    type: String as PropType<'center' | 'bottom'>,
     default: 'center'
   },
   fullscreen: {
@@ -72,7 +72,7 @@ const props = defineProps({
     default: false
   },
   size: {
-    type: String as () => 'sm' | 'md' | 'lg',
+    type: String as PropType<'sm' | 'md' | 'lg' | 'auto'>,
     default: 'sm'
   }
 })
@@ -96,7 +96,8 @@ const modalStyle = computed(() => {
       center: {
         sm: 'rounded-[1.25rem] sm:max-w-[28rem] container px-0',
         md: 'rounded-[1.25rem] sm:max-w-[54rem] container px-0',
-        lg: 'rounded-[1.25rem] sm:max-w-[67rem] container px-0'
+        lg: 'rounded-[1.25rem] sm:max-w-[67rem] container px-0',
+        auto: 'rounded-[1.25rem] '
       }[props.size],
       bottom: 'rounded-t-[1.25rem]'
     }[props.position]

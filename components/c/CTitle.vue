@@ -1,11 +1,15 @@
 <template>
   <div class="flex gap-3">
+    <!-- 線狀裝飾 -->
     <div :class="[gray ? 'bg-system-gray-60' : 'bg-system-primary-100', 'w-1 rounded-full ']" />
+
+    <!-- 標題 -->
     <h2 :class="size">{{ title }}</h2>
   </div>
 </template>
 
 <script lang="ts" setup>
+/* props */
 const props = defineProps({
   title: {
     type: String,
@@ -14,11 +18,12 @@ const props = defineProps({
   base: Boolean,
   gray: Boolean,
   size: {
-    type: String as () => 'sm' | 'md' | 'lg',
+    type: String as PropType<'sm' | 'md' | 'lg'>,
     default: 'lg'
   }
 })
 
+/* 文字大小 */
 const size = computed(() => {
   return {
     sm: 'text-body-2 xl:text-body',

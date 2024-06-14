@@ -55,7 +55,7 @@
         <p class="text-body-2 text-system-gray-80 xl:text-body">{{ props.room.description }}</p>
       </div>
 
-      <!-- 三格房型簡述 -->
+      <!-- 房型基本資訊 -->
       <CRoomInfo
         :area-info="props.room.areaInfo"
         :bed-info="props.room.bedInfo"
@@ -91,7 +91,7 @@ import type { RoomResponse } from '@/types'
 /* props */
 const props = defineProps({
   room: {
-    type: Object as () => RoomResponse,
+    type: Object as PropType<RoomResponse>,
     required: true
   }
 })

@@ -19,6 +19,7 @@
         placeholder="--地區--"
         :error="props.zipcodeError"
         :options="districts"
+        :placeholder-value="0"
         :disabled="props.disabled"
       />
     </div>
@@ -59,7 +60,7 @@ const props = defineProps({
 })
 
 const address = defineModel<Address>({
-  default: { zipcode: '', detail: '' }
+  default: { zipcode: 0, detail: '' }
 })
 
 const city = ref('')
@@ -81,7 +82,7 @@ const { data: districts } = await getDistrictApi({
   }
 })
 
-if (address.value.zipcode) {
+if (address.value.zipcode !== 0) {
   const { data } = await getDistrictApi({
     query: { zip_code: address.value.zipcode },
     transform(input) {

@@ -1,5 +1,5 @@
 export type Address = {
-  zipcode: string
+  zipcode: number
   detail: string
 }
 
@@ -21,4 +21,11 @@ export type ForgotPayload = {
   email: string
   code: string
   newPassword: string
+}
+
+export type UserInfo = {
+  address: Address
+  name: string
+  phone: string
+  email: string
 }
