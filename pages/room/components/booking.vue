@@ -11,12 +11,16 @@
 
     <div class="space-y-4">
       <!-- 日期區間選擇 -->
-      <Datepicker />
+      <ClientOnly>
+        <Datepicker />
+      </ClientOnly>
 
       <!-- 人數選擇 -->
       <div class="flex items-center justify-between">
         人數
-        <UIGuestCount v-model="orderStore.order.peopleNum" :max="props.room.maxPeople" />
+        <ClientOnly>
+          <UIGuestCount v-model="orderStore.order.peopleNum" :max="props.room.maxPeople" />
+        </ClientOnly>
       </div>
     </div>
 
@@ -34,11 +38,17 @@
       }"
       @click="saveRoomId"
     >
-      <UIButton
-        :text="orderStore.isConfirmedDate ? '立即預訂' : '確定日期'"
-        block
-        :disabled="!orderStore.isConfirmedDate"
-      />
+      <ClientOnly>
+        <UIButton
+          :text="orderStore.isConfirmedDate ? '立即預訂' : '確定日期'"
+          block
+          :disabled="!orderStore.isConfirmedDate"
+        />
+
+        <template #fallback>
+          <UIButton block text="確定日期" disabled />
+        </template>
+      </ClientOnly>
     </NuxtLink>
   </div>
 </template>

@@ -24,7 +24,7 @@
     </div>
 
     <!-- Mobile: 輪播預覽 -->
-    <div v-show="commonStore.isMobile" class="flex aspect-video">
+    <div class="flex aspect-video xl:hidden">
       <Swiper
         class="room-swiper flex-1"
         :autoplay="{
@@ -45,12 +45,9 @@
           </div>
         </SwiperSlide>
 
-        <!-- 按鈕: 開啟燈箱 -->
-        <ClientOnly>
-          <Teleport to=".swiper-pagination">
-            <UIButton class="ml-auto" text="看更多" variant="secondary" @click="show" />
-          </Teleport>
-        </ClientOnly>
+        <div class="swiper-pagination button">
+          <UIButton class="ml-auto" text="看更多" variant="secondary" @click="show" />
+        </div>
       </Swiper>
     </div>
 
@@ -72,9 +69,6 @@ const props = defineProps({
   }
 })
 
-/* 全局屬性 */
-const commonStore = useCommonStore()
-
 /* 圖片預覽 */
 const lightboxShow = ref(false)
 const images = computed(() =>
@@ -87,7 +81,11 @@ const close = () => (lightboxShow.value = false)
 <style lang="scss" scoped>
 :deep(.room-swiper) {
   .swiper-pagination {
-    @apply container inset-x-0 bottom-6 flex  items-end justify-center gap-2;
+    @apply container inset-x-0 bottom-6 flex  h-14 items-end gap-2;
+
+    &:not(.button) {
+      @apply pr-32;
+    }
   }
 
   .swiper-pagination-bullet {

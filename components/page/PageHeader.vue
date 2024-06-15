@@ -91,6 +91,7 @@
 /* 全局屬性 */
 const commonStore = useCommonStore()
 const authStore = useAuthStore()
+const route = useRoute()
 
 /* 計算 Logo 尺寸 */
 const svgSize = computed(() => ({
@@ -141,5 +142,8 @@ const logout = () => {
   userDropdown.value = false
   authStore.token = ''
   authStore.userName = ''
+  if (useAuth.includes(route.name as string)) {
+    navigateTo('/')
+  }
 }
 </script>

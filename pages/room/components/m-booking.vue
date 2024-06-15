@@ -21,7 +21,7 @@
             <!-- 價格．晚數．人數 -->
             <p class="truncate text-body-2 text-system-gray-80">
               {{
-                `${useFormatCurrency(props.room.price * orderStore.totalNights)} / ${orderStore.totalNights} 晚 / ${orderStore.order.peopleNum} 人`
+                `${useFormatCurrency(props.room.price)} / ${orderStore.totalNights} 晚 / ${orderStore.order.peopleNum} 人`
               }}
             </p>
             <p

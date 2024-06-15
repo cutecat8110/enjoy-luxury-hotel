@@ -115,6 +115,7 @@ import type { SignupPayload } from '@/types'
 /* 全局屬性 */
 const authStore = useAuthStore()
 const styleStore = useStyleStore()
+const commonStore = useCommonStore()
 const { $Swal, $dayjs, $validator } = useNuxtApp()
 
 /* layout */
@@ -220,7 +221,7 @@ const { pending: sPending, refresh: sRefresh } = await signupApi({
         confirmButtonText: '前往',
         confirmButtonColor: styleStore.confirmButtonColor,
         willClose: async () => {
-          await navigateTo('/')
+          await navigateTo(commonStore.routerGuide || '/')
         }
       })
     }

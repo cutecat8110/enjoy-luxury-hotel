@@ -55,6 +55,7 @@ import type { LoginPayload } from '@/types'
 
 /* 全局屬性 */
 const authStore = useAuthStore()
+const useCommon = useCommonStore()
 
 /* layout */
 definePageMeta({
@@ -90,7 +91,7 @@ const { pending, refresh: loginRefresh } = await loginApi({
       authStore.userName = response._data.result.name
       authStore.token = response._data.token
       authStore.email = remember.value ? formData.value.email : ''
-      await navigateTo('/')
+      await navigateTo(useCommon.routerGuide || '/')
     }
   },
   onResponseError({ response }) {

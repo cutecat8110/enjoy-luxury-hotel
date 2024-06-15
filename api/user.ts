@@ -10,8 +10,19 @@ const userAPI = {
   forgotPwdApi: <T = any>(options: UseFetchOptions<T>) => {
     return useHttp.post('/api/v1/user/forgot', options)
   },
-  checkLoginApi: <T = any>(options: UseFetchOptions<T>) => {
-    return useHttp.get('/api/v1/user/check', options)
+  checkLoginApi: () => {
+    const runtimeConfig = useRuntimeConfig()
+    const { apiBase } = runtimeConfig.public
+    const reqUrl = apiBase + '/api/v1/user/check'
+    const authStore = useAuthStore()
+
+    return $fetch(reqUrl, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authorization: authStore.token
+      })
+    })
   },
   getUserApi: <T = any>(options: UseFetchOptions<T>) => {
     return useHttp.get('/api/v1/user', options)

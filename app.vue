@@ -8,6 +8,7 @@
 <script lang="ts" setup>
 /* 全局屬性 */
 const commonStore = useCommonStore()
+const { $Swal } = useNuxtApp()
 
 /* 儲存全局屬型 */
 const { width } = useWindowSize()
@@ -35,4 +36,22 @@ watch(
     y.value = 0
   }
 )
+
+/* 監聽錯誤訊息 */
+onMounted(() => {
+  const showSweetAlert = () => {
+    if (commonStore.sweetalertList.length > 0) {
+      $Swal?.fire(commonStore.sweetalertList[0]).then(() => {
+        commonStore.sweetalertList.shift()
+        showSweetAlert()
+      })
+    }
+  }
+
+  watchEffect(() => {
+    if (commonStore.sweetalertList.length > 0) {
+      showSweetAlert()
+    }
+  })
+})
 </script>
