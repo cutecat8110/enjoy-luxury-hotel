@@ -1,5 +1,3 @@
 <template>
-  <div class="flex min-h-[5.25rem]">
-    <NuxtImg class="flex-1 object-cover" src="/img/line2.png" />
-  </div>
+  <NuxtImg class="h-[5.25rem] object-cover xl:h-[11.75rem]" src="/img/line2.png" />
 </template>

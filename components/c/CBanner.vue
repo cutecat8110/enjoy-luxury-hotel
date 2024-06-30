@@ -13,7 +13,7 @@
         clickable: true
       }"
     >
-      <SwiperSlide v-for="(banner, index) in bannerUrlList" :key="index" class="flex !h-screen">
+      <SwiperSlide v-for="(banner, index) in bannerUrlList" :key="index" class="!h-screen">
         <!-- 背景圖片 -->
         <NuxtImg class="h-full w-full object-cover" :src="banner" width="100vw" />
 
@@ -21,14 +21,14 @@
         <div class="absolute inset-0 bg-black/30" />
 
         <!-- 定位/浮於背景 -->
-        <div class="absolute inset-0 flex py-[4.5rem] xl:py-[7.5rem]">
+        <div class="absolute inset-0 py-[4.5rem] xl:py-[7.5rem]">
           <!-- rwd 容器 -->
           <div
             :class="[
               props.rooms
                 ? 'justify-center gap-10 xl:!max-w-[52rem] xl:gap-20'
                 : 'xl:gap-[12.5rem] xl:px-20 xl:pt-[7.5rem]',
-              'container flex flex-1 flex-col items-center gap-10 px-5 pt-10 xl:max-w-full xl:flex-row xl:items-stretch'
+              'container flex h-full flex-col items-center gap-10 px-5 pt-10 xl:max-w-full xl:flex-row xl:items-stretch'
             ]"
           >
             <div

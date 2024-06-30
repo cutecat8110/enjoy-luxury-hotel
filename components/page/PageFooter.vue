@@ -22,7 +22,7 @@
           </div>
         </div>
 
-        聯絡資訊區塊
+        <!-- 聯絡資訊區塊 -->
         <ul class="contact-info-wrapper">
           <li v-for="(contact, index) in contactInfo" :key="index">
             <h4 class="text-title">{{ contact.category }}</h4>

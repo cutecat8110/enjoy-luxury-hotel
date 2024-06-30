@@ -8,7 +8,7 @@
     </div>
 
     <div class="flex h-[9.375rem] overflow-hidden rounded-lg xl:h-[17rem]">
-      <NuxtImg class="flex-1 object-cover" :src="props.order.roomId.imageUrl" />
+      <NuxtImg class="h-full w-full object-cover" :src="props.order.roomId.imageUrl" />
     </div>
 
     <div class="space-y-6 text-system-gray-80">

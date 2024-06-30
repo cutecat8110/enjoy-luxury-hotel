@@ -2,9 +2,9 @@
   <div class="col-sm-container">
     <!-- <section class="xl:col-span-7">
       <CRecentOrder :order="recentOrder">
-        <div class="flex gap-4">
-          <UIButton v-if="canCheckout" class="flex-1" lock text="取消預訂" variant="secondary" />
-          <UIButton class="flex-1" block text="查看詳情" />
+        <div class="grid grid-cols-2 gap-4">
+          <UIButton v-if="canCheckout" lock text="取消預訂" variant="secondary" />
+          <UIButton block text="查看詳情" />
         </div>
       </CRecentOrder>
     </section>
@@ -74,7 +74,8 @@
 
 <script lang="ts" setup>
 definePageMeta({
-  layout: 'user'
+  layout: 'user',
+  middleware: 'auth'
 })
 
 const orderList = ref(

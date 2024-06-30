@@ -18,9 +18,7 @@
           @swiper="setSwiperRefs"
         >
           <SwiperSlide v-for="(slide, index) in rooms[currentRoom].imageUrlList" :key="index">
-            <div class="flex h-full">
-              <NuxtImg class="flex-1 object-cover" :src="slide" width="50vw" />
-            </div>
+            <NuxtImg class="h-full w-full object-cover" :src="slide" width="50vw" />
           </SwiperSlide>
         </Swiper>
       </div>

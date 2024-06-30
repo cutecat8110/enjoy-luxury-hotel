@@ -19,7 +19,7 @@
         v-if="commonStore.isMobile"
         class="flex h-10 w-10 items-center justify-center text-icon-24 text-white transition-colors hover:text-system-primary-100"
         type="button"
-        @click="toggleModal"
+        @click="toggleModal('show')"
       >
         <Icon name="ic:round-menu"></Icon>
       </button>
@@ -57,33 +57,46 @@
     </div>
 
     <!-- Mobile: 選單彈窗 -->
-    <Teleport to="body">
-      <transition name="modal">
-        <div
-          v-if="modalShow"
-          class="fixed left-0 top-0 z-[60] flex h-full w-full items-center justify-center bg-system-background px-5"
+    <UIModal v-model="isModalShow" black fullscreen>
+      <div
+        v-if="isModalShow"
+        class="relative flex h-screen flex-col items-stretch justify-center px-5"
+      >
+        <button
+          class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-icon-48 text-white transition-colors hover:text-system-primary-100"
+          type="button"
+          @click="toggleModal('close')"
         >
-          <button
-            class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-icon-48 text-white transition-colors hover:text-system-primary-100"
-            type="button"
-            @click="toggleModal"
+          <Icon name="ic:baseline-close" />
+        </button>
+        <nav class="space-y-10">
+          <NuxtLink class="block" to="/rooms" @click="toggleModal('close')">
+            <UIButton block text="客房旅宿" variant="ghost" />
+          </NuxtLink>
+          <NuxtLink
+            v-if="authStore.userName && authStore.token"
+            class="block"
+            to="/user"
+            @click="toggleModal('close')"
           >
-            <Icon name="ic:baseline-close" />
-          </button>
-          <nav class="flex-1 space-y-10">
-            <NuxtLink class="block" to="/rooms" @click="toggleModal">
-              <UIButton block text="客房旅宿" variant="ghost" />
-            </NuxtLink>
-            <NuxtLink class="block" to="/auth/login" @click="toggleModal">
-              <UIButton block text="會員登入" variant="ghost" />
-            </NuxtLink>
-            <NuxtLink class="block" to="/rooms" @click="toggleModal">
-              <UIButton block text="立即訂房" />
-            </NuxtLink>
-          </nav>
-        </div>
-      </transition>
-    </Teleport>
+            <UIButton block text="我的帳戶" variant="ghost" />
+          </NuxtLink>
+          <NuxtLink v-else class="block" to="/auth/login" @click="toggleModal('close')">
+            <UIButton block text="會員登入" variant="ghost" />
+          </NuxtLink>
+          <NuxtLink class="block" to="/rooms" @click="toggleModal('close')">
+            <UIButton block text="立即訂房" />
+          </NuxtLink>
+          <UIButton
+            v-if="authStore.userName && authStore.token"
+            block
+            text="登出"
+            variant="ghost"
+            @click="logout"
+          />
+        </nav>
+      </div>
+    </UIModal>
   </header>
 </template>
 
@@ -100,29 +113,14 @@ const svgSize = computed(() => ({
 }))
 
 /* 彈窗開關 */
-const modalShow = ref(false)
-const toggleModal = () => {
-  modalShow.value = !modalShow.value
-  if (windowLock) {
-    windowLock.value = !windowLock.value
+const isModalShow = ref(false)
+const toggleModal = (event: string) => {
+  if (event === 'show') {
+    isModalShow.value = true
+  } else if (event === 'close') {
+    isModalShow.value = false
   }
 }
-
-// 滾輪鎖定
-let windowLock: { value: boolean } | undefined
-
-// RWD 自動關閉彈窗
-onMounted(() => {
-  windowLock = useScrollLock(document.body)
-  watch(
-    () => commonStore.isMobile,
-    () => {
-      if (!commonStore.isMobile && modalShow.value) {
-        toggleModal()
-      }
-    }
-  )
-})
 
 /* 滾動黑底 */
 const { height } = useWindowSize()
@@ -138,12 +136,13 @@ onMounted(() => {
 const userDropdown = ref(false)
 
 // 登出
-const logout = () => {
+const logout = async () => {
   userDropdown.value = false
   authStore.token = ''
   authStore.userName = ''
   if (useAuth.includes(route.name as string)) {
-    navigateTo('/')
+    toggleModal('close')
+    await navigateTo('/')
   }
 }
 </script>

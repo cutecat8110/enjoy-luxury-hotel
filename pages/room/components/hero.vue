@@ -4,13 +4,13 @@
     <div class="relative hidden grid-cols-12 gap-2 overflow-hidden rounded-[1.25rem] xl:grid">
       <!-- 主預覽圖 -->
       <div class="col-span-7 flex aspect-video">
-        <NuxtImg class="flex-1 object-cover" :src="props.images[0]" />
+        <NuxtImg class="h-full w-full object-cover" :src="props.images[0]" />
       </div>
 
       <!-- 四格預覽小圖 -->
       <ol class="col-span-5 grid grid-cols-2 place-content-stretch gap-2">
         <li v-for="(image, index) in props.images.slice(1)" :key="index" class="flex">
-          <NuxtImg class="flex-1 object-cover" :src="image" />
+          <NuxtImg class="h-full w-full object-cover" :src="image" />
         </li>
       </ol>
 
@@ -24,9 +24,9 @@
     </div>
 
     <!-- Mobile: 輪播預覽 -->
-    <div class="flex aspect-video xl:hidden">
+    <div class="aspect-video xl:hidden">
       <Swiper
-        class="room-swiper flex-1"
+        class="room-swiper h-full"
         :autoplay="{
           delay: 5000,
           disableOnInteraction: false
@@ -40,9 +40,7 @@
       >
         <!-- 預覽圖 -->
         <SwiperSlide v-for="(slide, index) in props.images" :key="index">
-          <div class="flex h-full">
-            <NuxtImg class="flex-1 object-cover" :src="slide" />
-          </div>
+          <NuxtImg class="h-full w-full object-cover" :src="slide" />
         </SwiperSlide>
 
         <div class="swiper-pagination button">
@@ -81,7 +79,7 @@ const close = () => (lightboxShow.value = false)
 <style lang="scss" scoped>
 :deep(.room-swiper) {
   .swiper-pagination {
-    @apply container inset-x-0 bottom-6 flex  h-14 items-end gap-2;
+    @apply container inset-x-0 bottom-6 flex h-14 items-end gap-2;
 
     &:not(.button) {
       @apply pr-32;
@@ -106,9 +104,7 @@ const close = () => (lightboxShow.value = false)
     }
   }
 }
-</style>
 
-<style lang="scss" scoped>
 :deep(.vel-modal) {
   @apply bg-black/40 backdrop-blur-[1.25rem];
 }

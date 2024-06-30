@@ -113,13 +113,15 @@
 import type { SignupPayload } from '@/types'
 
 /* 全局屬性 */
+definePageMeta({})
 const authStore = useAuthStore()
 const styleStore = useStyleStore()
 const commonStore = useCommonStore()
 const { $Swal, $dayjs, $validator } = useNuxtApp()
 
-/* layout */
+/* PageMeta */
 definePageMeta({
+  middleware: 'record',
   layout: 'auth'
 })
 

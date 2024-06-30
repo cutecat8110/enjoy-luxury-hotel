@@ -130,8 +130,8 @@
         </div>
         <div class="xl:col-span-5">
           <div class="card xl:sticky xl:top-[10rem] xl:z-20">
-            <div class="flex h-[17rem] overflow-hidden rounded-lg">
-              <NuxtImg class="flex-1 object-cover" :src="room.imageUrl" />
+            <div class="h-[17rem] overflow-hidden rounded-lg">
+              <NuxtImg class="h-full w-full object-cover" :src="room.imageUrl" />
             </div>
 
             <div class="space-y-6">
@@ -171,6 +171,11 @@
 </template>
 
 <script lang="ts" setup>
+/* PageMeta */
+definePageMeta({
+  middleware: 'auth'
+})
+
 const route = useRoute()
 
 const room = ref({

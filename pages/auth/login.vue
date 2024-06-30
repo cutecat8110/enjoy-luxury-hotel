@@ -57,8 +57,9 @@ import type { LoginPayload } from '@/types'
 const authStore = useAuthStore()
 const useCommon = useCommonStore()
 
-/* layout */
+/* PageMeta */
 definePageMeta({
+  middleware: 'record',
   layout: 'auth'
 })
 

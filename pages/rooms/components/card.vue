@@ -3,9 +3,9 @@
     class="overflow-hidden rounded-[1.25rem] bg-white transition-shadow hover:shadow-md xl:grid xl:grid-cols-12"
   >
     <!-- 房型預覽 -->
-    <div class="flex aspect-video xl:col-span-7 xl:aspect-auto">
+    <div class="aspect-video xl:col-span-7 xl:aspect-auto">
       <Swiper
-        class="room-swiper flex-1"
+        class="room-swiper h-full"
         :autoplay="{
           delay: 5000,
           disableOnInteraction: false
@@ -22,9 +22,7 @@
       >
         <!-- 房型圖片 -->
         <SwiperSlide v-for="(slide, index) in props.room.imageUrlList" :key="index">
-          <div class="flex h-full">
-            <NuxtImg class="flex-1 object-cover" :src="slide" />
-          </div>
+          <NuxtImg class="h-full w-full object-cover" :src="slide" />
         </SwiperSlide>
 
         <!-- 房型選擇按鈕 -->

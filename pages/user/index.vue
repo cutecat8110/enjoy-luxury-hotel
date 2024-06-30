@@ -60,7 +60,8 @@
 const authStore = useAuthStore()
 
 definePageMeta({
-  layout: 'user'
+  layout: 'user',
+  middleware: 'auth'
 })
 
 const password = ref({
