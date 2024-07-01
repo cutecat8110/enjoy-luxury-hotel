@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-system-primary-10">
+  <div v-if="room" class="bg-system-primary-10">
     <VForm
       v-slot="{ errors }"
       class="section-container container space-y-10"
@@ -115,7 +115,7 @@
               </li>
               <li class="space-y-4 xl:space-y-6">
                 <CTitle title="房間格局" />
-                <CRoomDetail :details="roomLayout" />
+                <CRoomDetail :details="room.layoutInfo" />
               </li>
               <li class="space-y-4 xl:space-y-6">
                 <CTitle title="房內設備" />
@@ -171,145 +171,139 @@
 </template>
 
 <script lang="ts" setup>
+import type { RoomResponse } from '@/types'
+
 /* PageMeta */
 definePageMeta({
   middleware: 'auth'
 })
 
+/* 全局屬性 */
 const route = useRoute()
+const { $dayjs } = useNuxtApp()
 
-const room = ref({
-  name: '尊爵雙人房',
-  description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
-  imageUrl: '/img/desktop/room2-1.png',
-  imageUrlList: [
-    '/img/desktop/room2-1.png',
-    '/img/desktop/room2-2.png',
-    '/img/desktop/room2-3.png',
-    '/img/desktop/room2-4.png',
-    '/img/desktop/room2-5.png'
-  ],
-  areaInfo: '24坪',
-  bedInfo: '一張大床',
-  maxPeople: 4,
-  price: 10000,
-  status: 1,
-  facilityInfo: [
-    {
-      title: '平面電視',
-      isProvide: true
-    },
-    {
-      title: '吹風機',
-      isProvide: true
-    },
-    {
-      title: '冰箱',
-      isProvide: true
-    },
-    {
-      title: '熱水壺',
-      isProvide: true
-    },
-    {
-      title: '檯燈',
-      isProvide: true
-    },
-    {
-      title: '衣櫃',
-      isProvide: true
-    },
-    {
-      title: '除濕機',
-      isProvide: true
-    },
-    {
-      title: '浴缸',
-      isProvide: true
-    },
-    {
-      title: '書桌',
-      isProvide: true
-    },
-    {
-      title: '音響',
-      isProvide: true
-    }
-  ],
-  amenityInfo: [
-    {
-      title: '衛生紙',
-      isProvide: true
-    },
-    {
-      title: '拖鞋',
-      isProvide: true
-    },
-    {
-      title: '沐浴用品',
-      isProvide: true
-    },
-    {
-      title: '清潔用品',
-      isProvide: true
-    },
-    {
-      title: '刮鬍刀',
-      isProvide: true
-    },
-    {
-      title: '吊衣架',
-      isProvide: true
-    },
-    {
-      title: '浴巾',
-      isProvide: true
-    },
-    {
-      title: '刷牙用品',
-      isProvide: true
-    },
-    {
-      title: '罐裝水',
-      isProvide: true
-    },
-    {
-      title: '梳子',
-      isProvide: true
-    }
-  ],
-  _id: '653e4661336cdccc752127a0',
-  createdAt: '2023-10-29T11:47:45.641Z',
-  updatedAt: '2023-10-29T11:47:45.641Z'
-})
+/* api */
+const { getRoomApi } = useApi()
 
-const roomLayout = ref([
+// api: 取得房型
+const { data: room }: { data: Ref<RoomResponse | null> } = await getRoomApi(
+  route.params.id as string,
   {
-    title: '市景',
-    isProvide: true
-  },
-  {
-    title: '獨立衛浴',
-    isProvide: true
-  },
-  {
-    title: '客廳',
-    isProvide: true
-  },
-  {
-    title: '書房',
-    isProvide: true
-  },
-  {
-    title: '樓層電梯',
-    isProvide: true
+    transform(res: any): RoomResponse {
+      return res.result
+    }
   }
-])
+)
+
+// const room = ref({
+//   name: '尊爵雙人房',
+//   description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
+//   imageUrl: '/img/desktop/room2-1.png',
+//   imageUrlList: [
+//     '/img/desktop/room2-1.png',
+//     '/img/desktop/room2-2.png',
+//     '/img/desktop/room2-3.png',
+//     '/img/desktop/room2-4.png',
+//     '/img/desktop/room2-5.png'
+//   ],
+//   areaInfo: '24坪',
+//   bedInfo: '一張大床',
+//   maxPeople: 4,
+//   price: 10000,
+//   status: 1,
+//   facilityInfo: [
+//     {
+//       title: '平面電視',
+//       isProvide: true
+//     },
+//     {
+//       title: '吹風機',
+//       isProvide: true
+//     },
+//     {
+//       title: '冰箱',
+//       isProvide: true
+//     },
+//     {
+//       title: '熱水壺',
+//       isProvide: true
+//     },
+//     {
+//       title: '檯燈',
+//       isProvide: true
+//     },
+//     {
+//       title: '衣櫃',
+//       isProvide: true
+//     },
+//     {
+//       title: '除濕機',
+//       isProvide: true
+//     },
+//     {
+//       title: '浴缸',
+//       isProvide: true
+//     },
+//     {
+//       title: '書桌',
+//       isProvide: true
+//     },
+//     {
+//       title: '音響',
+//       isProvide: true
+//     }
+//   ],
+//   amenityInfo: [
+//     {
+//       title: '衛生紙',
+//       isProvide: true
+//     },
+//     {
+//       title: '拖鞋',
+//       isProvide: true
+//     },
+//     {
+//       title: '沐浴用品',
+//       isProvide: true
+//     },
+//     {
+//       title: '清潔用品',
+//       isProvide: true
+//     },
+//     {
+//       title: '刮鬍刀',
+//       isProvide: true
+//     },
+//     {
+//       title: '吊衣架',
+//       isProvide: true
+//     },
+//     {
+//       title: '浴巾',
+//       isProvide: true
+//     },
+//     {
+//       title: '刷牙用品',
+//       isProvide: true
+//     },
+//     {
+//       title: '罐裝水',
+//       isProvide: true
+//     },
+//     {
+//       title: '梳子',
+//       isProvide: true
+//     }
+//   ],
+//   _id: '653e4661336cdccc752127a0',
+//   createdAt: '2023-10-29T11:47:45.641Z',
+//   updatedAt: '2023-10-29T11:47:45.641Z'
+// })
+
 const {
   params: { id },
   query: { start, end, peopleNum }
 } = route
-const { $dayjs } = useNuxtApp()
 
 const orders = ref({
   roomId: id.toString(),
