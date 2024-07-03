@@ -30,27 +30,29 @@
           <UIButton text="客房旅宿" variant="ghost" />
         </NuxtLink>
 
-        <Transition name="dropdown" mode="out-in">
-          <UIDropdown v-if="authStore.userName && authStore.token" v-model="userDropdown">
-            <UIButton
-              class="flex-row-reverse"
-              :text="authStore.userName"
-              icon="ic:outline-account-circle"
-              variant="ghost"
-            />
-            <template #item>
-              <NuxtLink to="/user" @click="userDropdown = false">
-                <UIButton block text="我的帳戶" variant="dropdown" />
-              </NuxtLink>
+        <ClientOnly>
+          <Transition name="dropdown" mode="out-in">
+            <UIDropdown v-if="authStore.userName && authStore.token" v-model="userDropdown">
+              <UIButton
+                class="flex-row-reverse"
+                :text="authStore.userName"
+                icon="ic:outline-account-circle"
+                variant="ghost"
+              />
+              <template #item>
+                <NuxtLink to="/user" @click="userDropdown = false">
+                  <UIButton block text="我的帳戶" variant="dropdown" />
+                </NuxtLink>
 
-              <UIButton block text="登出" variant="dropdown" @click="logout" />
-            </template>
-          </UIDropdown>
+                <UIButton block text="登出" variant="dropdown" @click="logout" />
+              </template>
+            </UIDropdown>
 
-          <NuxtLink v-else to="/auth/login">
-            <UIButton text="會員登入" variant="ghost" />
-          </NuxtLink>
-        </Transition>
+            <NuxtLink v-else to="/auth/login">
+              <UIButton text="會員登入" variant="ghost" />
+            </NuxtLink>
+          </Transition>
+        </ClientOnly>
 
         <UIButton text="立即訂房" />
       </nav>

@@ -6,16 +6,12 @@
       :validation-schema="schema"
       @submit="submit"
     >
+      <!-- 連結: 房型詳細 -->
       <NuxtLink
         class="inline-flex items-center gap-2 text-h5 transition-colors hover:text-system-primary-120 xl:text-h3"
         :to="{
           name: 'room-id',
-          params: { id: route.params.id },
-          query: {
-            start: route.query.start,
-            end: route.query.end,
-            peopleNum: route.query.peopleNum
-          }
+          params: { id: room._id }
         }"
       >
         <Icon class="text-icon-24 xl:text-icon-40" name="ic:baseline-keyboard-arrow-left" />
@@ -39,14 +35,14 @@
               </li>
 
               <li class="flex items-center justify-between">
-                <div class="space-y-2">
+                <div v-if="orderStore.isConfirmedDate" class="space-y-2">
                   <CTitle title="訂房日期" size="md" />
                   <div class="space-y-3">
                     <p class="text-body">
-                      {{ `入住：${$dayjs(orders.checkInDate).format('M 月 D 日dddd')}` }}
+                      {{ `入住：${$dayjs(orderStore.order.checkInDate).format('M 月 D 日dddd')}` }}
                     </p>
                     <p class="text-body">
-                      {{ `退房：${$dayjs(orders.checkOutDate).format('M 月 D 日dddd')}` }}
+                      {{ `退房：${$dayjs(orderStore.order.checkOutDate).format('M 月 D 日dddd')}` }}
                     </p>
                   </div>
                 </div>
@@ -57,7 +53,7 @@
                 <div class="space-y-2">
                   <CTitle title="房客人數" size="md" />
                   <p class="text-body">
-                    {{ `${orders.peopleNum} 人` }}
+                    {{ `${orderStore.order.peopleNum} 人` }}
                   </p>
                 </div>
                 <UIButton text="編輯" variant="text-black" />
@@ -181,6 +177,7 @@ definePageMeta({
 /* 全局屬性 */
 const route = useRoute()
 const { $dayjs } = useNuxtApp()
+const orderStore = useOrderStore()
 
 /* api */
 const { getRoomApi } = useApi()
@@ -194,111 +191,6 @@ const { data: room }: { data: Ref<RoomResponse | null> } = await getRoomApi(
     }
   }
 )
-
-// const room = ref({
-//   name: '尊爵雙人房',
-//   description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
-//   imageUrl: '/img/desktop/room2-1.png',
-//   imageUrlList: [
-//     '/img/desktop/room2-1.png',
-//     '/img/desktop/room2-2.png',
-//     '/img/desktop/room2-3.png',
-//     '/img/desktop/room2-4.png',
-//     '/img/desktop/room2-5.png'
-//   ],
-//   areaInfo: '24坪',
-//   bedInfo: '一張大床',
-//   maxPeople: 4,
-//   price: 10000,
-//   status: 1,
-//   facilityInfo: [
-//     {
-//       title: '平面電視',
-//       isProvide: true
-//     },
-//     {
-//       title: '吹風機',
-//       isProvide: true
-//     },
-//     {
-//       title: '冰箱',
-//       isProvide: true
-//     },
-//     {
-//       title: '熱水壺',
-//       isProvide: true
-//     },
-//     {
-//       title: '檯燈',
-//       isProvide: true
-//     },
-//     {
-//       title: '衣櫃',
-//       isProvide: true
-//     },
-//     {
-//       title: '除濕機',
-//       isProvide: true
-//     },
-//     {
-//       title: '浴缸',
-//       isProvide: true
-//     },
-//     {
-//       title: '書桌',
-//       isProvide: true
-//     },
-//     {
-//       title: '音響',
-//       isProvide: true
-//     }
-//   ],
-//   amenityInfo: [
-//     {
-//       title: '衛生紙',
-//       isProvide: true
-//     },
-//     {
-//       title: '拖鞋',
-//       isProvide: true
-//     },
-//     {
-//       title: '沐浴用品',
-//       isProvide: true
-//     },
-//     {
-//       title: '清潔用品',
-//       isProvide: true
-//     },
-//     {
-//       title: '刮鬍刀',
-//       isProvide: true
-//     },
-//     {
-//       title: '吊衣架',
-//       isProvide: true
-//     },
-//     {
-//       title: '浴巾',
-//       isProvide: true
-//     },
-//     {
-//       title: '刷牙用品',
-//       isProvide: true
-//     },
-//     {
-//       title: '罐裝水',
-//       isProvide: true
-//     },
-//     {
-//       title: '梳子',
-//       isProvide: true
-//     }
-//   ],
-//   _id: '653e4661336cdccc752127a0',
-//   createdAt: '2023-10-29T11:47:45.641Z',
-//   updatedAt: '2023-10-29T11:47:45.641Z'
-// })
 
 const {
   params: { id },
