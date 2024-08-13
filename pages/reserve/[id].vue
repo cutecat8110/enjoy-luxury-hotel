@@ -18,8 +18,10 @@
         確認訂房資訊
       </NuxtLink>
 
+      <!-- 區塊容器 -->
       <div class="col-md-container container">
         <div class="space-y-10 xl:col-span-7">
+          <!-- 訂房資訊區塊 -->
           <section class="space-y-8 xl:space-y-10">
             <h3 class="text-h6 xl:text-h4">訂房資訊</h3>
 
@@ -31,7 +33,7 @@
                     {{ room.name }}
                   </p>
                 </div>
-                <UIButton text="編輯" variant="text-black" />
+                <SelectRoom :room-id="id ? (id as string) : ''" />
               </li>
 
               <li class="flex items-center justify-between">
@@ -63,6 +65,7 @@
 
           <UILine color="darkGray" />
 
+          <!-- 訂房人資訊區塊 -->
           <section class="space-y-8 xl:space-y-10">
             <h3 class="text-h6 xl:text-h4">訂房人資訊</h3>
 
@@ -168,6 +171,7 @@
 
 <script lang="ts" setup>
 import type { RoomResponse } from '@/types'
+import SelectRoom from './components/select-room.vue'
 
 /* PageMeta */
 definePageMeta({

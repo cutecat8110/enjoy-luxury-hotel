@@ -98,4 +98,8 @@ onMounted(() => {
 .section-container {
   @apply bg-system-background;
 }
+
+:deep(.gm-style-cc) {
+  @apply hidden;
+}
 </style>
