@@ -22,46 +22,55 @@
       <div class="col-md-container container">
         <div class="space-y-10 xl:col-span-7">
           <!-- 訂房資訊區塊 -->
-          <section class="space-y-8 xl:space-y-10">
-            <h3 class="text-h6 xl:text-h4">訂房資訊</h3>
+          <ClientOnly>
+            <section class="space-y-8 xl:space-y-10">
+              <h3 class="text-h6 xl:text-h4">訂房資訊</h3>
 
-            <ul class="space-y-6">
-              <li class="flex items-center justify-between">
-                <div class="space-y-2">
-                  <CTitle title="選擇房型" size="md" />
-                  <p class="text-body">
-                    {{ room.name }}
-                  </p>
-                </div>
-                <SelectRoom :room-id="id ? (id as string) : ''" />
-              </li>
-
-              <li class="flex items-center justify-between">
-                <div v-if="orderStore.isConfirmedDate" class="space-y-2">
-                  <CTitle title="訂房日期" size="md" />
-                  <div class="space-y-3">
+              <ul class="space-y-6">
+                <li class="flex items-center justify-between">
+                  <div class="space-y-2">
+                    <CTitle title="選擇房型" size="md" />
                     <p class="text-body">
-                      {{ `入住：${$dayjs(orderStore.order.checkInDate).format('M 月 D 日dddd')}` }}
-                    </p>
-                    <p class="text-body">
-                      {{ `退房：${$dayjs(orderStore.order.checkOutDate).format('M 月 D 日dddd')}` }}
+                      {{ room.name }}
                     </p>
                   </div>
-                </div>
-                <UIButton text="編輯" variant="text-black" />
-              </li>
+                  <SelectRoom :room-id="id ? (id as string) : ''" />
+                </li>
 
-              <li class="flex items-center justify-between">
-                <div class="space-y-2">
-                  <CTitle title="房客人數" size="md" />
-                  <p class="text-body">
-                    {{ `${orderStore.order.peopleNum} 人` }}
-                  </p>
-                </div>
-                <UIButton text="編輯" variant="text-black" />
-              </li>
-            </ul>
-          </section>
+                <li class="flex items-center justify-between">
+                  <div class="space-y-2">
+                    <CTitle title="訂房日期" size="md" />
+                    <div
+                      v-if="orderStore.order.checkInDate && orderStore.order.checkOutDate"
+                      class="space-y-3"
+                    >
+                      <p class="text-body">
+                        {{
+                          `入住：${$dayjs(orderStore.order.checkInDate).format('M 月 D 日dddd')}`
+                        }}
+                      </p>
+                      <p class="text-body">
+                        {{
+                          `退房：${$dayjs(orderStore.order.checkOutDate).format('M 月 D 日dddd')}`
+                        }}
+                      </p>
+                    </div>
+                  </div>
+                  <Datepicker />
+                </li>
+
+                <li class="flex items-center justify-between">
+                  <div class="space-y-2">
+                    <CTitle title="房客人數" size="md" />
+                    <p class="text-body">
+                      {{ `${orderStore.order.peopleNum} 人` }}
+                    </p>
+                  </div>
+                  <SelectPeople :room="room" />
+                </li>
+              </ul>
+            </section>
+          </ClientOnly>
 
           <UILine color="darkGray" />
 
@@ -172,6 +181,8 @@
 <script lang="ts" setup>
 import type { RoomResponse } from '@/types'
 import SelectRoom from './components/select-room.vue'
+import Datepicker from './components/datepicker.vue'
+import SelectPeople from './components/select-people.vue'
 
 /* PageMeta */
 definePageMeta({
@@ -182,6 +193,17 @@ definePageMeta({
 const route = useRoute()
 const { $dayjs } = useNuxtApp()
 const orderStore = useOrderStore()
+
+/* order */
+const order = ref({
+  checkInDate: '',
+  checkOutDate: ''
+})
+
+onMounted(() => {
+  order.value.checkInDate = `入住：${$dayjs(orderStore.order.checkInDate).format('M 月 D 日dddd')}`
+  order.value.checkOutDate = `退房：${$dayjs(orderStore.order.checkOutDate).format('M 月 D 日dddd')}`
+})
 
 /* api */
 const { getRoomApi } = useApi()

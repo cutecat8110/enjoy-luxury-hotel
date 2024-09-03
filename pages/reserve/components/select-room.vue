@@ -1,10 +1,10 @@
 <template>
-  <div v-if="rooms">
+  <div>
     <!-- 按鈕: 編輯房型 -->
     <UIButton text="編輯" variant="text-black" @click="toggleModal('show')" />
 
     <!-- 彈窗: 編輯房型 -->
-    <UIModal v-model="isModalShow" focus>
+    <UIModal v-if="rooms" v-model="isModalShow">
       <!-- 彈窗: 頁首 -->
       <template #header> 選擇房型 </template>
 
