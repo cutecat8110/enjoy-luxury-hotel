@@ -29,20 +29,23 @@
 <script lang="ts" setup>
 import type { RoomResponse } from '@/types'
 
+/* props */
 const props = defineProps({ roomId: { type: String, required: true } })
 
 /* 彈窗開關 */
 const isModalShow = ref(false)
 const toggleModal = (event: string) => {
   if (event === 'show') {
+    room.value = props.roomId
     isModalShow.value = true
   } else if (event === 'close') {
     isModalShow.value = false
   }
 }
 
+/* 房型 */
 const room = ref(props.roomId)
-
+// 房型: 送出
 const submit = () => {
   if (room.value !== props.roomId) {
     navigateTo(`/reserve/${room.value}`)
