@@ -164,7 +164,10 @@ const schema = [
     birthday: (val: string) => {
       return $dayjs(val, 'YYYY-M-D', true).isValid() ? {} : '生日 為必填'
     },
-    zipcode: 'required',
+    zipcode: (val: number) => {
+      if (val === 0) return '縣市地區 為必填'
+      return {}
+    },
     detail: 'required',
     agree: (val: Boolean) => {
       return !val ? '請閱讀並同意本網站個資使用規範' : {}

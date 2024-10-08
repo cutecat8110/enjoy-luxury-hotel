@@ -1,10 +1,12 @@
 <template>
   <div v-if="room" class="bg-system-primary-10">
     <VForm
+      ref="formRefs"
       v-slot="{ errors }"
       class="section-container container space-y-10"
       :validation-schema="schema"
-      @submit="submit"
+      @invalid-submit="invalidSubmit"
+      @submit="addOrderRefresh"
     >
       <!-- 連結: 房型詳細 -->
       <NuxtLink
@@ -20,14 +22,16 @@
 
       <!-- 區塊容器 -->
       <div class="col-md-container container">
+        <!-- 訂房資訊區塊 -->
         <div class="space-y-10 xl:col-span-7">
           <!-- 訂房資訊區塊 -->
           <ClientOnly>
             <section class="space-y-8 xl:space-y-10">
               <h3 class="text-h6 xl:text-h4">訂房資訊</h3>
 
-              <ul class="space-y-6">
-                <li class="flex items-center justify-between">
+              <!-- 選擇房型 -->
+              <div class="space-y-6">
+                <div class="flex items-center justify-between">
                   <div class="space-y-2">
                     <CTitle title="選擇房型" size="md" />
                     <p class="text-body">
@@ -35,9 +39,10 @@
                     </p>
                   </div>
                   <SelectRoom :room-id="id ? (id as string) : ''" />
-                </li>
+                </div>
 
-                <li class="flex items-center justify-between">
+                <!-- 訂房日期 -->
+                <div class="flex items-center justify-between">
                   <div class="space-y-2">
                     <CTitle title="訂房日期" size="md" />
                     <div
@@ -57,9 +62,10 @@
                     </div>
                   </div>
                   <Datepicker />
-                </li>
+                </div>
 
-                <li class="flex items-center justify-between">
+                <!-- 房客人數 -->
+                <div class="flex items-center justify-between">
                   <div class="space-y-2">
                     <CTitle title="房客人數" size="md" />
                     <p class="text-body">
@@ -67,48 +73,73 @@
                     </p>
                   </div>
                   <SelectPeople :room="room" />
-                </li>
-              </ul>
+                </div>
+              </div>
             </section>
           </ClientOnly>
 
+          <!-- 分隔線 -->
           <UILine color="darkGray" />
 
           <!-- 訂房人資訊區塊 -->
-          <section class="space-y-8 xl:space-y-10">
-            <h3 class="text-h6 xl:text-h4">訂房人資訊</h3>
+          <ClientOnly>
+            <section class="space-y-8 xl:space-y-10">
+              <div class="flex items-center justify-between">
+                <h3 class="text-h6 xl:text-h4">訂房人資訊</h3>
+                <UIButton text="套用會員資料" variant="text" @click="getUserRefresh" />
+              </div>
 
-            <div class="space-y-6">
-              <UIInput
-                v-model="orders.userInfo.name"
-                name="name"
-                label="姓名"
-                placeholder="請輸入姓名"
-                :error="errors.name"
-                blackhead
-              />
-              <UIInput
-                v-model="orders.userInfo.phone"
-                name="phone"
-                label="手機號碼"
-                placeholder="請輸入手機號碼"
-                :error="errors.phone"
-                blackhead
-              />
-              <UIInput
-                v-model="orders.userInfo.email"
-                name="email"
-                label="電子信箱"
-                placeholder="請輸入電子信箱"
-                :error="errors.email"
-                blackhead
-              />
-              <CAddress v-model="orders.userInfo.address" :error="errors.address" blackhead />
-            </div>
-          </section>
+              <div class="space-y-6">
+                <!-- 姓名 -->
+                <UIInput
+                  :ref="(el) => (ordersRefs.name = el)"
+                  v-model="orderStore.order.userInfo.name"
+                  name="name"
+                  label="姓名"
+                  placeholder="請輸入姓名"
+                  :error="errors.name"
+                  blackhead
+                />
 
+                <!-- 手機號碼 -->
+                <UIInput
+                  :ref="(el) => (ordersRefs.phone = el)"
+                  v-model="orderStore.order.userInfo.phone"
+                  name="phone"
+                  label="手機號碼"
+                  placeholder="請輸入手機號碼"
+                  :error="errors.phone"
+                  blackhead
+                />
+
+                <!-- 電子信箱 -->
+                <UIInput
+                  :ref="(el) => (ordersRefs.email = el)"
+                  v-model="orderStore.order.userInfo.email"
+                  name="email"
+                  label="電子信箱"
+                  placeholder="請輸入電子信箱"
+                  :error="errors.email"
+                  blackhead
+                />
+
+                <!-- 地址 -->
+                <CAddress
+                  :ref="(el) => (ordersRefs.address = el)"
+                  v-model="orderStore.order.userInfo.address"
+                  :detail-error="errors.detail"
+                  :zipcode-error="errors.zipcode"
+                  blackhead
+                  :disabled="apiPending"
+                />
+              </div>
+            </section>
+          </ClientOnly>
+
+          <!-- 分隔線 -->
           <UILine color="darkGray" />
 
+          <!-- 房間資訊區塊 -->
           <section class="space-y-8 xl:space-y-10">
             <h3 class="text-h4">房間資訊</h3>
 
@@ -136,41 +167,43 @@
             </ul>
           </section>
         </div>
+
+        <!-- 價格詳細區塊 -->
         <div class="xl:col-span-5">
           <div class="card xl:sticky xl:top-[10rem] xl:z-20">
             <div class="h-[17rem] overflow-hidden rounded-lg">
               <NuxtImg class="h-full w-full object-cover" :src="room.imageUrl" />
             </div>
 
-            <div class="space-y-6">
-              <div class="text-h4">價格詳情</div>
+            <ClientOnly>
+              <div class="space-y-6">
+                <div class="text-h4">價格詳情</div>
 
-              <div class="flex justify-between text-body">
-                <p>
-                  {{ `${useFormatCurrency(room.price)} × ${totalDays} 晚` }}
-                </p>
-                <p>
-                  {{ useFormatCurrency(room.price * totalDays) }}
-                </p>
+                <div class="flex justify-between text-body">
+                  <p>
+                    {{ `${useFormatCurrency(room.price)} × ${orderStore.totalNights} 晚` }}
+                  </p>
+                  <p>
+                    {{ useFormatCurrency(room.price * orderStore.totalNights) }}
+                  </p>
+                </div>
+
+                <UILine color="lightGrey" />
+
+                <div class="flex justify-between text-title">
+                  <p>總價</p>
+                  <p>{{ useFormatCurrency(room.price * orderStore.totalNights) }}</p>
+                </div>
               </div>
+            </ClientOnly>
 
-              <UILine color="lightGrey" />
-
-              <div class="flex justify-between text-title">
-                <p>總價</p>
-                <p>{{ useFormatCurrency(room.price * totalDays) }}</p>
-              </div>
-            </div>
-
-            <NuxtLink
-              class="block"
-              :to="{
-                name: 'confirmation-id',
-                params: { id: '6533f0ef4cdf5b7f762747b0' }
-              }"
-            >
-              <UIButton block text="確認訂房" />
-            </NuxtLink>
+            <UIButton
+              type="submit"
+              block
+              text="確認訂房"
+              :disabled="apiPending"
+              :loading="apiPending"
+            />
           </div>
         </div>
       </div>
@@ -194,22 +227,48 @@ const route = useRoute()
 const { $dayjs } = useNuxtApp()
 const orderStore = useOrderStore()
 
-/* order */
-const order = ref({
-  checkInDate: '',
-  checkOutDate: ''
+/* 房型 id */
+const {
+  params: { id }
+} = route
+
+/* 訂單 */
+const formRefs = ref<HTMLFormElement | null>(null)
+const ordersRefs = ref<Record<string, any | null>>({
+  name: null,
+  phone: null,
+  email: null,
+  address: null
 })
 
-onMounted(() => {
-  order.value.checkInDate = `入住：${$dayjs(orderStore.order.checkInDate).format('M 月 D 日dddd')}`
-  order.value.checkOutDate = `退房：${$dayjs(orderStore.order.checkOutDate).format('M 月 D 日dddd')}`
-})
+// 訂房人資訊: 規則
+const schema = {
+  name: 'required',
+  phone: 'required',
+  email: 'required|email',
+  zipcode: (val: number) => {
+    if (val === 0) return '縣市地區 為必填'
+    return {}
+  },
+  detail: 'required'
+}
+
+// 訂單: 無效提交
+const invalidSubmit = (event: any) => {
+  const errorElement = document.getElementById(Object.keys(event.errors)[0])
+  errorElement?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  errorElement?.focus()
+}
 
 /* api */
-const { getRoomApi } = useApi()
+const { getRoomApi, getUserApi, addOrderApi } = useApi()
+const apiPending = computed(() => grPending.value || guPending.value || aoPending.value)
 
 // api: 取得房型
-const { data: room }: { data: Ref<RoomResponse | null> } = await getRoomApi(
+const {
+  data: room,
+  pending: grPending
+}: { data: Ref<RoomResponse | null>; pending: Ref<boolean> } = await getRoomApi(
   route.params.id as string,
   {
     transform(res: any): RoomResponse {
@@ -218,34 +277,28 @@ const { data: room }: { data: Ref<RoomResponse | null> } = await getRoomApi(
   }
 )
 
-const {
-  params: { id },
-  query: { start, end, peopleNum }
-} = route
-
-const orders = ref({
-  roomId: id.toString(),
-  checkInDate: useFormatData(start ? start.toString() : $dayjs()),
-  checkOutDate: useFormatData(end ? end.toString() : $dayjs().add(1, 'day')),
-  peopleNum,
-  userInfo: {
-    address: {
-      zipcode: 0,
-      detail: ''
-    },
-    name: '',
-    phone: '',
-    email: ''
+// api: 套用會員資料
+const { refresh: getUserRefresh, pending: guPending } = await getUserApi({
+  immediate: false,
+  onResponse({ response }) {
+    if (response.status === 200) {
+      const { name, phone, email, address } = response._data.result
+      orderStore.order.userInfo = { ...orderStore.order.userInfo, name, phone, email, address }
+    }
   }
 })
+guPending.value = false
 
-const totalDays = computed(() =>
-  $dayjs(orders.value.checkOutDate).diff($dayjs(orders.value.checkInDate), 'day')
-)
-
-const schema = { name: 'required', phone: 'required', email: 'required|email' }
-
-const submit = () => {
-  console.log('submit')
-}
+// api: 新增訂單
+const { pending: aoPending, refresh: addOrderRefresh } = await addOrderApi({
+  body: orderStore.order,
+  immediate: false,
+  watch: false,
+  async onResponse({ response }) {
+    if (response.status === 200) {
+      await navigateTo(`/confirmation/${response._data.result._id}`)
+    }
+  }
+})
+aoPending.value = false
 </script>

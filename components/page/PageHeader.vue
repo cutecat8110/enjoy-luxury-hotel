@@ -54,7 +54,9 @@
           </Transition>
         </ClientOnly>
 
-        <UIButton text="立即訂房" />
+        <NuxtLink to="/rooms">
+          <UIButton text="立即訂房" />
+        </NuxtLink>
       </nav>
     </div>
 

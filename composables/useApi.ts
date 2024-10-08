@@ -1,5 +1,6 @@
 import addressAPI from '../api/address.ts'
 import homeAPI from '../api/home.ts'
+import orderAPI from '../api/order.ts'
 import roomAPI from '../api/room.ts'
 import userAPI from '../api/user.ts'
 import verifyAPI from '../api/verify.ts'
@@ -10,6 +11,7 @@ export default function () {
     ...userAPI,
     ...verifyAPI,
     ...homeAPI,
-    ...roomAPI
+    ...roomAPI,
+    ...orderAPI
   }
 }
