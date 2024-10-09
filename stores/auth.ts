@@ -4,11 +4,13 @@ export const useAuthStore = defineStore(
     const userName = ref('')
     const token = ref('')
     const email = ref('')
+    const id = ref('')
 
     return {
       userName,
       token,
-      email
+      email,
+      id
     }
   },
   {

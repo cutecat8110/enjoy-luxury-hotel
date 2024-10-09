@@ -11,9 +11,11 @@
             class="h-[4.5rem] w-[4.5rem] rounded-full object-cover xl:h-[9rem] xl:w-[9rem]"
             src="imgur/darOkIL.png"
           />
-          <p class="text-h3 text-white xl:text-h1">
-            {{ `Hello，${authStore.userName}` }}
-          </p>
+          <ClientOnly>
+            <p class="text-h3 text-white xl:text-h1">
+              {{ `Hello，${authStore.userName}` }}
+            </p>
+          </ClientOnly>
         </div>
       </div>
     </div>

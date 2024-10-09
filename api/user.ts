@@ -28,7 +28,7 @@ const userAPI = {
     return useHttp.get('/api/v1/user', options)
   },
   updateUserApi: <T = any>(options: UseFetchOptions<T>) => {
-    return useHttp.post('/api/v1/user', options)
+    return useHttp.put('/api/v1/user', options)
   }
 }
 

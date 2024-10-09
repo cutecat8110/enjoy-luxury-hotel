@@ -1,7 +1,6 @@
 <template>
   <div v-if="room" class="bg-system-primary-10">
     <VForm
-      ref="formRefs"
       v-slot="{ errors }"
       class="section-container container space-y-10"
       :validation-schema="schema"
@@ -92,40 +91,39 @@
               <div class="space-y-6">
                 <!-- 姓名 -->
                 <UIInput
-                  :ref="(el) => (ordersRefs.name = el)"
                   v-model="orderStore.order.userInfo.name"
                   name="name"
                   label="姓名"
                   placeholder="請輸入姓名"
                   :error="errors.name"
                   blackhead
+                  :disabled="apiPending"
                 />
 
                 <!-- 手機號碼 -->
                 <UIInput
-                  :ref="(el) => (ordersRefs.phone = el)"
                   v-model="orderStore.order.userInfo.phone"
                   name="phone"
                   label="手機號碼"
                   placeholder="請輸入手機號碼"
                   :error="errors.phone"
                   blackhead
+                  :disabled="apiPending"
                 />
 
                 <!-- 電子信箱 -->
                 <UIInput
-                  :ref="(el) => (ordersRefs.email = el)"
                   v-model="orderStore.order.userInfo.email"
                   name="email"
                   label="電子信箱"
                   placeholder="請輸入電子信箱"
                   :error="errors.email"
                   blackhead
+                  :disabled="apiPending"
                 />
 
                 <!-- 地址 -->
                 <CAddress
-                  :ref="(el) => (ordersRefs.address = el)"
                   v-model="orderStore.order.userInfo.address"
                   :detail-error="errors.detail"
                   :zipcode-error="errors.zipcode"
@@ -233,14 +231,6 @@ const {
 } = route
 
 /* 訂單 */
-const formRefs = ref<HTMLFormElement | null>(null)
-const ordersRefs = ref<Record<string, any | null>>({
-  name: null,
-  phone: null,
-  email: null,
-  address: null
-})
-
 // 訂房人資訊: 規則
 const schema = {
   name: 'required|min:2',

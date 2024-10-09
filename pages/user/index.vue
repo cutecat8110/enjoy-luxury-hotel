@@ -1,33 +1,13 @@
 <template>
+  <!-- 區塊容器 -->
   <div class="col-sm-container">
-    <!-- <section class="xl:col-span-5">
-      <div class="card">
-        <h2 class="text-h6 xl:text-h5">修改密碼</h2>
+    <!-- 修改密碼區塊 -->
 
-        <ul class="space-y-6">
-          <li class="space-y-2">
-            <label class="text-body-2 text-system-gray-80 xl:text-body">電子信箱</label>
-            <p class="text-sub-title xl:text-title">{{ authStore.user!.email }}</p>
-          </li>
-          <li class="flex items-center justify-between">
-            <div class="space-y-2">
-              <label class="text-body-2 text-system-gray-80 xl:text-body">密碼</label>
-              <div class="space-x-2 py-2">
-                <span
-                  v-for="(_, index) in 10"
-                  :key="index"
-                  class="inline-block h-2 w-2 rounded-full bg-black"
-                />
-              </div>
-            </div>
-            <UIButton text="重設" variant="text" />
-          </li>
-        </ul>
-      </div>
-    </section>
+    <ChangePwd v-if="user" class="xl:col-span-5" :user="user" />
+
     <section class="xl:col-span-7">
-      <div class="card">
-        <h2 class="text-h6 xl:text-h5">基本資料</h2>
+      <!-- <div class="card">
+        <h2 class="text-h6 xl:textz-h5">基本資料</h2>
 
         <ul class="space-y-6">
           <li class="space-y-2">
@@ -51,22 +31,33 @@
         </ul>
 
         <UIButton text="編輯" variant="secondary" />
-      </div>
-    </section> -->
+      </div> -->
+    </section>
   </div>
 </template>
 
 <script lang="ts" setup>
-const authStore = useAuthStore()
+import ChangePwd from './components/changePwd.vue'
+import type { UserResponse } from '@/types'
 
+/* PageMeta */
 definePageMeta({
   layout: 'user',
   middleware: 'auth'
 })
 
-const password = ref({
-  oldPassword: '舊密碼',
-  newPassword: '新密碼'
+/* api */
+const { getUserApi } = useApi()
+
+// api: 取得會員資料
+const { data: user, refresh } = await getUserApi({
+  server: false,
+  transform(res: any): UserResponse {
+    return res.result
+  }
+})
+onMounted(() => {
+  refresh()
 })
 
 // const address = computed(() => {
