@@ -1,1 +1,1 @@
-export default ['reserve-id']
+export default ['reserve-id', 'confirmation-id']

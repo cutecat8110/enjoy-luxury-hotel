@@ -5,6 +5,7 @@
   >
     {{ props.text }}
 
+    <!-- 分隔線 -->
     <UILine
       class="max-w-20 flex-1 transition-all group-hover:max-w-[3.125rem] group-hover:bg-white xl:max-w-[9.375rem] xl:group-hover:max-w-[7.5rem]"
       color="black"

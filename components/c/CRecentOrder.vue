@@ -16,7 +16,10 @@
         class="flex flex-wrap items-center gap-x-4 gap-y-2 text-nowrap text-sub-title xl:text-h6"
       >
         {{ `${props.order.roomId.name}，${totalDays} 晚` }}
+
+        <!-- 分隔線 -->
         <UILine class="h-4" col color="darkGray" />
+
         {{ `住宿人數：${props.order.peopleNum} 位` }}
       </div>
 
@@ -37,6 +40,7 @@
       </p>
     </div>
 
+    <!-- 分隔線 -->
     <UILine color="lightGrey" />
 
     <div class="space-y-6">

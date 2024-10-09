@@ -32,6 +32,7 @@
       <slot />
     </main>
 
+    <!-- 條紋裝飾 -->
     <CWave />
 
     <PageFooter />

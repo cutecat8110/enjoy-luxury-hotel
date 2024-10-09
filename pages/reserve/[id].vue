@@ -243,8 +243,12 @@ const ordersRefs = ref<Record<string, any | null>>({
 
 // 訂房人資訊: 規則
 const schema = {
-  name: 'required',
-  phone: 'required',
+  name: 'required|min:2',
+  phone: (val: string) => {
+    if (!val) return '手機號碼 為必填'
+    if (!/^09\d{8}$/.test(val)) return '請輸入有效的 10 位數手機號碼'
+    return {}
+  },
   email: 'required|email',
   zipcode: (val: number) => {
     if (val === 0) return '縣市地區 為必填'
@@ -268,14 +272,11 @@ const apiPending = computed(() => grPending.value || guPending.value || aoPendin
 const {
   data: room,
   pending: grPending
-}: { data: Ref<RoomResponse | null>; pending: Ref<boolean> } = await getRoomApi(
-  route.params.id as string,
-  {
-    transform(res: any): RoomResponse {
-      return res.result
-    }
+}: { data: Ref<RoomResponse | null>; pending: Ref<boolean> } = await getRoomApi(id as string, {
+  transform(res: any): RoomResponse {
+    return res.result
   }
-)
+})
 
 // api: 套用會員資料
 const { refresh: getUserRefresh, pending: guPending } = await getUserApi({
