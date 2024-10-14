@@ -1,6 +1,8 @@
 <template>
   <div class="space-y-2">
-    <label class="text-sub-title text-white xl:text-title">生日</label>
+    <label :class="[blackhead ? 'text-black' : 'text-white', 'text-sub-title xl:text-title']"
+      >生日</label
+    >
 
     <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
       <UISelect
@@ -42,7 +44,8 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
-  }
+  },
+  blackhead: Boolean
 })
 
 const { $dayjs } = useNuxtApp()

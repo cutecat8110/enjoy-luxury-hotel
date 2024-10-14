@@ -11,10 +11,7 @@
 
       <div class="space-y-6">
         <!-- 電子信箱 -->
-        <div class="space-y-2">
-          <label class="text-body-2 text-system-gray-80 xl:text-body">電子信箱</label>
-          <p class="text-sub-title xl:text-title">{{ props.user.email }}</p>
-        </div>
+        <CUserData title="電子信箱" :text="props.user.email" />
 
         <!-- 密碼 -->
         <div v-if="!isFormShow" class="flex items-center justify-between">
@@ -29,8 +26,11 @@
             </div>
           </div>
 
+          <!-- 按鈕: 開啟修改密碼 -->
           <UIButton text="重設" variant="text" @click="toggleForm('show')" />
         </div>
+
+        <!-- 表單: 修改密碼 -->
         <template v-else>
           <!-- 舊密碼 -->
           <UIInput
@@ -68,15 +68,23 @@
             :disabled="pending"
           />
 
+          <!-- 按鈕組: 取消編輯/儲存設定 -->
           <div class="flex gap-2">
             <UIButton
               class="flex w-full xl:inline-flex xl:w-auto"
               type="button"
               text="取消編輯"
               variant="secondary"
+              :disabled="pending"
               @click="cancelEdit"
             />
-            <UIButton class="flex w-full xl:inline-flex xl:w-auto" type="submit" text="儲存設定" />
+            <UIButton
+              class="flex w-full xl:inline-flex xl:w-auto"
+              type="submit"
+              text="儲存設定"
+              :disabled="pending"
+              :loading="pending"
+            />
           </div>
         </template>
       </div>
@@ -87,6 +95,7 @@
 <script lang="ts" setup>
 import type { UserResponse } from '@/types'
 
+/* props */
 const props = defineProps({
   user: {
     type: Object as PropType<UserResponse>,

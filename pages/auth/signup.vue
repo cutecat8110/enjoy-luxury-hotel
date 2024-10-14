@@ -63,6 +63,7 @@
           v-model="formData.phone"
           name="phone"
           label="手機號碼"
+          type="tel"
           placeholder="請輸入手機號碼"
           :error="errors.phone"
           :disabled="apiPending"
