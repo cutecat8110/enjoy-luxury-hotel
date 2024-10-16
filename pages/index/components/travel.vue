@@ -72,9 +72,8 @@ const mapRefs = ref<HTMLElement | null>(null)
 const location = { lat: 24.133459091186523, lng: 120.68169403076172 }
 
 // ApiKey
-const runtimeConfig = useRuntimeConfig()
 const loader = new Loader({
-  apiKey: runtimeConfig.public.mapApiKey,
+  apiKey: 'AIzaSyDDes3MJu5RkOYFeTvZWNbvMZwH6eetYHs',
   version: 'weekly'
 })
 
@@ -82,13 +81,21 @@ const loader = new Loader({
 onMounted(() => {
   loader.importLibrary('maps').then(async () => {
     const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary
+    const { AdvancedMarkerElement } = await google.maps.importLibrary('marker')
+    const { ColorScheme } = await google.maps.importLibrary('core')
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const map = new Map(mapRefs.value as HTMLElement, {
       center: location,
       zoom: 18,
       disableDefaultUI: true,
-      styles: googleMapStyles
+      mapId: '784f9fa87240c874',
+      colorScheme: ColorScheme.DARK
+    })
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const marker = new AdvancedMarkerElement({
+      map,
+      position: location
     })
   })
 })

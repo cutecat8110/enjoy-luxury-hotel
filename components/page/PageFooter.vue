@@ -43,14 +43,18 @@
           <p>Copyright © 2024 by Hao</p>
 
           <div class="space-x-1">
-            <!-- 連結: 後台 -->
-            <NuxtLink class="hot-link-wrapper" target="_blank" to="/admin">
-              <Icon class="shrink-0" name="bi:gear-wide-connected" />
-            </NuxtLink>
-
             <!-- 連結: 設計準則 -->
             <NuxtLink class="hot-link-wrapper" target="_blank" to="/_guideline">
               <Icon class="shrink-0" name="bi:palette2" />
+            </NuxtLink>
+
+            <!-- 連結: API -->
+            <NuxtLink
+              class="hot-link-wrapper"
+              target="_blank"
+              to="https://enjoy-luxury-hotel-back.onrender.com/swagger/"
+            >
+              <Icon class="shrink-0" name="mdi:api" />
             </NuxtLink>
 
             <!-- 連結: Github -->
