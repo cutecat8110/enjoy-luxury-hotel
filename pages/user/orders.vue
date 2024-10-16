@@ -1,12 +1,25 @@
 <template>
   <div class="col-sm-container">
-    <!-- <section class="xl:col-span-7">
-      <CRecentOrder :order="recentOrder">
+    <section class="xl:col-span-7">
+      <CRecentOrder v-if="recentOrder" :order="recentOrder">
         <div class="grid grid-cols-2 gap-4">
-          <UIButton v-if="canCheckout" lock text="取消預訂" variant="secondary" />
-          <UIButton block text="查看詳情" />
+          <UIButton block text="取消預訂" variant="secondary" @click="deleteOrder" />
+          <NuxtLink :to="`/order/${recentOrder._id}`">
+            <UIButton block text="查看詳情" />
+          </NuxtLink>
         </div>
       </CRecentOrder>
+      <div v-else class="card">
+        <div class="flex items-center justify-between">
+          <div class="space-y-5">
+            <p class="text-title text-black xl:text-h5">即將來的行程</p>
+            <p>目前尚無行程</p>
+          </div>
+          <NuxtLink to="/rooms">
+            <UIButton icon="mdi:arrow-right" text="立即訂房" variant="secondary" />
+          </NuxtLink>
+        </div>
+      </div>
     </section>
 
     <section class="xl:col-span-5">
@@ -22,7 +35,7 @@
 
             <div class="space-y-4 text-system-gray-80">
               <p class="text-body-2 xl:text-body">
-                {{ `預訂參考編號： ${order.roomId._id}` }}
+                {{ `預訂參考編號： ${order._id}` }}
               </p>
 
               <p class="text-sub-title xl:text-h6">{{ order.roomId.name }}</p>
@@ -51,7 +64,11 @@
               </div>
 
               <p class="text-sub-title xl:text-title">
-                {{ useFormatCurrency(order.roomId.price) }}
+                {{
+                  useFormatCurrency(
+                    order.roomId.price * $dayjs(order.checkOutDate).diff(order.checkInDate, 'day')
+                  )
+                }}
               </p>
             </div>
           </div>
@@ -60,7 +77,7 @@
         </template>
 
         <UIButton
-          v-if="!more"
+          v-if="!more && orderList && orderList.length > 3"
           block
           icon="ic:baseline-keyboard-arrow-down"
           text="查看更多"
@@ -68,148 +85,83 @@
           @click="more = true"
         />
       </div>
-    </section> -->
+    </section>
   </div>
 </template>
 
 <script lang="ts" setup>
+import type { OrderResponse } from '@/types'
+
+/* PageMeta */
 definePageMeta({
   layout: 'user',
   middleware: 'auth'
 })
 
-const orderList = ref(
-  Array(10).fill({
-    userInfo: {
-      address: {
-        zipcode: 802,
-        detail: '文山路23號'
-      },
-      name: 'Joanne Chen',
-      phone: '0912345678',
-      email: 'example@gmail.com'
-    },
-    _id: '653e335a13831c2ac8c389bb',
-    roomId: {
-      name: '尊爵雙人房',
-      description: '享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。',
-      imageUrl: '/img/desktop/room2-1.png',
-      imageUrlList: [
-        '/img/desktop/room2-1.png',
-        '/img/desktop/room2-2.png',
-        '/img/desktop/room2-3.png',
-        '/img/desktop/room2-4.png',
-        '/img/desktop/room2-5.png'
-      ],
-      areaInfo: '24坪',
-      bedInfo: '一張大床',
-      maxPeople: 4,
-      price: 10000,
-      status: 1,
-      facilityInfo: [
-        {
-          title: '平面電視',
-          isProvide: true
-        },
-        {
-          title: '吹風機',
-          isProvide: true
-        },
-        {
-          title: '冰箱',
-          isProvide: true
-        },
-        {
-          title: '熱水壺',
-          isProvide: true
-        },
-        {
-          title: '檯燈',
-          isProvide: true
-        },
-        {
-          title: '衣櫃',
-          isProvide: true
-        },
-        {
-          title: '除濕機',
-          isProvide: true
-        },
-        {
-          title: '浴缸',
-          isProvide: true
-        },
-        {
-          title: '書桌',
-          isProvide: true
-        },
-        {
-          title: '音響',
-          isProvide: true
-        }
-      ],
-      amenityInfo: [
-        {
-          title: '衛生紙',
-          isProvide: true
-        },
-        {
-          title: '拖鞋',
-          isProvide: true
-        },
-        {
-          title: '沐浴用品',
-          isProvide: true
-        },
-        {
-          title: '清潔用品',
-          isProvide: true
-        },
-        {
-          title: '刮鬍刀',
-          isProvide: true
-        },
-        {
-          title: '吊衣架',
-          isProvide: true
-        },
-        {
-          title: '浴巾',
-          isProvide: true
-        },
-        {
-          title: '刷牙用品',
-          isProvide: true
-        },
-        {
-          title: '罐裝水',
-          isProvide: true
-        },
-        {
-          title: '梳子',
-          isProvide: true
-        }
-      ],
-      _id: '653e4661336cdccc752127a0',
-      createdAt: '2023-10-29T11:47:45.641Z',
-      updatedAt: '2023-10-29T11:47:45.641Z'
-    },
-    checkInDate: '2023-06-17T16:00:00.000Z',
-    checkOutDate: '2023-06-18T16:00:00.000Z',
-    peopleNum: 2,
-    orderUserId: '6533f0ef4cdf5b7f762747b0',
-    status: 0,
-    createdAt: '2023-10-29T10:26:34.498Z',
-    updatedAt: '2023-10-29T10:26:34.498Z'
+/* 全局屬性 */
+const { $dayjs, $Swal } = useNuxtApp()
+const styleStore = useStyleStore()
+
+/* 即將來的訂單 */
+const recentOrder = computed(() => {
+  const list = orderList.value
+
+  // 檢查 list 是否為空或 null
+  if (list === null || (Array.isArray(list) && list.length === 0)) return null
+
+  // 尋找最接近今天且尚未過期的訂單
+  const closestOrder = list.find((order: OrderResponse) => {
+    return (
+      $dayjs(order.checkInDate).isAfter($dayjs()) ||
+      $dayjs(order.checkInDate).isSame($dayjs(), 'day')
+    )
   })
-)
 
-const recentOrder = computed(() => orderList.value[0])
+  // 如果都過期，回傳 null，否則回傳 closestOrder
+  return closestOrder || null
+})
 
-const { $dayjs } = useNuxtApp()
-const canCheckout = computed(() => $dayjs().isBefore($dayjs(recentOrder.value.checkInDate)))
-
+/* 歷史訂單 */
 const more = ref(false)
+const historyOrder = computed(() => {
+  const list = orderList.value
+  if (list === null || (Array.isArray(list) && list.length === 0)) return []
+  if (more.value) return list
+  return list.slice(0, 3)
+})
 
-const historyOrder = computed(() => (more.value ? orderList.value : orderList.value.slice(0, 3)))
+/* api */
+const { getOrdersApi, deleteOrderApi } = useApi()
+
+// api: 取得所有訂單
+const { data: orderList, refresh: getOrders } = await getOrdersApi({
+  server: false,
+  transform(res: any): OrderResponse[] {
+    return res.result
+      .filter((order: OrderResponse) => order.status === 0)
+      .sort((a: OrderResponse, b: OrderResponse) => {
+        return $dayjs(a.checkInDate).isAfter($dayjs(b.checkInDate)) ? -1 : 1
+      })
+  }
+})
+
+// api: 取消訂單
+const deleteOrder = () => {
+  const id = recentOrder.value ? recentOrder.value._id : ''
+  deleteOrderApi(id, {
+    onResponse({ response }) {
+      if (response.status === 200) {
+        $Swal?.fire({
+          title: '行程取消成功',
+          icon: 'success',
+          confirmButtonText: '確認',
+          confirmButtonColor: styleStore.confirmButtonColor,
+          willClose: () => {
+            getOrders()
+          }
+        })
+      }
+    }
+  })
+}
 </script>
