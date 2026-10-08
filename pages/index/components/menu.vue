@@ -30,11 +30,11 @@
           class="group relative flex aspect-[4/6] overflow-hidden rounded-lg"
         >
           <!-- 背景圖片 -->
-          <NuxtImg
+          <CImage
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.1]"
             :src="food.image"
             decoding="async"
-            width="75vw md:50vw xl:25vw"
+            sizes="(min-width: 1200px) 25vw, (min-width: 768px) 50vw, 75vw"
             loading="lazy"
           />
 

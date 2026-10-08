@@ -1,0 +1,766 @@
+{
+  "https://i.imgur.com/00GPyxR.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1315208,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/9f225b1556b055cd-480.webp",
+        "bytes": 17036
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/e921f75820b9f6a5-960.webp",
+        "bytes": 42284
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/9691d1b96b53c994-1546.webp",
+        "bytes": 80654
+      }
+    ]
+  },
+  "https://i.imgur.com/1Ts3eOF.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1354666,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/ea47f64cb6ecd26b-480.webp",
+        "bytes": 14190
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/905c513a1404968f-960.webp",
+        "bytes": 48190
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/e6b5d48910ea1fb8-1546.webp",
+        "bytes": 100732
+      }
+    ]
+  },
+  "https://i.imgur.com/24uhdiO.png": {
+    "width": 3840,
+    "height": 2564,
+    "originalBytes": 724273,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/fa29cbef0cce7029-480.webp",
+        "bytes": 20800
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/7b0192a9d866729c-960.webp",
+        "bytes": 57738
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/a3016fcfcfc701e8-1920.webp",
+        "bytes": 148640
+      }
+    ]
+  },
+  "https://i.imgur.com/2HKp7x1.png": {
+    "width": 948,
+    "height": 588,
+    "originalBytes": 896371,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/c9057e943fdd1bcc-480.webp",
+        "bytes": 31956
+      },
+      {
+        "width": 948,
+        "url": "/optimized-images/f285ad7a03a20466-948.webp",
+        "bytes": 96250
+      }
+    ]
+  },
+  "https://i.imgur.com/3oBs5FN.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1113057,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/18b93c94177ec43e-480.webp",
+        "bytes": 10534
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/13e53394b6345167-960.webp",
+        "bytes": 29466
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/ce691b3d923340c7-1546.webp",
+        "bytes": 62160
+      }
+    ]
+  },
+  "https://i.imgur.com/5EHlsYm.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1415209,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/7754c8bd03d7d501-480.webp",
+        "bytes": 16142
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/758f762b914a0b05-960.webp",
+        "bytes": 45448
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/7b96f26f5214691a-1546.webp",
+        "bytes": 92950
+      }
+    ]
+  },
+  "https://i.imgur.com/6UuHTJ7.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1040737,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/e9e2cb38962370ff-480.webp",
+        "bytes": 11998
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/efdb15ff36eb2641-960.webp",
+        "bytes": 35832
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/d3b01a4078f2ee2a-1546.webp",
+        "bytes": 72890
+      }
+    ]
+  },
+  "https://i.imgur.com/87C3HFa.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1255081,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/806c1da3a10055a4-480.webp",
+        "bytes": 15328
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/0d0b673d214f98ce-960.webp",
+        "bytes": 42106
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/a5385a42dd068cec-1546.webp",
+        "bytes": 83020
+      }
+    ]
+  },
+  "https://i.imgur.com/9Ae9QeE.png": {
+    "width": 3840,
+    "height": 768,
+    "originalBytes": 1778699,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/6ffb205d3ff24679-480.webp",
+        "bytes": 3942
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/b1ed3638f3820b67-960.webp",
+        "bytes": 14706
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/9977ad18260fa94d-1920.webp",
+        "bytes": 50484
+      }
+    ]
+  },
+  "https://i.imgur.com/9Z6MIh8.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1142120,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/ad1ab8d987184259-480.webp",
+        "bytes": 11608
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/aafe2f6643331fb8-960.webp",
+        "bytes": 28484
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/80cf3f7679284136-1546.webp",
+        "bytes": 56172
+      }
+    ]
+  },
+  "https://i.imgur.com/FToKs3x.png": {
+    "width": 832,
+    "height": 1200,
+    "originalBytes": 1062514,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/a5fbf63a2e83d5f3-480.webp",
+        "bytes": 32000
+      },
+      {
+        "width": 832,
+        "url": "/optimized-images/f378baee0ebc8d60-832.webp",
+        "bytes": 61838
+      }
+    ]
+  },
+  "https://i.imgur.com/GZgVToa.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1849890,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/9c4f1eedb3028b85-480.webp",
+        "bytes": 20630
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/9267aa4f475dd666-960.webp",
+        "bytes": 69218
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/14128e65d07c4c0b-1546.webp",
+        "bytes": 190310
+      }
+    ]
+  },
+  "https://i.imgur.com/HU9T1O9.png": {
+    "width": 1956,
+    "height": 1200,
+    "originalBytes": 2269637,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/d125c0e579da747e-480.webp",
+        "bytes": 18636
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/dd7eceb2dd182fc7-960.webp",
+        "bytes": 62678
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/a304f052f576207d-1920.webp",
+        "bytes": 190980
+      }
+    ]
+  },
+  "https://i.imgur.com/Mb1ycgY.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 2096073,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/18641f0de5ead2a6-480.webp",
+        "bytes": 25056
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/fdbbfc25e8f859d1-960.webp",
+        "bytes": 84334
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/a0c33c4883d28482-1546.webp",
+        "bytes": 227672
+      }
+    ]
+  },
+  "https://i.imgur.com/NSnPlgZ.png": {
+    "width": 3840,
+    "height": 2563,
+    "originalBytes": 521235,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/4058c2518643680c-480.webp",
+        "bytes": 16336
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/1f7cc405445ca2d7-960.webp",
+        "bytes": 42564
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/a4a54243f8f558ab-1920.webp",
+        "bytes": 112480
+      }
+    ]
+  },
+  "https://i.imgur.com/RHBxezl.jpg": {
+    "width": 1920,
+    "height": 2156,
+    "originalBytes": 566101,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/7942d9a3a31652c0-480.webp",
+        "bytes": 45436
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/1ff6486216e8d5f9-960.webp",
+        "bytes": 137650
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/cb265e6c5c2b9e1c-1920.webp",
+        "bytes": 406014
+      }
+    ]
+  },
+  "https://i.imgur.com/SAbetYU.jpg": {
+    "width": 3840,
+    "height": 2160,
+    "originalBytes": 432679,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/ddc50f3d82ae61e4-480.webp",
+        "bytes": 12278
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/7675ac98c5452204-960.webp",
+        "bytes": 36222
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/d1481257aa21d4c5-1920.webp",
+        "bytes": 105056
+      }
+    ]
+  },
+  "https://i.imgur.com/STdNjcx.jpg": {
+    "width": 3840,
+    "height": 1344,
+    "originalBytes": 438695,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/0500d73dd4a22d14-480.webp",
+        "bytes": 15672
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/faf35550470be148-960.webp",
+        "bytes": 45286
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/9a51101c6ec1d3f9-1920.webp",
+        "bytes": 120434
+      }
+    ]
+  },
+  "https://i.imgur.com/TLyL2D1.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 908033,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/8290a1c6eeb26d3a-480.webp",
+        "bytes": 9782
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/8a61d16675e1ec7e-960.webp",
+        "bytes": 28206
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/12c677466ce724b8-1546.webp",
+        "bytes": 59980
+      }
+    ]
+  },
+  "https://i.imgur.com/TtVRLG5.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1277251,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/5a4c36728d8fed27-480.webp",
+        "bytes": 13034
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/733ae5597dc58d12-960.webp",
+        "bytes": 36932
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/b2b3eb1d68409250-1546.webp",
+        "bytes": 73222
+      }
+    ]
+  },
+  "https://i.imgur.com/UHrmLsT.png": {
+    "width": 832,
+    "height": 1200,
+    "originalBytes": 1444489,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/d6ca2fc8ad83463b-480.webp",
+        "bytes": 51798
+      },
+      {
+        "width": 832,
+        "url": "/optimized-images/4cf03d232158e726-832.webp",
+        "bytes": 114138
+      }
+    ]
+  },
+  "https://i.imgur.com/VEZeegW.png": {
+    "width": 948,
+    "height": 588,
+    "originalBytes": 597983,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/a2752b71101faf5d-480.webp",
+        "bytes": 15140
+      },
+      {
+        "width": 948,
+        "url": "/optimized-images/40fb9b9152c40a06-948.webp",
+        "bytes": 54678
+      }
+    ]
+  },
+  "https://i.imgur.com/VJgFWhC.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1778223,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/6154dce248a82719-480.webp",
+        "bytes": 28920
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/3af41d772203f6ae-960.webp",
+        "bytes": 76198
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/189d9902de55aa99-1546.webp",
+        "bytes": 137926
+      }
+    ]
+  },
+  "https://i.imgur.com/W0X25ow.png": {
+    "width": 832,
+    "height": 1200,
+    "originalBytes": 1626717,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/a95234ddbaeba245-480.webp",
+        "bytes": 51680
+      },
+      {
+        "width": 832,
+        "url": "/optimized-images/eb116355e00122e6-832.webp",
+        "bytes": 121188
+      }
+    ]
+  },
+  "https://i.imgur.com/X1l9S1M.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1798199,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/af7494613c5d01b9-480.webp",
+        "bytes": 23750
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/c4743347c43b55ef-960.webp",
+        "bytes": 72668
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/b6951c76854871d4-1546.webp",
+        "bytes": 154100
+      }
+    ]
+  },
+  "https://i.imgur.com/darOkIL.png": {
+    "width": 288,
+    "height": 288,
+    "originalBytes": 13752,
+    "variants": [
+      {
+        "width": 288,
+        "url": "/optimized-images/58a06a949424f1e9-288.webp",
+        "bytes": 5924
+      }
+    ]
+  },
+  "https://i.imgur.com/eMl6NuV.png": {
+    "width": 3840,
+    "height": 2564,
+    "originalBytes": 5096213,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/cc01d6aedf2253f8-480.webp",
+        "bytes": 17714
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/e77db568f5b0b5e3-960.webp",
+        "bytes": 48628
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/694f06895e58e24d-1920.webp",
+        "bytes": 135208
+      }
+    ]
+  },
+  "https://i.imgur.com/m3ulAeg.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1478646,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/07ff458b84d23e83-480.webp",
+        "bytes": 21026
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/a7f0708c5d8274af-960.webp",
+        "bytes": 55676
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/172afd385bf70d40-1546.webp",
+        "bytes": 104078
+      }
+    ]
+  },
+  "https://i.imgur.com/pVrK1Ca.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1563269,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/26caa24b0d059ce9-480.webp",
+        "bytes": 23824
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/2af2dcbec23cb4fd-960.webp",
+        "bytes": 66968
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/fb95b18f300dcda7-1546.webp",
+        "bytes": 135428
+      }
+    ]
+  },
+  "https://i.imgur.com/ps1oAt5.png": {
+    "width": 832,
+    "height": 1200,
+    "originalBytes": 560942,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/ce7ed13805b0a817-480.webp",
+        "bytes": 15186
+      },
+      {
+        "width": 832,
+        "url": "/optimized-images/5daae535c18fc2f3-832.webp",
+        "bytes": 32606
+      }
+    ]
+  },
+  "https://i.imgur.com/q5PZPGg.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1395144,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/5ae0979c86e9263e-480.webp",
+        "bytes": 18768
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/cf77b122e83a5e25-960.webp",
+        "bytes": 60982
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/cd5065871303d5d3-1546.webp",
+        "bytes": 142258
+      }
+    ]
+  },
+  "https://i.imgur.com/rqcIuTy.png": {
+    "width": 948,
+    "height": 588,
+    "originalBytes": 884276,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/a2196bdc211dcfe0-480.webp",
+        "bytes": 28918
+      },
+      {
+        "width": 948,
+        "url": "/optimized-images/32fc5ae8ed0caa4a-948.webp",
+        "bytes": 100150
+      }
+    ]
+  },
+  "https://i.imgur.com/si2lroN.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1213993,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/934c4d43523e4bf6-480.webp",
+        "bytes": 12408
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/f1eb702c37c8f1eb-960.webp",
+        "bytes": 37852
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/ff42693574d222f1-1546.webp",
+        "bytes": 76666
+      }
+    ]
+  },
+  "https://i.imgur.com/wkbOOMd.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1373776,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/c641d810d5daea69-480.webp",
+        "bytes": 15696
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/b7a89334c460c93d-960.webp",
+        "bytes": 45974
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/9d65ff047c260a0d-1546.webp",
+        "bytes": 109188
+      }
+    ]
+  },
+  "https://i.imgur.com/xPxEnC9.png": {
+    "width": 1546,
+    "height": 914,
+    "originalBytes": 1644597,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/665c0eb19ac20dd9-480.webp",
+        "bytes": 20336
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/5c8129d716ea894f-960.webp",
+        "bytes": 56448
+      },
+      {
+        "width": 1546,
+        "url": "/optimized-images/a84bfa2eb2d13e4d-1546.webp",
+        "bytes": 106868
+      }
+    ]
+  },
+  "https://i.imgur.com/zSPzXqL.png": {
+    "width": 832,
+    "height": 1200,
+    "originalBytes": 1417774,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/b6b09a7790385e76-480.webp",
+        "bytes": 62666
+      },
+      {
+        "width": 832,
+        "url": "/optimized-images/6072619305a3a828-832.webp",
+        "bytes": 153722
+      }
+    ]
+  },
+  "https://i.imgur.com/zqBWS1u.png": {
+    "width": 3840,
+    "height": 2563,
+    "originalBytes": 549960,
+    "variants": [
+      {
+        "width": 480,
+        "url": "/optimized-images/066447263a24eeda-480.webp",
+        "bytes": 19550
+      },
+      {
+        "width": 960,
+        "url": "/optimized-images/e9ba33fb19777b4b-960.webp",
+        "bytes": 53106
+      },
+      {
+        "width": 1920,
+        "url": "/optimized-images/0c6a4ca75f1d2dce-1920.webp",
+        "bytes": 131798
+      }
+    ]
+  }
+}

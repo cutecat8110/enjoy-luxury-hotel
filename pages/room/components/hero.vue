@@ -4,13 +4,19 @@
     <div class="relative hidden grid-cols-12 gap-2 overflow-hidden rounded-[1.25rem] xl:grid">
       <!-- 主預覽圖 -->
       <div class="col-span-7 flex aspect-video">
-        <NuxtImg class="h-full w-full object-cover" :src="props.images[0]" />
+        <CImage
+          class="h-full w-full object-cover"
+          :src="props.images[0]"
+          fetchpriority="high"
+          sizes="(min-width: 1200px) 55vw, 100vw"
+          loading="eager"
+        />
       </div>
 
       <!-- 四格預覽小圖 -->
       <ol class="col-span-5 grid grid-cols-2 place-content-stretch gap-2">
         <li v-for="(image, index) in props.images.slice(1)" :key="index" class="flex">
-          <NuxtImg class="h-full w-full object-cover" :src="image" />
+          <CImage class="h-full w-full object-cover" :src="image" sizes="25vw" />
         </li>
       </ol>
 
@@ -39,8 +45,18 @@
         }"
       >
         <!-- 預覽圖 -->
-        <SwiperSlide v-for="(slide, index) in props.images" :key="index">
-          <NuxtImg class="h-full w-full object-cover" :src="slide" />
+        <SwiperSlide
+          v-for="(slide, index) in props.images"
+          :key="index"
+          v-slot="{ isActive, isNext, isPrev }"
+        >
+          <CImage
+            v-if="index === 0 || isActive || isNext || isPrev"
+            class="h-full w-full object-cover"
+            :src="slide"
+            sizes="100vw"
+            :loading="index === 0 ? 'eager' : 'lazy'"
+          />
         </SwiperSlide>
 
         <div class="swiper-pagination button">
@@ -60,6 +76,7 @@ import {
   EffectFade as SwiperEffectFade,
   Pagination as SwiperPagination
 } from 'swiper/modules'
+import { getOptimizedImage } from '@/utils/optimizedImage'
 /* props */
 const props = defineProps({
   images: {
@@ -75,7 +92,10 @@ const props = defineProps({
 /* 圖片預覽 */
 const lightboxShow = ref(false)
 const images = computed(() =>
-  props.images.map((src, i) => ({ src, title: `${props.name} - ${i + 1}` }))
+  props.images.map((src, i) => ({
+    src: getOptimizedImage(src)?.src || src,
+    title: `${props.name} - ${i + 1}`
+  }))
 )
 const show = () => (lightboxShow.value = true)
 const close = () => (lightboxShow.value = false)
@@ -99,7 +119,7 @@ const close = () => (lightboxShow.value = false)
     }
   }
   img {
-    @apply scale-[1.1] transition-all duration-[6000ms] ease-linear;
+    @apply scale-[1.1] transition-transform duration-[6000ms] ease-linear;
   }
 
   .swiper-slide-active,

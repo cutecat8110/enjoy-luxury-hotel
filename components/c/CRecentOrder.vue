@@ -8,7 +8,11 @@
     </div>
 
     <div class="flex h-[9.375rem] overflow-hidden rounded-lg xl:h-[17rem]">
-      <NuxtImg class="h-full w-full object-cover" :src="props.order.roomId.imageUrl" />
+      <CImage
+        class="h-full w-full object-cover"
+        :src="props.order.roomId.imageUrl"
+        sizes="(min-width: 1200px) 550px, 100vw"
+      />
     </div>
 
     <div class="space-y-6 text-system-gray-80">

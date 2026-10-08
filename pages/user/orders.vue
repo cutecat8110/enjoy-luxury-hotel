@@ -35,10 +35,11 @@
 
         <template v-for="(order, index) in historyOrder" :key="index">
           <div class="flex flex-col gap-6 xl:flex-row xl:gap-10">
-            <NuxtImg
+            <CImage
               class="h-[5rem] w-[7.5rem] rounded-lg object-cover"
               :src="order.roomId.imageUrl"
               decoding="async"
+              sizes="120px"
               loading="lazy"
             />
 

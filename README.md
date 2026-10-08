@@ -14,6 +14,13 @@ npm run dev
 
 正式建置驗證：`npm run typecheck`、`npm test`、`npm run build`，接著以 `NUXT_PUBLIC_API_BASE=http://127.0.0.1:3005 npm start` 預覽。Node 固定 22 LTS。隔離 API 使用相鄰私人後端專案的 `tests/preview.ts`；不連接正式 MongoDB，不寄出真實郵件。
 
+## 圖片載入
+
+- 原有照片預先轉成多尺寸 WebP，放在 `public/optimized-images/`，以內容雜湊檔名提供一年快取；部署和瀏覽時不重新下載或轉檔。
+- `CImage` 使用實際尺寸的原生 srcset；主視覺使用相同候選預載入，其他圖片預設 lazy。新增的 API 圖片若沒有對應資產，仍使用 Nuxt Image，不改資料庫內容。
+- 更新原圖時，調整 `scripts/image-sources.json` 後執行 `npm run images:optimize`；提交更新的 `data/optimized-images.json` 與圖片資產。腳本保留原圖比例、不放大、不裁切，原始下載快取在已忽略的 `.cache/image-originals/`。來源網址相同而內容更新時，先移除對應本機快取再重跑。
+- `npm test` 會驗證所有候選檔案存在、WebP 格式與 srcset 像素寬度一致；圖片前後大小與瀏覽器驗證見 QA_CHANGELOG。
+
 ## 部署與既有限制
 
 - 本作品使用 Nuxt SSR、圖片處理及 `/citys`、`/district` 路由，沿用 Render Docker Web Service，網址不變；不切換成純 GitHub Pages。

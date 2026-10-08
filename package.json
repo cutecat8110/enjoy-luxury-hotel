@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "images:optimize": "node scripts/optimize-images.mjs",
     "build": "nuxt build",
     "deploy": "gh-pages --dotfiles -d .output/public",
     "dev": "nuxt dev --open",
@@ -60,6 +61,7 @@
     "prettier-plugin-packagejson": "^2.4.7",
     "prettier-plugin-tailwindcss": "^0.5.9",
     "sass": "^1.69.5",
+    "sharp": "0.32.6",
     "vitest": "^5.0.3",
     "vue": "^3.5.40",
     "vue-router": "^4.2.5",

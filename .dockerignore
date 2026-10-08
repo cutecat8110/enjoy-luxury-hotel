@@ -9,3 +9,4 @@ dist
 tests
 qa-evidence
 *.log
+.cache

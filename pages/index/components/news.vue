@@ -36,11 +36,11 @@
           @click="openNew(index)"
         >
           <!-- 圖片 -->
-          <NuxtImg
-            class="shrink-0 cursor-pointer rounded-lg object-cover transition-opacity group-hover:opacity-85"
+          <CImage
+            class="w-full shrink-0 cursor-pointer rounded-lg object-cover transition-opacity group-hover:opacity-85 xl:w-[474px]"
             :src="newItem.image"
             decoding="async"
-            sizes="xl:474px"
+            sizes="(min-width: 1200px) 474px, 100vw"
             loading="lazy"
           />
 
@@ -81,12 +81,12 @@
             <div class="space-y-4 p-4 pt-0">
               <!-- 圖片 -->
               <div class="aspect-[5/4] overflow-hidden rounded-lg xl:aspect-video">
-                <NuxtImg
+                <CImage
                   ref="fluidImageRefs"
                   class="h-full w-full object-cover"
                   :src="news[currentNew].image"
                   decoding="async"
-                  sizes="xl:474px"
+                  sizes="(min-width: 1200px) 474px, 100vw"
                   loading="lazy"
                 />
               </div>

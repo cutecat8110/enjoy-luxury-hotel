@@ -2,11 +2,11 @@
   <section class="section-container bg-system-background !pb-[7.5rem] xl:!pb-[12.5rem]">
     <div class="relative">
       <!-- 背景圖片 -->
-      <NuxtImg
+      <CImage
         class="absolute inset-0 h-full w-full object-cover"
         src="/imgur/STdNjcx.jpg"
         decoding="async"
-        sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1440:100vw 1920:100vw"
+        sizes="100vw"
         loading="lazy"
       />
 

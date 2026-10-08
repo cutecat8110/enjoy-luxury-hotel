@@ -144,7 +144,11 @@
         <div class="xl:col-span-5">
           <div class="card xl:sticky xl:top-[10rem] xl:z-20">
             <div class="h-[17rem] overflow-hidden rounded-lg">
-              <NuxtImg class="h-full w-full object-cover" :src="room.roomId.imageUrl" />
+              <CImage
+                class="h-full w-full object-cover"
+                :src="room.roomId.imageUrl"
+                sizes="(min-width: 1200px) 550px, 100vw"
+              />
             </div>
 
             <ClientOnly>

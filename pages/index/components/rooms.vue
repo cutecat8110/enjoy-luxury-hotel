@@ -17,12 +17,17 @@
           }"
           @swiper="setSwiperRefs"
         >
-          <SwiperSlide v-for="(slide, index) in rooms[currentRoom].imageUrlList" :key="index">
-            <NuxtImg
+          <SwiperSlide
+            v-for="(slide, index) in rooms[currentRoom].imageUrlList"
+            :key="index"
+            v-slot="{ isActive, isNext, isPrev }"
+          >
+            <CImage
+              v-if="index === 0 || isActive || isNext || isPrev"
               class="h-full w-full object-cover"
               :src="slide"
               decoding="async"
-              sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1200:50vw 1440:50vw 1920:50vw"
+              sizes="(min-width: 1200px) 55vw, 100vw"
               loading="lazy"
             />
           </SwiperSlide>

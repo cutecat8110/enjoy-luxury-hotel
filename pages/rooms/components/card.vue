@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="cardElement"
     class="overflow-hidden rounded-[1.25rem] bg-white transition-shadow hover:shadow-md xl:grid xl:grid-cols-12"
   >
     <!-- 房型預覽 -->
@@ -20,10 +21,21 @@
         :pagination="{
           clickable: true
         }"
+        @swiper="setSwiper"
       >
         <!-- 房型圖片 -->
-        <SwiperSlide v-for="(slide, index) in props.room.imageUrlList" :key="index">
-          <NuxtImg class="h-full w-full object-cover" :src="slide" />
+        <SwiperSlide
+          v-for="(slide, index) in props.room.imageUrlList"
+          :key="index"
+          v-slot="{ isActive, isNext, isPrev }"
+        >
+          <CImage
+            v-if="index === 0 || (nearViewport && (isActive || isNext || isPrev))"
+            class="h-full w-full object-cover"
+            :src="slide"
+            :alt="`${props.room.name} - ${index + 1}`"
+            sizes="(min-width: 1200px) 55vw, 100vw"
+          />
         </SwiperSlide>
 
         <!-- 房型選擇按鈕 -->
@@ -92,6 +104,7 @@ import {
 } from 'swiper/modules'
 import { useFormatCurrency } from '@/utils/format'
 import type { RoomResponse } from '@/types'
+import type { Swiper as SwiperInstance } from 'swiper'
 
 /* props */
 const props = defineProps({
@@ -100,6 +113,23 @@ const props = defineProps({
     required: true
   }
 })
+// Only prepare nearby slides while this card is approaching the viewport.
+const cardElement = ref<HTMLElement | null>(null)
+const nearViewport = ref(false)
+const swiper = shallowRef<SwiperInstance>()
+const setSwiper = (instance: SwiperInstance) => {
+  swiper.value = instance
+  if (!nearViewport.value) instance.autoplay.stop()
+}
+useIntersectionObserver(
+  cardElement,
+  ([entry]) => {
+    nearViewport.value = entry.isIntersecting
+    if (entry.isIntersecting) swiper.value?.autoplay.start()
+    else swiper.value?.autoplay.stop()
+  },
+  { rootMargin: '400px' }
+)
 </script>
 
 <style lang="scss" scoped>

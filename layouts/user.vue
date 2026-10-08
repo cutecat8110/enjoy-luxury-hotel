@@ -3,13 +3,20 @@
     <PageHeader />
     <div class="relative flex h-[17rem] xl:h-[24rem]">
       <!-- 背景圖片 -->
-      <NuxtImg class="h-full w-full object-cover" src="imgur/9Ae9QeE.png" />
+      <CImage
+        class="h-full w-full object-cover"
+        src="imgur/9Ae9QeE.png"
+        sizes="100vw"
+        loading="eager"
+      />
 
       <div class="absolute inset-0 flex items-center">
         <div class="container flex flex-wrap items-center gap-4 px-5 xl:gap-6 xl:px-3">
-          <NuxtImg
+          <CImage
             class="h-[4.5rem] w-[4.5rem] rounded-full object-cover xl:h-[9rem] xl:w-[9rem]"
             src="imgur/darOkIL.png"
+            sizes="(min-width: 1200px) 144px, 72px"
+            loading="eager"
           />
           <ClientOnly>
             <p

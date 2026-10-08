@@ -60,6 +60,19 @@
 - 線上原版圖片燈箱下一張及 Escape 關閉正常，未更改原圖或燈箱。
 - 本機最終正常流程瀏覽器無未處理錯誤；404／503 的錯誤回應是刻意測試情境。線上部署後另以工作區發布紀錄記錄實際結果。
 
+### FE-014：圖片晚於文字出現、房型輪播搶先下載大量原圖
+
+- 2026-10-08，Chrome 155 / macOS 27.0.1，房型列表 1440px。原頁包含 5 張 Banner 與 20 張房型圖；20 張房型圖全為 eager/auto，未指定響應式尺寸，透過 Render IPX 即時處理遠端 Imgur 圖。
+- HTTP 樣本：Banner `eMl6NuV.png` 的 1440px 回應 1,933,341 bytes；房型 `TLyL2D1.png` 回應 1,464,014 bytes / 1546px。三個獨立 HTTP 樣本耗時約 4.8–5.8 秒，僅作本次網路與服務狀態的觀測，不當成穩定效能保證。
+- 修正：以相同原圖建立 37 組 / 101 個 WebP 資產，提供 480、960、最高 1920px（不放大原圖）。原比例／畫面裁切不變；首頁、房型、會員、登入、訂房與訂單圖片共用。已知圖片直接提供靜態檔，免去每次伺服器代理／轉圖；未知的新 API 圖仍回退至 Nuxt Image。
+- 首張 Banner 預載入及 high priority，使用與 img 相同的 srcset；次要圖片 lazy。輪播僅建立目前、前後相鄰與首張圖片，房型卡片離開附近視窗時暫停自動播放，靠近後恢復原節奏。圖片 zoom 動畫保留，只限制 transition 為 transform。燈箱使用同照片的最高解析度 WebP。
+- 資產檔名包含內容雜湊，`Cache-Control: public, max-age=31536000, immutable`；圖片寬高預先保留空間。修正餐飲圖片把 `75vw md:50vw xl:25vw` 誤填在 width 的問題，改成正常響應式 sizes。
+- 大小結果：上述 Banner 的 1920px WebP 為 135,208 bytes（比原 1440px PNG 小約 93%）；上述房型 960px 為 28,206 bytes，保留 1546px 的版本也僅 59,980 bytes（約少 96%）。手機依實際 viewport / DPR 選擇較小候選；已有較大快取時瀏覽器可能直接重用。
+- 本機正式建置：首次 SSR 房型頁只包含 1 張 Banner + 4 張房型首圖，瀏覽器初始化後才加入相鄰圖；首屏未一口氣載入全部 20 張房型圖。桌面卡片仍為 756×466；快速連點 6 次後目前圖片完整顯示。320、375、390、768、769、1024、1440px、844×390 無水平溢出。首頁消息、手機輪播與桌面拼圖無破圖，原圖與配色保留。
+- 自動檢查：前端共 15 項，含 alias / 未知來源回退、全部 101 個實體資產與寬度驗證、預載入候選一致性及 lazy 狀態；型別檢查與正式建置結果見本輪發布紀錄。手機為尺寸模擬，未聲稱真機或限速網路測試。
+- 限制：Render 服務冷啟動與 API 等待仍存在；本修正避免圖片本身的重複遠端代理／轉檔，不代表整站首次請求零等待。線上發布後另記錄同條件 HTTP 圖片請求樣本。
+- 參考：[Nuxt Image](https://image.nuxt.com/usage/nuxt-img)。
+
 ### 畫面證據
 
 註冊地址：[原版](qa-evidence/signup-address-before.png)／[修正後](qa-evidence/signup-address-after.png)。
@@ -69,6 +82,8 @@
 [響應式主圖最終畫面](qa-evidence/home-image-after.png)。
 
 缺少房型：[原版空白](qa-evidence/missing-room-before.png)／[修正後](qa-evidence/missing-room-after.png)。
+
+圖片優化後原版卡片：[優化前](qa-evidence/rooms-images-before.png)／[優化後](qa-evidence/rooms-images-after.png)。
 
 長會員資料 320px：[修正前](qa-evidence/long-member-before.png)／[修正後](qa-evidence/long-member-after.png)。
 

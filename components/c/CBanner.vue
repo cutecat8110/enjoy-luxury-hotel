@@ -13,14 +13,21 @@
         clickable: true
       }"
     >
-      <SwiperSlide v-for="(banner, index) in bannerUrlList" :key="index" class="!h-screen">
+      <SwiperSlide
+        v-for="(banner, index) in bannerUrlList"
+        :key="index"
+        v-slot="{ isActive, isNext, isPrev }"
+        class="!h-screen"
+      >
         <!-- 背景圖片 -->
-        <NuxtImg
+        <CImage
+          v-if="index === 0 || isActive || isNext || isPrev"
           class="h-full w-full object-cover"
           :src="banner"
           alt="享樂酒店景觀"
           :fetchpriority="index === 0 ? 'high' : 'auto'"
-          sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1440:100vw 1920:100vw"
+          :preload="index === 0"
+          sizes="100vw"
           :loading="index === 0 ? 'eager' : 'lazy'"
         />
 
@@ -111,7 +118,7 @@ const bannerUrlList = ref([
   }
 
   img {
-    @apply scale-[1.1] transition-all duration-[8000ms] ease-linear;
+    @apply scale-[1.1] transition-transform duration-[8000ms] ease-linear;
   }
 
   .swiper-slide-active,

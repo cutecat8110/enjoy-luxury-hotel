@@ -4,6 +4,7 @@ export default defineNuxtConfig({
 
   // Auth is stored in localStorage, so protected pages must resolve it in the browser.
   routeRules: {
+    '/optimized-images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/user': { ssr: false },
     '/user/**': { ssr: false },
     '/reserve/**': { ssr: false },
