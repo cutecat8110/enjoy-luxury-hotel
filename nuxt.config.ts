@@ -2,6 +2,15 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
 
+  // Auth is stored in localStorage, so protected pages must resolve it in the browser.
+  routeRules: {
+    '/user': { ssr: false },
+    '/user/**': { ssr: false },
+    '/reserve/**': { ssr: false },
+    '/order/**': { ssr: false },
+    '/confirmation/**': { ssr: false }
+  },
+
   typescript: {
     typeCheck: false
   },
