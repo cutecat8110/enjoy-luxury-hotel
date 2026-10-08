@@ -1,44 +1,25 @@
 import type { OrderPayload } from '@/types'
 
-const initialOrder: OrderPayload = {
-  roomId: '',
-  checkInDate: '',
-  checkOutDate: '',
-  peopleNum: 1,
-  userInfo: {
-    address: {
-      zipcode: 0,
-      detail: ''
-    },
-    name: '',
-    phone: '',
-    email: ''
-  }
-}
+import { emptyOrder, stayNights, validStay } from '@/utils/booking'
 
 export const useOrderStore = defineStore(
   'order',
   () => {
-    /* 全局屬性 */
-    const { $dayjs } = useNuxtApp()
-
-    const order = ref<OrderPayload>({
-      ...initialOrder
-    })
+    const order = ref<OrderPayload>(emptyOrder())
 
     const resetOrder = () => {
-      order.value = { ...initialOrder }
+      order.value = emptyOrder()
     }
 
     // 是否已選擇日期
     const isConfirmedDate = computed(() => {
       const { checkInDate, checkOutDate } = order.value
-      return checkInDate !== '' && checkOutDate !== ''
+      return validStay(checkInDate, checkOutDate)
     })
 
     const totalNights = computed(() => {
       const { checkInDate, checkOutDate } = order.value
-      return isConfirmedDate.value ? $dayjs(checkOutDate).diff(checkInDate, 'day') : 0
+      return isConfirmedDate.value ? stayNights(checkInDate, checkOutDate) : 0
     })
 
     const dateRange = computed(() => {

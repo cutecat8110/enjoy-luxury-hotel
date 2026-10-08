@@ -5,8 +5,8 @@
 
     <!-- 房名與描述 -->
     <div class="space-y-4">
-      <h3 class="text-h2">尊爵雙人房</h3>
-      <p class="text-body">享受高級的住宿體驗，尊爵雙人房提供給您舒適寬敞的空間和精緻的裝潢。</p>
+      <h3 class="text-h2">{{ props.room.name }}</h3>
+      <p class="text-body">{{ props.room.description }}</p>
     </div>
 
     <div class="space-y-4">
@@ -30,30 +30,20 @@
     </p>
 
     <!-- 連結: 預約房型 -->
-    <NuxtLink
-      class="block"
-      :to="{
-        name: 'reserve-id',
-        params: { id: props.room._id }
-      }"
-      @click="saveRoomId"
-    >
-      <ClientOnly>
-        <UIButton
-          :text="orderStore.isConfirmedDate ? '立即預訂' : '確定日期'"
-          block
-          :disabled="!orderStore.isConfirmedDate"
-        />
-
-        <template #fallback>
-          <UIButton block text="確定日期" disabled />
-        </template>
-      </ClientOnly>
-    </NuxtLink>
+    <ClientOnly>
+      <UIButton
+        :text="orderStore.isConfirmedDate ? '立即預訂' : '確定日期'"
+        block
+        :disabled="!orderStore.isConfirmedDate"
+        @click="saveRoomId"
+      />
+      <template #fallback><UIButton block text="確定日期" disabled /></template>
+    </ClientOnly>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useFormatCurrency } from '@/utils/format'
 import Datepicker from './datepicker.vue'
 import type { RoomResponse } from '@/types'
 
@@ -70,6 +60,8 @@ const props = defineProps({
 
 /* 儲存客戶預訂房間 */
 const saveRoomId = () => {
+  if (!orderStore.isConfirmedDate) return
   orderStore.order.roomId = props.room._id
+  navigateTo(`/reserve/${props.room._id}`)
 }
 </script>

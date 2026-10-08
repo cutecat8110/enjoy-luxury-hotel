@@ -16,6 +16,6 @@ export const useCommonStore = defineStore(
     }
   },
   {
-    persist: true
+    persist: { paths: ['routerGuide'] }
   }
 )

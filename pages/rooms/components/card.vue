@@ -13,6 +13,7 @@
         :loop="true"
         :modules="[SwiperPagination, SwiperAutoplay, SwiperNavigation]"
         :navigation="{
+          addIcons: false,
           nextEl: '.swiper-button-next',
           prevEl: '.swiper-button-prev'
         }"
@@ -84,6 +85,12 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  Autoplay as SwiperAutoplay,
+  Navigation as SwiperNavigation,
+  Pagination as SwiperPagination
+} from 'swiper/modules'
+import { useFormatCurrency } from '@/utils/format'
 import type { RoomResponse } from '@/types'
 
 /* props */

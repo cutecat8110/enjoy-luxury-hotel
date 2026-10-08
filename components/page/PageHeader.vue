@@ -19,6 +19,8 @@
         v-if="commonStore.isMobile"
         class="flex h-10 w-10 items-center justify-center text-icon-24 text-white transition-colors hover:text-system-primary-100"
         type="button"
+        :aria-expanded="isModalShow"
+        aria-label="開啟選單"
         @click="toggleModal('show')"
       >
         <Icon name="ic:round-menu"></Icon>
@@ -35,7 +37,9 @@
             <UIDropdown v-if="authStore.userName && authStore.token" v-model="userDropdown">
               <UIButton
                 class="flex-row-reverse"
+                :aria-expanded="userDropdown"
                 :text="authStore.userName"
+                aria-haspopup="true"
                 icon="ic:outline-account-circle"
                 variant="ghost"
               />
@@ -64,11 +68,12 @@
     <UIModal v-model="isModalShow" black fullscreen>
       <div
         v-if="isModalShow"
-        class="relative flex h-screen flex-col items-stretch justify-center px-5"
+        class="relative flex min-h-screen flex-col items-stretch justify-center px-5 pb-10 pt-28"
       >
         <button
           class="absolute right-5 top-5 flex h-16 w-16 items-center justify-center text-icon-48 text-white transition-colors hover:text-system-primary-100"
           type="button"
+          aria-label="關閉選單"
           @click="toggleModal('close')"
         >
           <Icon name="ic:baseline-close" />
@@ -126,6 +131,13 @@ const toggleModal = (event: string) => {
   }
 }
 
+watch(
+  () => commonStore.isMobile,
+  (mobile) => {
+    if (!mobile) isModalShow.value = false
+  }
+)
+
 /* 滾動黑底 */
 const { height } = useWindowSize()
 const { y } = useWindowScroll()
@@ -144,6 +156,10 @@ const logout = async () => {
   userDropdown.value = false
   authStore.token = ''
   authStore.userName = ''
+  authStore.id = ''
+  clearNuxtData()
+  useOrderStore().resetOrder()
+  toggleModal('close')
   if (useAuth.includes(route.name as string)) {
     toggleModal('close')
     await navigateTo('/')

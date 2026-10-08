@@ -1,13 +1,20 @@
 <template>
   <section v-if="menu" class="section-container relative bg-system-primary-10">
     <!-- 條紋裝飾 -->
-    <NuxtImg class="absolute left-10 top-14 hidden w-[11.5rem] xl:block" src="/img/line.png" />
+    <NuxtImg
+      class="absolute left-10 top-14 hidden w-[11.5rem] xl:block"
+      src="/img/line.png"
+      decoding="async"
+      loading="lazy"
+    />
 
     <!-- 點狀裝飾 -->
     <NuxtImg
       class="absolute -top-10 right-20 z-0 hidden xl:block"
       src="/img/dot.png"
+      decoding="async"
       sizes="200px"
+      loading="lazy"
     />
 
     <!-- 區塊容器 -->
@@ -26,7 +33,9 @@
           <NuxtImg
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.1]"
             :src="food.image"
+            decoding="async"
             width="75vw md:50vw xl:25vw"
+            loading="lazy"
           />
 
           <!-- 內容容器 -->

@@ -99,6 +99,7 @@
 </template>
 
 <script lang="ts" setup>
+import { formatAddress } from '@/utils/address'
 import type { UserResponse } from '@/types'
 
 /* props */
@@ -118,7 +119,7 @@ const authStore = useAuthStore()
 const styleStore = useStyleStore()
 
 /* 地址 */
-const address = ref('台中市南區復興路362號')
+const address = computed(() => formatAddress(props.user.address))
 
 /* 表單 */
 const formData = reactive({
@@ -170,7 +171,7 @@ const cancelEdit = (data = props.user) => {
 }
 
 /* api */
-const { updateUserApi, getDistrictApi } = useApi()
+const { updateUserApi } = useApi()
 
 // api: 編輯基本資料
 const { pending, refresh } = await updateUserApi({
@@ -197,24 +198,4 @@ const { pending, refresh } = await updateUserApi({
   }
 })
 pending.value = false
-
-// api: 取得地址地區
-watch(
-  () => props.user.address,
-  () => {
-    //  zipcode 0 不處理
-    if (props.user.address.zipcode === 0) return
-
-    getDistrictApi({
-      query: { zip_code: props.user.address.zipcode },
-      onResponse({ response }) {
-        if (response.status === 200) {
-          const { city, district } = response._data.data[0]
-          address.value = `${city}${district}${props.user.address.detail}`
-        }
-      }
-    })
-  },
-  { immediate: true }
-)
 </script>

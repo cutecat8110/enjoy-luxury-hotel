@@ -1,5 +1,10 @@
 <template>
-  <div ref="dropdownWrapperRefs" class="relative">
+  <div
+    ref="dropdownWrapperRefs"
+    class="relative"
+    @focusout="onFocusOut"
+    @keydown.esc="open = false"
+  >
     <div @click="open = !open">
       <slot />
     </div>
@@ -18,17 +23,19 @@
 <script lang="ts" setup>
 const dropdownRefs = ref<null | HTMLElement>(null)
 const dropdownWrapperRefs = ref<null | HTMLElement>(null)
-const { isOutside: dropdownOutside } = useMouseInElement(dropdownRefs)
-const { isOutside: wrapperOutside } = useMouseInElement(dropdownWrapperRefs)
 
 const open = defineModel<boolean>({
   default: false
 })
 
-const outsideClose = () => {
-  if (open.value && dropdownOutside.value && wrapperOutside.value) {
+const outsideClose = (event: MouseEvent) => {
+  if (open.value && !dropdownWrapperRefs.value?.contains(event.target as Node)) {
     open.value = false
   }
+}
+
+const onFocusOut = (event: FocusEvent) => {
+  if (!dropdownWrapperRefs.value?.contains(event.relatedTarget as Node)) open.value = false
 }
 
 onMounted(() => {

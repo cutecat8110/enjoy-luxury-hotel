@@ -26,9 +26,16 @@ export default defineNuxtRouteMiddleware(async (to) => {
     try {
       await checkLoginApi()
     } catch (error) {
+      const expired = error?.statusCode === 401 || error?.response?.status === 401
+      if (expired) {
+        authStore.token = ''
+        authStore.userName = ''
+        authStore.id = ''
+        useOrderStore().resetOrder()
+      }
       commonStore.sweetalertList.push({
-        title: '您的驗證已過期',
-        text: '請重新登入',
+        title: expired ? '您的驗證已過期' : '暫時無法連線',
+        text: expired ? '請重新登入' : '服務可能正在啟動，請稍後再試。',
         icon: 'warning',
         confirmButtonText: '確認',
         confirmButtonColor: styleStore.confirmButtonColor

@@ -114,7 +114,6 @@
 import type { SignupPayload } from '@/types'
 
 /* 全局屬性 */
-definePageMeta({})
 const authStore = useAuthStore()
 const styleStore = useStyleStore()
 const commonStore = useCommonStore()
@@ -220,6 +219,7 @@ const { pending: sPending, refresh: sRefresh } = await signupApi({
     if (response.status === 200) {
       authStore.userName = response._data.result.name
       authStore.token = response._data.token
+      authStore.id = response._data.result._id
       $Swal?.fire({
         title: '註冊成功!',
         text: '開始您的享樂旅行',

@@ -1,57 +1,56 @@
 import { useAuthStore } from '@/stores/auth'
 import type { UseFetchOptions } from 'nuxt/app'
-import type { FetchResponse } from 'ofetch'
-
-interface ResOptions {
-  message: string
-  status: boolean
-}
-
-const handleError = (response: FetchResponse<ResOptions>) => {
-  const showError = (message: string) => {
-    console.log('Error Message:', response?._data?.message ?? message)
-  }
-
-  if (!response._data) {
-    showError('請求超時，服務器無回應！')
-    return
-  }
-
-  const errorHandlers: Record<number, () => void> = {
-    404: () => showError('服務器資源不存在'),
-    500: () => showError('服務器內部錯誤'),
-    403: () => showError('沒有權限訪問該資源'),
-    401: () => showError('登錄狀態已過期，請重新登錄')
-  }
-
-  if (errorHandlers[response.status]) {
-    errorHandlers[response.status]()
-  } else {
-    showError('未知錯誤！')
-  }
-}
 
 const fetch = <T>(url: string, options: UseFetchOptions<T>) => {
-  const runtimeConfig = useRuntimeConfig()
-  const { apiBase } = runtimeConfig.public
-  const reqUrl = url.startsWith('/api') ? apiBase + url : url
-
-  const fetch = useFetch(reqUrl, {
+  const {
+    public: { apiBase }
+  } = useRuntimeConfig()
+  const auth = useAuthStore()
+  const common = useCommonStore()
+  const order = useOrderStore()
+  const requestToken = auth.token
+  const alert = (text: string) => {
+    if (import.meta.client && !common.sweetalertList.some((item) => item.text === text)) {
+      common.sweetalertList.push({ title: '操作未完成', text, icon: 'error' })
+    }
+  }
+  const runHooks = async (hooks: any, context: any) => {
+    for (const hook of [hooks].flat().filter(Boolean)) await hook(context)
+  }
+  const { onResponseError, onRequestError, ...rest } = options
+  return useFetch(url.startsWith('/api') ? apiBase + url : url, {
+    timeout: 90000,
+    retry: 0,
+    dedupe: 'defer',
+    ...rest,
     onRequest({ options }) {
-      /* 檢查是否已登入 */
-      const authStore = useAuthStore()
       options.headers = new Headers(options.headers)
       options.headers.set('Content-Type', 'application/json')
-      if (!authStore.token) return
-      /* 已登入 API 帶 token */
-      options.headers.set('Authorization', authStore.token)
+      if (auth.token) options.headers.set('Authorization', auth.token)
     },
-    onResponseError({ response }) {
-      handleError(response)
+    async onRequestError(context) {
+      alert('目前無法連線，請稍後再試。若剛送出訂房，請先至訂單確認結果，避免重複預訂。')
+      await runHooks(onRequestError, context)
     },
-    ...options
+    async onResponseError(context) {
+      if (context.response.status === 401 && auth.token === requestToken) {
+        auth.token = ''
+        auth.userName = ''
+        auth.id = ''
+        order.resetOrder()
+      }
+      // Keep existing field errors; server/transport failures must also be visible.
+      if (!onResponseError || context.response.status >= 500 || context.response.status === 401) {
+        alert(
+          context.response.status >= 500
+            ? '服務暫時無法使用，請稍後再試。'
+            : (context.response._data as { message?: string } | undefined)?.message ||
+                '操作失敗，請稍後再試。'
+        )
+      }
+      await runHooks(onResponseError, context)
+    }
   })
-  return fetch
 }
 
 export default class useHttp {
@@ -71,3 +70,5 @@ export default class useHttp {
     return fetch(url, { method: 'delete', ...options })
   }
 }
+
+export { useHttp }

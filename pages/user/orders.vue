@@ -3,7 +3,14 @@
     <section class="xl:col-span-7">
       <CRecentOrder v-if="recentOrder" :order="recentOrder">
         <div class="grid grid-cols-2 gap-4">
-          <UIButton block text="取消預訂" variant="secondary" @click="deleteOrder" />
+          <UIButton
+            block
+            text="取消預訂"
+            variant="secondary"
+            :disabled="cancelPending"
+            :loading="cancelPending"
+            @click="deleteOrder"
+          />
           <NuxtLink :to="`/order/${recentOrder._id}`">
             <UIButton block text="查看詳情" />
           </NuxtLink>
@@ -31,6 +38,8 @@
             <NuxtImg
               class="h-[5rem] w-[7.5rem] rounded-lg object-cover"
               :src="order.roomId.imageUrl"
+              decoding="async"
+              loading="lazy"
             />
 
             <div class="space-y-4 text-system-gray-80">
@@ -90,6 +99,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useFormatCurrency } from '@/utils/format'
 import type { OrderResponse } from '@/types'
 
 /* PageMeta */
@@ -107,15 +117,17 @@ const recentOrder = computed(() => {
   const list = orderList.value
 
   // 檢查 list 是否為空或 null
-  if (list === null || (Array.isArray(list) && list.length === 0)) return null
+  if (!Array.isArray(list) || list.length === 0) return null
 
   // 尋找最接近今天且尚未過期的訂單
-  const closestOrder = list.find((order: OrderResponse) => {
-    return (
-      $dayjs(order.checkInDate).isAfter($dayjs()) ||
-      $dayjs(order.checkInDate).isSame($dayjs(), 'day')
-    )
-  })
+  const closestOrder = [...list]
+    .sort((a, b) => +new Date(a.checkInDate) - +new Date(b.checkInDate))
+    .find((order: OrderResponse) => {
+      return (
+        $dayjs(order.checkInDate).isAfter($dayjs()) ||
+        $dayjs(order.checkInDate).isSame($dayjs(), 'day')
+      )
+    })
 
   // 如果都過期，回傳 null，否則回傳 closestOrder
   return closestOrder || null
@@ -125,7 +137,7 @@ const recentOrder = computed(() => {
 const more = ref(false)
 const historyOrder = computed(() => {
   const list = orderList.value
-  if (list === null || (Array.isArray(list) && list.length === 0)) return []
+  if (!Array.isArray(list) || list.length === 0) return []
   if (more.value) return list
   return list.slice(0, 3)
 })
@@ -146,22 +158,29 @@ const { data: orderList, refresh: getOrders } = await getOrdersApi({
 })
 
 // api: 取消訂單
-const deleteOrder = () => {
+const cancelPending = ref(false)
+const deleteOrder = async () => {
+  if (cancelPending.value || !recentOrder.value) return
+  cancelPending.value = true
   const id = recentOrder.value ? recentOrder.value._id : ''
-  deleteOrderApi(id, {
-    onResponse({ response }) {
-      if (response.status === 200) {
-        $Swal?.fire({
-          title: '行程取消成功',
-          icon: 'success',
-          confirmButtonText: '確認',
-          confirmButtonColor: styleStore.confirmButtonColor,
-          willClose: () => {
-            getOrders()
-          }
-        })
+  try {
+    await deleteOrderApi(id, {
+      onResponse({ response }) {
+        if (response.status === 200) {
+          $Swal?.fire({
+            title: '行程取消成功',
+            icon: 'success',
+            confirmButtonText: '確認',
+            confirmButtonColor: styleStore.confirmButtonColor,
+            willClose: () => {
+              getOrders()
+            }
+          })
+        }
       }
-    }
-  })
+    })
+  } finally {
+    cancelPending.value = false
+  }
 }
 </script>

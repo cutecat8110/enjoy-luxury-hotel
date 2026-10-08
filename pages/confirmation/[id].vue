@@ -80,6 +80,7 @@ import type { OrderResponse } from '@/types'
 
 /* PageMeta */
 definePageMeta({
+  key: (route) => route.fullPath,
   middleware: 'auth'
 })
 
@@ -110,6 +111,7 @@ const {
 })
 
 onMounted(() => {
+  useOrderStore().resetOrder()
   refresh()
 })
 </script>

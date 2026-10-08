@@ -17,7 +17,7 @@ onMounted(() => {
     width,
     () => {
       // 判斷: 是否手機板
-      commonStore.isMobile = width.value <= 1200
+      commonStore.isMobile = width.value < 1200
     },
     {
       immediate: true
@@ -37,21 +37,24 @@ watch(
   }
 )
 
-/* 監聽錯誤訊息 */
+/* Process one alert at a time, including errors added while a dialog is open. */
 onMounted(() => {
-  const showSweetAlert = () => {
-    if (commonStore.sweetalertList.length > 0) {
-      $Swal?.fire(commonStore.sweetalertList[0]).then(() => {
-        commonStore.sweetalertList.shift()
-        showSweetAlert()
-      })
-    }
-  }
-
-  watchEffect(() => {
-    if (commonStore.sweetalertList.length > 0) {
-      showSweetAlert()
-    }
-  })
+  let showing = false
+  watch(
+    () => commonStore.sweetalertList.length,
+    async () => {
+      if (showing) return
+      showing = true
+      try {
+        while (commonStore.sweetalertList.length) {
+          await $Swal?.fire(commonStore.sweetalertList[0])
+          commonStore.sweetalertList.shift()
+        }
+      } finally {
+        showing = false
+      }
+    },
+    { immediate: true }
+  )
 })
 </script>

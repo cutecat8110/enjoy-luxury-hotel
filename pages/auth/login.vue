@@ -91,6 +91,7 @@ const { pending, refresh: loginRefresh } = await loginApi({
     if (response.status === 200) {
       authStore.userName = response._data.result.name
       authStore.token = response._data.token
+      authStore.id = response._data.result._id
       authStore.email = remember.value ? formData.value.email : ''
       await navigateTo(useCommon.routerGuide || '/')
     }

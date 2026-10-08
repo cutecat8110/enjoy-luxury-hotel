@@ -3,7 +3,7 @@
     <!-- 固定在視窗底部 -->
     <div class="sticky bottom-0 z-20 border-t border-system-gray-40 bg-white py-3 xl:hidden">
       <!-- 內容容器 -->
-      <div class="container flex items-center justify-between">
+      <div class="container flex flex-wrap items-center justify-between gap-3">
         <!-- 尚未選擇日期 -->
         <template v-if="!orderStore.isConfirmedDate">
           <!-- 每晚價格 -->
@@ -21,15 +21,16 @@
             <!-- 價格．晚數．人數 -->
             <p class="truncate text-body-2 text-system-gray-80">
               {{
-                `${useFormatCurrency(props.room.price)} / ${orderStore.totalNights} 晚 / ${orderStore.order.peopleNum} 人`
+                `${useFormatCurrency(props.room.price * orderStore.totalNights)} / ${orderStore.totalNights} 晚 / ${orderStore.order.peopleNum} 人`
               }}
             </p>
-            <p
-              class="cursor-pointer truncate text-sub-title underline transition-opacity hover:opacity-85"
+            <button
+              class="cursor-pointer truncate text-left text-sub-title underline transition-opacity hover:opacity-85"
+              type="button"
               @click="toggleModal('show')"
             >
               {{ orderStore.dateRange }}
-            </p>
+            </button>
           </div>
 
           <!-- 連結: 預約房型 -->
@@ -56,7 +57,7 @@
 
               <!-- 住宿晚數．選擇日期範圍 -->
               <template v-else>
-                <div class="flex items-center gap-4">
+                <div class="flex flex-wrap items-center gap-2">
                   <p class="text-h5">
                     {{ `${orderStore.totalNights} 晚` }}
                   </p>
@@ -70,6 +71,7 @@
               <button
                 class="flex h-6 w-6 items-center justify-center text-icon-24 transition-colors hover:text-system-primary-100"
                 type="button"
+                aria-label="關閉日期視窗"
                 @click="toggleModal('close')"
               >
                 <Icon name="ic:baseline-close" />
@@ -119,7 +121,9 @@
                 <!-- 描述 -->
                 <div class="space-y-1">
                   <p class="text-title">選擇人數</p>
-                  <p class="text-body-2">此房型最多供 4 人居住，不接受寵物入住。</p>
+                  <p class="text-body-2">
+                    此房型最多供 {{ props.room.maxPeople }} 人居住，不接受寵物入住。
+                  </p>
                 </div>
 
                 <!-- 人數選擇 -->
@@ -137,6 +141,7 @@
                   @click="toggleProgress(0)"
                 />
                 <UIButton
+                  aria-label="關閉日期視窗"
                   block
                   text="儲存"
                   :disabled="!orderStore.isConfirmedDate"
@@ -152,10 +157,12 @@
 </template>
 
 <script lang="ts" setup>
+import { useFormatCurrency } from '@/utils/format'
 import type { RoomResponse } from '@/types'
 
 /* 全局屬性 */
 const orderStore = useOrderStore()
+const { $dayjs } = useNuxtApp()
 
 /* props */
 const props = defineProps({

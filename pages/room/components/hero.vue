@@ -55,6 +55,11 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  Autoplay as SwiperAutoplay,
+  EffectFade as SwiperEffectFade,
+  Pagination as SwiperPagination
+} from 'swiper/modules'
 /* props */
 const props = defineProps({
   images: {

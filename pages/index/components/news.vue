@@ -4,12 +4,16 @@
     <NuxtImg
       class="absolute right-6 top-10 z-0 xl:right-[11.25rem] xl:top-[6.25rem]"
       src="/img/dot.png"
+      decoding="async"
       sizes="100px xl:200px"
+      loading="lazy"
     />
     <NuxtImg
       class="absolute -bottom-[3.75rem] left-6 z-0 xl:-bottom-20 xl:left-[12.5rem]"
       src="/img/dot.png"
+      decoding="async"
       sizes="100px xl:200px"
+      loading="lazy"
     />
 
     <!-- 區塊容器 -->
@@ -35,7 +39,9 @@
           <NuxtImg
             class="shrink-0 cursor-pointer rounded-lg object-cover transition-opacity group-hover:opacity-85"
             :src="newItem.image"
+            decoding="async"
             sizes="xl:474px"
+            loading="lazy"
           />
 
           <div class="flex cursor-pointer flex-col items-start justify-center gap-2 xl:gap-6">
@@ -79,7 +85,9 @@
                   ref="fluidImageRefs"
                   class="h-full w-full object-cover"
                   :src="news[currentNew].image"
+                  decoding="async"
                   sizes="xl:474px"
+                  loading="lazy"
                 />
               </div>
 

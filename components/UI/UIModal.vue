@@ -12,8 +12,13 @@
             :class="[
               props.fullscreen ? 'min-h-screen' : modalStyle,
               props.black ? ' bg-system-background' : ' bg-white',
-              'overflow-hidden shadow-2xl'
+              'max-w-full overflow-hidden shadow-2xl'
             ]"
+            aria-label="對話視窗"
+            aria-modal="true"
+            role="dialog"
+            tabindex="-1"
+            @click.stop
           >
             <div
               v-if="$slots.header"
@@ -27,6 +32,7 @@
               <button
                 class="flex h-6 w-6 items-center justify-center text-icon-24 transition-colors hover:text-system-primary-100"
                 type="button"
+                aria-label="關閉視窗"
                 @click="toggleModal"
               >
                 <Icon name="ic:baseline-close" />
@@ -54,6 +60,7 @@
 </template>
 
 <script lang="ts" setup>
+import { lockModal, unlockModal, isTopModal } from '@/utils/modal'
 const props = defineProps({
   position: {
     type: String as PropType<'center' | 'bottom'>,
@@ -112,34 +119,81 @@ const footerStyle = computed(() => {
 })
 
 /* 控制彈窗顯示 */
-const modalShow = defineModel<Boolean>({
+const modalShow = defineModel<boolean>({
   default: false
 })
 const toggleModal = () => {
   modalShow.value = !modalShow.value
 }
-// 點擊遮罩關閉談窗
-const modalRefs = ref(null)
-const { isOutside } = useMouseInElement(modalRefs)
-const close = () => {
-  if (isOutside.value) {
-    !props.focus ? toggleModal() : focusModal()
+// Decide from the actual event target, including touch and keyboard clicks.
+const modalRefs = ref<HTMLElement | null>(null)
+const id = Symbol('modal')
+let previousFocus: HTMLElement | null = null
+const close = (event: MouseEvent) => {
+  if (!modalRefs.value?.contains(event.target as Node)) {
+    if (props.focus) focusModal()
+    else modalShow.value = false
   }
 }
-// 設定滾輪控制器
-let windowLock: { value: boolean } | undefined
+const onKeydown = (event: KeyboardEvent) => {
+  if (!modalShow.value || !isTopModal(id) || !modalRefs.value) return
+  if (event.key === 'Escape' && !props.focus) {
+    event.preventDefault()
+    modalShow.value = false
+  }
+  if (event.key !== 'Tab') return
+  const items = [
+    ...modalRefs.value.querySelectorAll<HTMLElement>(
+      'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]'
+    )
+  ].filter((item) => item.getClientRects().length)
+  const first = items[0]
+  const last = items.at(-1)
+  if (!first) {
+    event.preventDefault()
+    modalRefs.value.focus()
+    return
+  }
+  if (
+    event.shiftKey &&
+    (document.activeElement === first || document.activeElement === modalRefs.value)
+  ) {
+    event.preventDefault()
+    last?.focus()
+  } else if (
+    !event.shiftKey &&
+    (document.activeElement === last || document.activeElement === modalRefs.value)
+  ) {
+    event.preventDefault()
+    first.focus()
+  }
+}
 onMounted(() => {
-  windowLock = useScrollLock(document.body)
-
-  watchEffect(() => {
-    if (windowLock) {
-      windowLock.value = !!modalShow.value
-    }
-  })
+  document.addEventListener('keydown', onKeydown)
+  watch(
+    modalShow,
+    async (visible) => {
+      if (visible) {
+        previousFocus = document.activeElement as HTMLElement
+        lockModal(id)
+        await nextTick()
+        if (modalShow.value) modalRefs.value?.focus()
+      } else {
+        unlockModal(id)
+        if (previousFocus?.isConnected) previousFocus.focus()
+      }
+    },
+    { immediate: true }
+  )
+})
+onBeforeUnmount(() => {
+  unlockModal(id)
+  document.removeEventListener('keydown', onKeydown)
 })
 
 /* 聚焦 */
 const focusModal = () => {
+  $gsap.killTweensOf(modalRefs.value)
   $gsap.to(modalRefs.value, {
     duration: 0.175,
     scale: 1.02,

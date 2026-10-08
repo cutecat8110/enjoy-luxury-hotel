@@ -1,8 +1,10 @@
 <template>
   <div class="relative text-body text-black">
     <select
+      v-bind="$attrs"
       v-model="input"
       :class="[cssColor, 'disabled:bg-system-gray-40 disabled:opacity-100']"
+      :aria-label="String($attrs['aria-label'] || props.placeholder)"
       :disabled="props.disabled"
     >
       <option :value="placeholderValue" disabled>{{ props.placeholder }}</option>
@@ -24,6 +26,7 @@
 </template>
 
 <script lang="ts" setup>
+defineOptions({ inheritAttrs: false })
 const props = defineProps({
   options: {
     type: Array as PropType<(string | number | Record<string, unknown>)[]>,

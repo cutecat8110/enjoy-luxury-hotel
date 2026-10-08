@@ -40,7 +40,6 @@
 
 <script lang="ts" setup>
 import { Loader } from '@googlemaps/js-api-loader'
-import googleMapStyles from './google-map-styles.json'
 import UITitle from './UI/UITitle.vue'
 
 /* 交通方式 */
@@ -81,8 +80,10 @@ const loader = new Loader({
 onMounted(() => {
   loader.importLibrary('maps').then(async () => {
     const { Map } = (await google.maps.importLibrary('maps')) as google.maps.MapsLibrary
-    const { AdvancedMarkerElement } = await google.maps.importLibrary('marker')
-    const { ColorScheme } = await google.maps.importLibrary('core')
+    const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+      'marker'
+    )) as google.maps.MarkerLibrary
+    const { ColorScheme } = (await google.maps.importLibrary('core')) as google.maps.CoreLibrary
 
     const map = new Map(mapRefs.value as HTMLElement, {
       center: location,

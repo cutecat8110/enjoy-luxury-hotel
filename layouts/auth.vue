@@ -3,7 +3,7 @@
     <NuxtImg
       class="fixed inset-y-0 left-0 z-0 hidden h-full w-1/2 object-cover xl:block"
       src="imgur/RHBxezl.jpg"
-      width="100vw"
+      sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1440:100vw 1920:100vw"
     />
     <PageHeader />
     <main>

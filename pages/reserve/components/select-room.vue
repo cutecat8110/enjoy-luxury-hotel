@@ -47,6 +47,8 @@ const toggleModal = (event: string) => {
 const room = ref(props.roomId)
 // 房型: 送出
 const submit = () => {
+  useOrderStore().order.roomId = room.value
+  toggleModal('close')
   if (room.value !== props.roomId) {
     navigateTo(`/reserve/${room.value}`)
   }

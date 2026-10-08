@@ -58,6 +58,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useFormatCurrency } from '@/utils/format'
 const props = defineProps({
   order: {
     type: Object,

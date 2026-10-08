@@ -6,8 +6,8 @@
 
     <!-- 彈窗: 日期選擇 -->
     <UIModal v-model="isModalShow" size="auto">
-      <div class="space-y-10 p-[2rem]">
-        <div class="flex items-center gap-20">
+      <div class="space-y-6 p-3 sm:p-8">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center">
           <div class="space-y-2">
             <!-- 提示訊息 -->
             <p v-if="!orderStore.isConfirmedDate" class="text-h5">選擇入住日期</p>
@@ -24,7 +24,7 @@
           </div>
 
           <!-- 按鈕組: 前往該選擇日期 -->
-          <div class="grid flex-1 grid-cols-2 gap-2">
+          <div class="grid w-full grid-cols-2 gap-2 md:flex-1">
             <UIDataButton
               title="入住"
               :date="orderStore.order.checkInDate"
@@ -46,7 +46,7 @@
           ref="datePicker"
           v-model.range.string="checkInOutDate"
           class="ui-datepicker"
-          :columns="2"
+          :columns="isWide ? 2 : 1"
           :masks="{
             modelValue: 'YYYY/M/DD'
           }"
@@ -59,7 +59,11 @@
         <!-- 按鈕: 清除選擇/關閉彈窗 -->
         <div class="flex justify-end">
           <UIButton text="清除日期" variant="ghost-light" @click="reset" />
-          <UIButton text="確定日期" @click="toggleModal('close')" />
+          <UIButton
+            text="確定日期"
+            :disabled="!orderStore.isConfirmedDate"
+            @click="toggleModal('close')"
+          />
         </div>
       </div>
     </UIModal>
@@ -71,6 +75,8 @@ import type { DatePicker } from 'v-calendar'
 
 /* 全局屬性 */
 const orderStore = useOrderStore()
+const { $dayjs } = useNuxtApp()
+const isWide = useMediaQuery('(min-width: 768px)')
 
 /* 彈窗 */
 const isModalShow = ref(false)

@@ -18,6 +18,8 @@ const userAPI = {
 
     return $fetch(reqUrl, {
       method: 'GET',
+      timeout: 90000,
+      retry: 0,
       headers: new Headers({
         'Content-Type': 'application/json',
         Authorization: authStore.token

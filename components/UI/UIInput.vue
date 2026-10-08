@@ -1,5 +1,5 @@
 <template>
-  <label class="block space-y-2" :for="props.name">
+  <label class="block space-y-2" :for="inputId">
     <div
       v-if="!headless && (attrs.label || props.name)"
       :class="[
@@ -13,12 +13,13 @@
       <span v-if="props.required" class="text-system-primary-100">必填</span>
     </div>
     <VField
-      :id="props.name"
+      :id="inputId"
       v-bind="attrs"
       v-model.trim="input"
       :class="[cssColor, 'disabled:pointer-events-none disabled:bg-system-gray-40']"
       :name="props.name"
       :type="props.type"
+      :aria-label="headless ? String(attrs.label || props.name) : undefined"
     />
     <VErrorMessage
       class="block text-sub-title text-system-error-120 xl:text-title"
@@ -28,7 +29,10 @@
 </template>
 
 <script lang="ts" setup>
+defineOptions({ inheritAttrs: false })
 const attrs = useAttrs()
+const uniqueId = useId()
+const inputId = computed(() => String(attrs.id || `${props.name}-${uniqueId}`))
 
 const props = defineProps({
   name: {

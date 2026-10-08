@@ -78,11 +78,19 @@ const YYYY = computed(() => {
 })
 const MM = computed(() => Array.from({ length: 12 }, (_, i) => 1 + i))
 const DD = computed(() => {
-  const { YYYY, MM, DD } = birthday.value
+  const { YYYY, MM } = birthday.value
   const daysInMonth = $dayjs(`${YYYY}-${MM}`).daysInMonth() || 31
-  if (typeof DD === 'number' && DD > daysInMonth) {
-    birthday.value.DD = daysInMonth
-  }
   return Array.from({ length: daysInMonth }, (_, i) => 1 + i)
+})
+watch(
+  () => [birthday.value.YYYY, birthday.value.MM],
+  () => {
+    if (Number(birthday.value.DD) > DD.value.length) birthday.value.DD = DD.value.length
+  }
+)
+watch(formatBirthday, (value) => {
+  if (!value || !$dayjs(value).isValid()) return
+  const date = $dayjs(value)
+  birthday.value = { YYYY: date.year(), MM: date.month() + 1, DD: date.date() }
 })
 </script>

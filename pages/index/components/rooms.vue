@@ -18,7 +18,13 @@
           @swiper="setSwiperRefs"
         >
           <SwiperSlide v-for="(slide, index) in rooms[currentRoom].imageUrlList" :key="index">
-            <NuxtImg class="h-full w-full object-cover" :src="slide" width="50vw" />
+            <NuxtImg
+              class="h-full w-full object-cover"
+              :src="slide"
+              decoding="async"
+              sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1200:50vw 1440:50vw 1920:50vw"
+              loading="lazy"
+            />
           </SwiperSlide>
         </Swiper>
       </div>
@@ -26,7 +32,12 @@
       <!-- 條紋裝飾 -->
       <div class="absolute -top-[6.5rem] left-1/4 xl:relative xl:left-auto xl:top-auto">
         <div class="w-[120vw] xl:-ml-[8.75rem] xl:w-[56vw] xl:pt-[3.75rem]">
-          <NuxtImg src="/img/line3.png" width="100vw" />
+          <NuxtImg
+            src="/img/line3.png"
+            decoding="async"
+            sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1440:100vw 1920:100vw"
+            loading="lazy"
+          />
         </div>
       </div>
 
@@ -77,6 +88,12 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  Autoplay as SwiperAutoplay,
+  EffectFade as SwiperEffectFade,
+  Pagination as SwiperPagination
+} from 'swiper/modules'
+import { useFormatCurrency } from '@/utils/format'
 import type { RoomResponse } from '@/types'
 import type { Swiper } from 'swiper'
 

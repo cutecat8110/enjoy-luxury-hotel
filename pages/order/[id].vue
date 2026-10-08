@@ -194,10 +194,12 @@
 </template>
 
 <script lang="ts" setup>
+import { useFormatCurrency } from '@/utils/format'
 import type { OrderResponse } from '@/types'
 
 /* PageMeta */
 definePageMeta({
+  key: (route) => route.fullPath,
   middleware: 'auth'
 })
 
@@ -217,7 +219,6 @@ const { getOrderApi } = useApi()
 const { data: room } = await getOrderApi(id as string, {
   server: false,
   transform(res: any): OrderResponse {
-    console.log(res.result)
     return res.result
   }
 })

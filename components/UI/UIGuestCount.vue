@@ -3,6 +3,7 @@
     <button
       class="up-down-button"
       type="button"
+      aria-label="減少房客人數"
       :disabled="peopleNum <= 1"
       @click="changeCurrent('down')"
     >
@@ -12,6 +13,7 @@
     <button
       class="up-down-button"
       type="button"
+      aria-label="增加房客人數"
       :disabled="peopleNum >= props.max"
       @click="changeCurrent('up')"
     >
@@ -29,6 +31,14 @@ const props = defineProps({
 })
 
 const peopleNum = defineModel<number>({ default: 1 })
+
+watch(
+  () => props.max,
+  (max) => {
+    peopleNum.value = Math.max(1, Math.min(max, Number(peopleNum.value) || 1))
+  },
+  { immediate: true }
+)
 
 const changeCurrent = (event: string) => {
   if (event === 'down' && peopleNum.value > 1) {

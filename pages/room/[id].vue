@@ -65,6 +65,8 @@ import Terms from './components/terms.vue'
 import Booking from './components/booking.vue'
 import MBooking from './components/m-booking.vue'
 
+definePageMeta({ key: (route) => route.fullPath })
+
 /* 全局屬性 */
 const route = useRoute()
 

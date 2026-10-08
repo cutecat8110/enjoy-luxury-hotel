@@ -45,7 +45,7 @@ export default defineNuxtConfig({
       htmlAttrs: {
         lang: 'zh-Hant' // 設定語言
       },
-      link: [{ rel: 'icon', type: 'image/x-icon', href: 'favicon.ico' }], // 網站圖示
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }], // 網站圖示
 
       meta: [
         { charset: 'utf-8' }, // 字符編碼
@@ -76,12 +76,14 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE,
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || '',
       mapApiKey: process.env.MAP_API_KEY
     }
   },
 
   i18n: {
+    restructureDir: false,
+    bundle: { optimizeTranslationDirective: false },
     langDir: 'locales',
     locales: [
       { code: 'en', file: 'en.json', iso: 'en-US', name: 'English' },

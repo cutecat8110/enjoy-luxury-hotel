@@ -9,14 +9,14 @@
         v-model="city"
         placeholder="--縣市--"
         :error="props.zipcodeError"
-        :options="citys"
+        :options="cities"
         :disabled="props.disabled"
       />
       <UISelect
         id="zipcode"
         v-model="address.zipcode"
         label="district"
-        value="zip_code"
+        value="zipcode"
         placeholder="--地區--"
         :error="props.zipcodeError"
         :options="districts"
@@ -42,6 +42,7 @@
 </template>
 
 <script lang="ts" setup>
+import { cities, districtsForCity, findDistrict } from '@/utils/address'
 import type { Address } from '@/types'
 
 /* props */
@@ -63,58 +64,23 @@ const props = defineProps({
 
 /* 地址 */
 const address = defineModel<Address>({
-  default: { zipcode: 0, detail: '' }
+  default: () => ({ zipcode: 0, detail: '' })
 })
 
-/* 縣市 */
-const city = ref('')
-
-/* api */
-const { getCitysApi, getDistrictApi } = useApi()
-
-// api: 取得縣市
-const { data: citys } = await getCitysApi({
-  transform(input) {
-    return input.data
-  }
-})
-
-// api: 取得地區
-const { data: districts } = await getDistrictApi({
-  query: { city },
-  immediate: false,
-  transform(input) {
-    return input.data
-  },
-  onResponse({ response }) {
-    // zipcode 不在地區列表中時，重設 zipcode 為 0
-    if (
-      response.status === 200 &&
-      response._data.data.every((item: any) => {
-        return item.zip_code !== address.value.zipcode.toString()
-      })
-    ) {
-      address.value.zipcode = 0
-    }
-  }
-})
-
-// zipcode 變動時，取得縣市地區
+/* Keep city/zipcode synchronized without network requests or late responses. */
+const city = ref(findDistrict(address.value.zipcode)?.city ?? '')
+const districts = computed(() => districtsForCity(city.value))
 watch(
   () => address.value.zipcode,
-  () => {
-    //  zipcode 0 不處理
-    if (address.value.zipcode === 0) return
-
-    getDistrictApi({
-      query: { zip_code: address.value.zipcode },
-      onResponse({ response }) {
-        if (response.status === 200) {
-          city.value = response._data.data[0].city
-        }
-      }
-    })
+  (zipcode) => {
+    const district = findDistrict(zipcode)
+    if (district) city.value = district.city
   },
   { immediate: true }
 )
+watch(city, (value) => {
+  if (!districtsForCity(value).some((item) => item.zipcode === Number(address.value.zipcode))) {
+    address.value.zipcode = 0
+  }
+})
 </script>

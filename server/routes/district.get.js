@@ -1,6 +1,11 @@
+import zipcodes from '../../data/zipcodes.json'
 export default defineEventHandler((event) => {
-  const query = getQuery(event)
-  const queryString = new URLSearchParams(query).toString()
-  const url = `http://api.opencube.tw/twzipcode?${queryString}`
-  return fetch(url).then((response) => response.json())
+  const { city, zip_code: zipcode } = getQuery(event)
+  return {
+    data: zipcodes
+      .filter(
+        (item) => (!city || item.city === city) && (!zipcode || item.zipcode === Number(zipcode))
+      )
+      .map((item) => ({ zip_code: String(item.zipcode), city: item.city, district: item.district }))
+  }
 })

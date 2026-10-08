@@ -41,6 +41,6 @@ const props = defineProps({
 const boxes = computed(() => [
   { icon: 'IconSize', name: props.areaInfo },
   { icon: 'ic:baseline-bed', name: props.bedInfo },
-  { icon: 'ic:baseline-person', name: `2-${props.maxPeople}人` }
+  { icon: 'ic:baseline-person', name: `1-${props.maxPeople}人` }
 ])
 </script>

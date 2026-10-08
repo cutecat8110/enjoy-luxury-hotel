@@ -15,7 +15,14 @@
     >
       <SwiperSlide v-for="(banner, index) in bannerUrlList" :key="index" class="!h-screen">
         <!-- 背景圖片 -->
-        <NuxtImg class="h-full w-full object-cover" :src="banner" width="100vw" />
+        <NuxtImg
+          class="h-full w-full object-cover"
+          :src="banner"
+          alt="享樂酒店景觀"
+          :fetchpriority="index === 0 ? 'high' : 'auto'"
+          sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1440:100vw 1920:100vw"
+          :loading="index === 0 ? 'eager' : 'lazy'"
+        />
 
         <!-- 黑色遮罩 -->
         <div class="absolute inset-0 bg-black/30" />
@@ -71,6 +78,11 @@
 </template>
 
 <script lang="ts" setup>
+import {
+  Autoplay as SwiperAutoplay,
+  EffectFade as SwiperEffectFade,
+  Pagination as SwiperPagination
+} from 'swiper/modules'
 const props = defineProps({
   rooms: Boolean
 })

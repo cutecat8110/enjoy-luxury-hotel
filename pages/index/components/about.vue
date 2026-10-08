@@ -5,7 +5,9 @@
       <NuxtImg
         class="absolute inset-0 h-full w-full object-cover"
         src="/imgur/STdNjcx.jpg"
-        width="100vw"
+        decoding="async"
+        sizes="320:100vw 576:100vw 768:100vw 1024:100vw 1440:100vw 1920:100vw"
+        loading="lazy"
       />
 
       <!-- 內容容器 -->

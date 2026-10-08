@@ -5,7 +5,7 @@
       class="section-container space-y-10"
       :validation-schema="schema"
       @invalid-submit="invalidSubmit"
-      @submit="addOrderRefresh"
+      @submit="submitOrder"
     >
       <!-- 連結: 房型詳細 -->
       <div class="container">
@@ -212,6 +212,7 @@
 </template>
 
 <script lang="ts" setup>
+import { useFormatCurrency } from '@/utils/format'
 import type { RoomResponse } from '@/types'
 import SelectRoom from './components/select-room.vue'
 import Datepicker from './components/datepicker.vue'
@@ -219,7 +220,8 @@ import SelectPeople from './components/select-people.vue'
 
 /* PageMeta */
 definePageMeta({
-  middleware: 'auth'
+  middleware: 'auth',
+  key: (route) => route.fullPath
 })
 
 /* 全局屬性 */
@@ -251,7 +253,9 @@ const schema = {
 
 // 訂單: 無效提交
 const invalidSubmit = (event: any) => {
-  const errorElement = document.getElementById(Object.keys(event.errors)[0])
+  const errorElement = document.querySelector<HTMLElement>(
+    `[name="${Object.keys(event.errors)[0]}"]`
+  )
   errorElement?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   errorElement?.focus()
 }
@@ -275,8 +279,19 @@ const { refresh: getUserRefresh, pending: guPending } = await getUserApi({
   immediate: false,
   onResponse({ response }) {
     if (response.status === 200) {
-      const { name, phone, email, address } = response._data.result
-      orderStore.order.userInfo = { ...orderStore.order.userInfo, name, phone, email, address }
+      const {
+        name,
+        phone,
+        email,
+        address: { ...address }
+      } = response._data.result
+      orderStore.order.userInfo = {
+        ...orderStore.order.userInfo,
+        name,
+        phone,
+        email,
+        address: { ...address }
+      }
     }
   }
 })
@@ -284,7 +299,7 @@ guPending.value = false
 
 // api: 新增訂單
 const { pending: aoPending, refresh: addOrderRefresh } = await addOrderApi({
-  body: orderStore.order,
+  body: computed(() => ({ ...orderStore.order, roomId: String(id) })),
   immediate: false,
   watch: false,
   async onResponse({ response }) {
@@ -294,4 +309,39 @@ const { pending: aoPending, refresh: addOrderRefresh } = await addOrderApi({
   }
 })
 aoPending.value = false
+let submitting = false
+const submitOrder = async () => {
+  if (submitting || apiPending.value || !room.value) return
+  if (
+    !orderStore.isConfirmedDate ||
+    !Number.isInteger(orderStore.order.peopleNum) ||
+    orderStore.order.peopleNum < 1 ||
+    orderStore.order.peopleNum > room.value.maxPeople
+  ) {
+    useCommonStore().sweetalertList.push({
+      title: '請確認訂房日期與人數',
+      text: '退房日期需晚於入住日期，房客人數不可超過房型上限。',
+      icon: 'warning'
+    })
+    return
+  }
+  submitting = true
+  try {
+    await addOrderRefresh()
+  } finally {
+    submitting = false
+  }
+}
+watch(
+  room,
+  (value) => {
+    if (!value) return
+    orderStore.order.roomId = value._id
+    orderStore.order.peopleNum = Math.max(
+      1,
+      Math.min(value.maxPeople, Number(orderStore.order.peopleNum) || 1)
+    )
+  },
+  { immediate: true }
+)
 </script>

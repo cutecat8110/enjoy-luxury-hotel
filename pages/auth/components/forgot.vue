@@ -160,9 +160,10 @@ const { pending: cePending, refresh: ceRefresh } = await checkEmailApi({
         const { data } = await getEmailCodeApi({
           body: computed(() => ({
             email: formData.email
-          }))
+          })),
+          watch: false
         })
-        if (data) {
+        if (data.value?.status === true) {
           forgotIsOpen.value = false
           $Swal?.fire({
             title: '驗證碼發送成功',
