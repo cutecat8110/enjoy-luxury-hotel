@@ -1,5 +1,5 @@
 <template>
-  <div class="col-sm-container">
+  <div v-if="orderList && !error && !pending" class="col-sm-container">
     <section class="xl:col-span-7">
       <CRecentOrder v-if="recentOrder" :order="recentOrder">
         <div class="grid grid-cols-2 gap-4">
@@ -96,6 +96,7 @@
       </div>
     </section>
   </div>
+  <CRequestState v-else :error="error" :pending="pending" resource="訂單" @retry="getOrders()" />
 </template>
 
 <script lang="ts" setup>
@@ -146,7 +147,12 @@ const historyOrder = computed(() => {
 const { getOrdersApi, deleteOrderApi } = useApi()
 
 // api: 取得所有訂單
-const { data: orderList, refresh: getOrders } = await getOrdersApi({
+const {
+  data: orderList,
+  refresh: getOrders,
+  pending,
+  error
+} = await getOrdersApi({
   server: false,
   transform(res: any): OrderResponse[] {
     return res.result

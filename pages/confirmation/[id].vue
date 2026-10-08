@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div v-if="result">
+    <div v-if="result && !error">
       <!-- 區塊容器 -->
       <div class="section-container col-md-container container">
         <!-- 訂單資訊區塊 -->
-        <div class="space-y-10 text-white xl:col-span-7 xl:space-y-20">
+        <div
+          class="min-w-0 space-y-10 text-white [overflow-wrap:anywhere] xl:col-span-7 xl:space-y-20"
+        >
           <!-- 預定成功區塊 -->
           <div class="space-y-8 xl:space-y-10">
             <!-- 成功訊息 -->
@@ -72,6 +74,15 @@
       <!-- 條紋裝飾 -->
       <CWave />
     </div>
+    <CRequestState
+      v-else
+      :error="error"
+      :pending="pending"
+      resource="訂單"
+      return-label="返回我的訂單"
+      return-to="/user/orders"
+      @retry="refresh()"
+    />
   </div>
 </template>
 
@@ -99,12 +110,11 @@ const { getOrderApi } = useApi()
 //  api: 取得訂單資訊
 const {
   data: result,
+  pending,
+  error,
   refresh
-}: {
-  data: Ref<OrderResponse | null>
-  refresh: (opts?: { dedupe?: 'cancel' | 'defer' }) => Promise<void>
 } = await getOrderApi(id as string, {
-  immediate: false,
+  server: false,
   transform(res: any): OrderResponse {
     return res.result
   }
@@ -112,6 +122,5 @@ const {
 
 onMounted(() => {
   useOrderStore().resetOrder()
-  refresh()
 })
 </script>

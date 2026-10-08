@@ -6,7 +6,7 @@
     <!-- 彈窗: 編輯房型 -->
     <UIModal v-model="isModalShow">
       <!-- 彈窗: 頁首 -->
-      <template #header> 選擇房型 </template>
+      <template #header> 選擇人數 </template>
 
       <template #form>
         <VForm ref="formRefs">

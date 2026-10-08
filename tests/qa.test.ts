@@ -3,6 +3,8 @@ import { afterEach, describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import Address from '../components/c/CAddress.vue'
 import Birthday from '../components/c/CBirthday.vue'
+import RequestState from '../components/c/CRequestState.vue'
+import Button from '../components/UI/UIButton.vue'
 import GuestCount from '../components/UI/UIGuestCount.vue'
 import Modal from '../components/UI/UIModal.vue'
 import Select from '../components/UI/UISelect.vue'
@@ -100,5 +102,46 @@ describe('modal interaction', () => {
     expect(wrapper.emitted('update:modelValue')?.at(-1)).toEqual([false])
     wrapper.unmount()
     expect(document.body.style.overflow).toBe('')
+  })
+})
+
+describe('unavailable data recovery', () => {
+  const global = {
+    components: { UIButton: Button },
+    stubs: { Icon: true, NuxtLink: { props: ['to'], template: '<a :href="to"><slot /></a>' } }
+  }
+  it('loading does not mislead the member into thinking the order list is empty', () => {
+    const wrapper = mount(RequestState, { props: { pending: true, resource: '訂單' }, global })
+    expect(wrapper.text()).toContain('載入中')
+    expect(wrapper.find('a').exists()).toBe(false)
+    expect(wrapper.find('button').exists()).toBe(false)
+    wrapper.unmount()
+  })
+  it('a missing order offers the order list without retrying a nonexistent record', () => {
+    const wrapper = mount(RequestState, {
+      props: {
+        error: { statusCode: 404 },
+        resource: '訂單',
+        returnTo: '/user/orders',
+        returnLabel: '返回我的訂單'
+      },
+      global
+    })
+    expect(wrapper.text()).toContain('找不到此訂單')
+    expect(wrapper.find('a').attributes('href')).toBe('/user/orders')
+    expect(wrapper.text()).not.toContain('重新載入')
+    wrapper.unmount()
+  })
+  it('a service failure can be retried and the loading state prevents repeated clicks', async () => {
+    const wrapper = mount(RequestState, {
+      props: { error: { statusCode: 503 }, resource: '房型' },
+      global
+    })
+    expect(wrapper.text()).toContain('暫時無法載入房型')
+    await wrapper.find('button').trigger('click')
+    expect(wrapper.emitted('retry')).toHaveLength(1)
+    await wrapper.setProps({ pending: true })
+    expect(wrapper.find('button').exists()).toBe(false)
+    wrapper.unmount()
   })
 })

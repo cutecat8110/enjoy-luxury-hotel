@@ -1,6 +1,6 @@
 <template>
   <button :class="[cssColor, props.block ? 'flex w-full' : 'inline-flex']" :type="props.type">
-    {{ props.text }}
+    <slot>{{ props.text }}</slot>
     <template v-if="loading">
       <Icon class="text-icon-24" name="eos-icons:loading" />
     </template>

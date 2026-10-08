@@ -3,7 +3,7 @@
     <!-- 全屏輪播 -->
     <CBanner rooms />
 
-    <div v-if="rooms" class="section-container bg-system-primary-10">
+    <div v-if="rooms?.length && !error" class="section-container bg-system-primary-10">
       <!-- 區塊容器 -->
       <div class="container space-y-10 xl:space-y-20">
         <!-- 大標題 -->
@@ -21,6 +21,16 @@
         </ol>
       </div>
     </div>
+    <CRequestState
+      v-else
+      :error="error"
+      :pending="pending"
+      empty-text="目前沒有可預訂的房型"
+      resource="房型"
+      return-label="返回首頁"
+      return-to="/"
+      @retry="refresh()"
+    />
   </div>
 </template>
 
@@ -37,7 +47,12 @@ definePageMeta({
 const { getRoomsApi } = useApi()
 
 // api: 取得所有房型
-const { data: rooms }: { data: Ref<RoomResponse[] | null> } = await getRoomsApi({
+const {
+  data: rooms,
+  pending,
+  error,
+  refresh
+} = await getRoomsApi({
   transform(res: any): RoomResponse[] {
     return res.result
   }

@@ -36,13 +36,16 @@
           <Transition name="dropdown" mode="out-in">
             <UIDropdown v-if="authStore.userName && authStore.token" v-model="userDropdown">
               <UIButton
-                class="flex-row-reverse"
+                class="max-w-[16rem] flex-row-reverse [&>svg]:shrink-0"
+                :title="authStore.userName"
                 :aria-expanded="userDropdown"
                 :text="authStore.userName"
                 aria-haspopup="true"
                 icon="ic:outline-account-circle"
                 variant="ghost"
-              />
+              >
+                <span class="min-w-0 truncate">{{ authStore.userName }}</span>
+              </UIButton>
               <template #item>
                 <NuxtLink to="/user" @click="userDropdown = false">
                   <UIButton block text="我的帳戶" variant="dropdown" />

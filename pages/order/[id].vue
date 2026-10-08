@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-system-primary-10">
-    <div v-if="room" class="section-container space-y-10">
+  <div :class="room && !error ? 'bg-system-primary-10' : ''">
+    <div v-if="room && !error" class="section-container space-y-10">
       <!-- 連結: 房型詳細 -->
       <div class="container">
         <NuxtLink
@@ -190,6 +190,15 @@
         </div>
       </div>
     </div>
+    <CRequestState
+      v-else
+      :error="error"
+      :pending="pending"
+      resource="訂單"
+      return-label="返回我的訂單"
+      return-to="/user/orders"
+      @retry="refresh()"
+    />
   </div>
 </template>
 
@@ -216,7 +225,12 @@ const {
 const { getOrderApi } = useApi()
 
 // api: 取得房型
-const { data: room } = await getOrderApi(id as string, {
+const {
+  data: room,
+  pending,
+  error,
+  refresh
+} = await getOrderApi(id as string, {
   server: false,
   transform(res: any): OrderResponse {
     return res.result

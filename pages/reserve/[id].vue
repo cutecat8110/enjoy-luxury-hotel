@@ -1,5 +1,5 @@
 <template>
-  <div v-if="room" class="bg-system-primary-10">
+  <div v-if="room && !error" class="bg-system-primary-10">
     <VForm
       v-slot="{ errors }"
       class="section-container space-y-10"
@@ -209,6 +209,13 @@
       </div>
     </VForm>
   </div>
+  <CRequestState
+    v-else
+    :error="error"
+    :pending="grPending"
+    resource="房型"
+    @retry="refreshRoom()"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -267,8 +274,10 @@ const apiPending = computed(() => grPending.value || guPending.value || aoPendin
 // api: 取得房型
 const {
   data: room,
-  pending: grPending
-}: { data: Ref<RoomResponse | null>; pending: Ref<boolean> } = await getRoomApi(id as string, {
+  pending: grPending,
+  error,
+  refresh: refreshRoom
+} = await getRoomApi(id as string, {
   transform(res: any): RoomResponse {
     return res.result
   }

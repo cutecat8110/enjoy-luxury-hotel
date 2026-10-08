@@ -1,5 +1,5 @@
 <template>
-  <div v-if="room" class="bg-system-primary-10">
+  <div v-if="room && !error" class="bg-system-primary-10">
     <!-- 房型預覽 -->
     <Hero :name="room.name" :images="room.imageUrlList" />
 
@@ -56,6 +56,7 @@
       <MBooking :room="room" />
     </div>
   </div>
+  <CRequestState v-else :error="error" :pending="pending" resource="房型" @retry="refresh()" />
 </template>
 
 <script lang="ts" setup>
@@ -74,12 +75,14 @@ const route = useRoute()
 const { getRoomApi } = useApi()
 
 // api: 取得房型
-const { data: room }: { data: Ref<RoomResponse | null> } = await getRoomApi(
-  route.params.id as string,
-  {
-    transform(res: any): RoomResponse {
-      return res.result
-    }
+const {
+  data: room,
+  pending,
+  error,
+  refresh
+} = await getRoomApi(route.params.id as string, {
+  transform(res: any): RoomResponse {
+    return res.result
   }
-)
+})
 </script>

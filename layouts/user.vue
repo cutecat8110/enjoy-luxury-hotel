@@ -12,7 +12,10 @@
             src="imgur/darOkIL.png"
           />
           <ClientOnly>
-            <p class="text-h3 text-white xl:text-h1">
+            <p
+              class="line-clamp-2 min-w-0 flex-1 text-h3 text-white [overflow-wrap:anywhere] xl:text-h1"
+              :title="`Hello，${authStore.userName}`"
+            >
               {{ `Hello，${authStore.userName}` }}
             </p>
           </ClientOnly>
