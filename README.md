@@ -1,6 +1,6 @@
 # 享樂酒店 - 旅館訂房網
 
-> `portfolio/qa` 保留原設計與流程，修正註冊、會員、訂房、圖片及 RWD 缺陷。完整問題與驗證範圍見 [QA_CHANGELOG.md](QA_CHANGELOG.md)。
+> `main` 已整併 QA 修正，保留原設計與流程，修正註冊、會員、訂房、圖片及 RWD 缺陷。完整問題與驗證範圍見 [QA_CHANGELOG.md](QA_CHANGELOG.md)。
 
 ## QA 分支本機預覽
 
@@ -24,7 +24,7 @@ npm run dev
 ## 部署與既有限制
 
 - 本作品使用 Nuxt SSR、圖片處理及 `/citys`、`/district` 路由，沿用 Render Docker Web Service，網址不變；不切換成純 GitHub Pages。
-- Render 前後端來源使用各自的 `portfolio/qa`。先發布後端並驗證，再發布前端；既有資料庫、環境變數與免費方案保留。
+- Render 前後端來源使用各自的 `main`。先發布後端並驗證，再發布前端；既有資料庫、環境變數與免費方案保留。
 - 前端必要環境變數為 `NUXT_PUBLIC_API_BASE`；它是公開 API 網址，不應放入資料庫或寄信密碼。
 - 免費 Render 會休眠，請求等待上限 90 秒，寫入操作不自動重送。若訂房連線逾時，先查會員訂單再決定是否重試。
 - 忘記密碼原本依賴 Gmail SMTP；Render 免費方案封鎖 SMTP，尚未啟用替代寄信服務。失敗會保留表單並顯示錯誤，不會誤報成功。
@@ -159,3 +159,7 @@ npm run dev
         </tr>
     </tbody>
 </table>
+
+### GitHub Pages 入口
+
+GitHub Pages 使用 `main` 的 `/docs`，將舊展示網址與子路徑轉至目前 Render 網站。完整會員、訂房及伺服器路由繼續由 Render 提供；不再發布 Nuxt 靜態輸出至 `gh-pages`。

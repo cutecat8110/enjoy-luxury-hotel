@@ -5,7 +5,6 @@
   "scripts": {
     "images:optimize": "node scripts/optimize-images.mjs",
     "build": "nuxt build",
-    "deploy": "gh-pages --dotfiles -d .output/public",
     "dev": "nuxt dev --open",
     "generate": "nuxt generate",
     "postinstall": "nuxt prepare",
