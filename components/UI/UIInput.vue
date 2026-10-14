@@ -1,31 +1,39 @@
 <template>
-  <label class="block space-y-2" :for="inputId">
-    <div
+  <div class="block space-y-2">
+    <label
       v-if="!headless && (attrs.label || props.name)"
       :class="[
         blackhead ? 'text-black' : 'text-white',
         'flex items-center justify-between text-sub-title xl:text-title'
       ]"
+      :for="inputId"
     >
       <span>
         {{ attrs.label || props.name }}
       </span>
       <span v-if="props.required" class="text-system-primary-100">必填</span>
+    </label>
+    <div class="relative">
+      <VField
+        :id="inputId"
+        v-bind="attrs"
+        v-model.trim="input"
+        :class="[
+          cssColor,
+          { 'pr-14': $slots.suffix },
+          'disabled:pointer-events-none disabled:bg-system-gray-40'
+        ]"
+        :name="props.name"
+        :type="props.type"
+        :aria-label="headless ? String(attrs.label || props.name) : undefined"
+      />
+      <slot name="suffix" />
     </div>
-    <VField
-      :id="inputId"
-      v-bind="attrs"
-      v-model.trim="input"
-      :class="[cssColor, 'disabled:pointer-events-none disabled:bg-system-gray-40']"
-      :name="props.name"
-      :type="props.type"
-      :aria-label="headless ? String(attrs.label || props.name) : undefined"
-    />
     <VErrorMessage
       class="block text-sub-title text-system-error-120 xl:text-title"
       :name="props.name"
     />
-  </label>
+  </div>
 </template>
 
 <script lang="ts" setup>

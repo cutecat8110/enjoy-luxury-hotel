@@ -2,7 +2,11 @@
 
 > `main` 已整併 QA 修正，保留原設計與流程，修正註冊、會員、訂房、圖片及 RWD 缺陷。完整問題與驗證範圍見 [QA_CHANGELOG.md](QA_CHANGELOG.md)。
 
-## QA 分支本機預覽
+## 展示登入
+
+開啟 [會員登入](https://enjoy-luxury-hotel.onrender.com/auth/login)，點電子信箱右側鑰匙帶入帳密，再按「會員登入」。展示帳號為共用一般會員，請勿填入個人資訊或更改密碼；需要保留自己的資料時請另行註冊。
+
+## 本機預覽
 
 ```sh
 nvm use
