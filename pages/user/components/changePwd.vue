@@ -5,7 +5,7 @@
       v-slot="{ errors }"
       class="card"
       :validation-schema="schema"
-      @submit="refresh"
+      @submit="submit"
     >
       <h2 class="text-h6 xl:text-h5">修改密碼</h2>
 
@@ -27,11 +27,18 @@
           </div>
 
           <!-- 按鈕: 開啟修改密碼 -->
-          <UIButton text="重設" variant="text" @click="toggleForm('show')" />
+          <UIButton
+            v-if="!credentialsLocked"
+            text="重設"
+            variant="text"
+            @click="toggleForm('show')"
+          />
         </div>
 
+        <p v-if="credentialsLocked" class="text-body-2 text-system-gray-80">展示帳號無法修改帳密</p>
+
         <!-- 表單: 修改密碼 -->
-        <template v-else>
+        <template v-if="isFormShow && !credentialsLocked">
           <!-- 舊密碼 -->
           <UIInput
             v-model="formData.oldPassword"
@@ -94,6 +101,7 @@
 
 <script lang="ts" setup>
 import type { UserResponse } from '@/types'
+import { isDemoAccount } from '@/utils/demoAccount'
 
 /* props */
 const props = defineProps({
@@ -102,6 +110,11 @@ const props = defineProps({
     required: true
   }
 })
+
+const credentialsLocked = computed(() => isDemoAccount(props.user.email))
+const submit = () => {
+  if (!credentialsLocked.value && !pending.value) refresh()
+}
 
 /* 全局屬性 */
 const { $Swal, $validator } = useNuxtApp()
@@ -139,7 +152,7 @@ const schema = {
 // 表單: 開關
 const isFormShow = ref(false)
 const toggleForm = (event: string) => {
-  if (event === 'show') {
+  if (event === 'show' && !credentialsLocked.value) {
     isFormShow.value = true
   } else if (event === 'close') {
     isFormShow.value = false

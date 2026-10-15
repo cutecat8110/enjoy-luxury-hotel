@@ -94,6 +94,7 @@
 
 <script lang="ts" setup>
 import type { ForgotPayload } from '@/types'
+import { isDemoAccount } from '@/utils/demoAccount'
 
 /* 全局屬性 */
 const { $Swal, $validator } = useNuxtApp()
@@ -136,6 +137,11 @@ const schema = ref({
 
 // 表單: 送出
 const submit = () => {
+  if (apiPending.value) return
+  if (isDemoAccount(formData.email)) {
+    formRefs.value?.setFieldError('email', '展示帳號無法修改帳密')
+    return
+  }
   if (forgotIsOpen.value) {
     ceRefresh()
   } else {
