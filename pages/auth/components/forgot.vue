@@ -8,7 +8,12 @@
     <template #header> 忘記密碼 </template>
 
     <template #form>
-      <VForm ref="formRefs" v-slot="{ errors }" :validation-schema="schema.forgot" @submit="submit">
+      <VForm
+        ref="forgotFormRefs"
+        v-slot="{ errors }"
+        :validation-schema="schema.forgot"
+        @submit="submit"
+      >
         <!-- 彈窗: 內容 -->
         <div class="p-4">
           <UIInput
@@ -44,7 +49,12 @@
     <template #header> 重設密碼 </template>
 
     <template #form>
-      <VForm ref="formRefs" v-slot="{ errors }" :validation-schema="schema.reset" @submit="submit">
+      <VForm
+        ref="resetFormRefs"
+        v-slot="{ errors }"
+        :validation-schema="schema.reset"
+        @submit="submit"
+      >
         <!-- 彈窗: 內容 -->
         <div class="space-y-4 p-4">
           <UIInput
@@ -115,12 +125,19 @@ const openForgot = () => {
 }
 
 /* 驗證表單 */
-const formRefs = ref<HTMLFormElement | null>(null)
+const forgotFormRefs = ref<HTMLFormElement | null>(null)
+const resetFormRefs = ref<HTMLFormElement | null>(null)
 const formData = reactive<ForgotPayload>({ email: '', code: '', newPassword: '' })
 
 // 表單: 規則
 const schema = ref({
-  forgot: { email: 'required|email' },
+  forgot: {
+    email: (value: string) => {
+      if (!value) return '電子信箱 為必填'
+      if (!$validator.isEmail(value)) return '電子信箱 格式不正確'
+      return !isDemoAccount(value) || '展示帳號無法修改帳密'
+    }
+  },
   reset: {
     email: 'required',
     code: 'required',
@@ -139,7 +156,7 @@ const schema = ref({
 const submit = () => {
   if (apiPending.value) return
   if (isDemoAccount(formData.email)) {
-    formRefs.value?.setFieldError('email', '展示帳號無法修改帳密')
+    forgotFormRefs.value?.setFieldError('email', '展示帳號無法修改帳密')
     return
   }
   if (forgotIsOpen.value) {
@@ -182,7 +199,7 @@ const { pending: cePending, refresh: ceRefresh } = await checkEmailApi({
           })
         }
       } else {
-        formRefs.value?.setFieldError('email', '電子信箱 不存在')
+        forgotFormRefs.value?.setFieldError('email', '電子信箱 不存在')
       }
     }
   }
@@ -206,7 +223,7 @@ const { pending: fpPending, refresh: fpRefresh } = await forgotPwdApi({
     }
   },
   onResponseError() {
-    formRefs.value?.setFieldError('code', '驗證碼 錯誤，請至 Email 確認')
+    resetFormRefs.value?.setFieldError('code', '驗證碼 錯誤，請至 Email 確認')
   }
 })
 fpPending.value = false
