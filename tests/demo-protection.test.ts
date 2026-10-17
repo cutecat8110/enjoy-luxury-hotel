@@ -56,6 +56,13 @@ it('ordinary members retain the reset action and credential form', async () => {
   expect(wrapper.text()).toContain('儲存設定')
 })
 
+it('keeps the previous shared account protected after changing the preset', async () => {
+  const refresh = await render('enjoy-demo-20261015@example.com')
+  expect(wrapper.text()).toContain('展示帳號無法修改帳密')
+  await wrapper.get('form').trigger('submit')
+  expect(refresh).not.toHaveBeenCalled()
+})
+
 it('blocks demo password recovery and displays the reason in the active form', async () => {
   const { default: Forgot } = await import('../pages/auth/components/forgot.vue')
   const { default: UIInput } = await import('../components/UI/UIInput.vue')

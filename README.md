@@ -4,7 +4,7 @@
 
 ## 展示登入
 
-開啟 [會員登入](https://enjoy-luxury-hotel.onrender.com/auth/login)，點電子信箱右側鑰匙帶入帳密，再按「會員登入」。展示帳號為共用一般會員，帳密已固定保護，請勿填入個人資訊；需要保留自己的資料時請另行註冊。
+開啟 [會員登入](https://enjoy-luxury-hotel.onrender.com/auth/login)，鑰匙可帶入 `test@example.com`（測試帳號）。共用帳號的帳密已固定保護，請勿填入個人資訊；個人資料請另行註冊保存。
 
 ## 本機預覽
 
