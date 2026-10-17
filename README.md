@@ -43,7 +43,7 @@ npm run dev
 
 > 這是一個豪華的旅館訂房網站，專為顧客提供舒適的住宿環境。您可以輕鬆查詢房型與設施，並快速完成訂房流程，享受無與倫比的服務與體驗。
 
-![](https://cutecat8110.github.io/enjoy-luxury-hotel/img/demo.png)
+![享樂酒店展示](public/demo.png)
 
 ## 📋 專案概述
 

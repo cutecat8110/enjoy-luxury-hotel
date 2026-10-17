@@ -72,7 +72,7 @@ export default defineNuxtConfig({
           property: 'og:description',
           content: '這是一個關於享樂酒店的豪華住宿預訂網站，提供獨特的房型選擇。'
         }, // Open Graph 描述
-        { property: 'og:image', content: '你的網站封面圖像URL' }, // Open Graph 圖片
+        { property: 'og:image', content: 'https://enjoy-luxury-hotel.onrender.com/demo.png' }, // Open Graph 圖片
         { property: 'og:url', content: 'https://enjoy-luxury-hotel.onrender.com/' }, // Open Graph 網址
         { property: 'og:type', content: 'website' } // Open Graph 類型
       ]

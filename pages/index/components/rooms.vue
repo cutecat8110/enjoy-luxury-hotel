@@ -73,6 +73,7 @@
               <button
                 class="flex h-14 w-14 items-center justify-center p-4 text-icon-24 text-system-primary-100 transition-colors hover:text-system-primary-120"
                 type="button"
+                aria-label="上一個房型"
                 @click="changeRoom('prev')"
               >
                 <Icon class="shrink-0" name="ic:baseline-keyboard-arrow-left"></Icon>
@@ -80,6 +81,7 @@
               <button
                 class="flex h-14 w-14 items-center justify-center p-4 text-icon-24 text-system-primary-100 transition-colors hover:text-system-primary-120"
                 type="button"
+                aria-label="下一個房型"
                 @click="changeRoom('next')"
               >
                 <Icon class="shrink-0" name="ic:baseline-keyboard-arrow-right"></Icon>

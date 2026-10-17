@@ -84,7 +84,7 @@
         </p>
 
         <!-- 連結: 房型詳細頁 -->
-        <NuxtLink :to="`/room/${props.room._id}`">
+        <NuxtLink :aria-label="`查看${props.room.name}`" :to="`/room/${props.room._id}`">
           <div
             class="flex h-6 w-6 cursor-pointer items-center justify-center text-[1.25rem] text-system-primary-100 transition-colors hover:text-system-primary-120"
           >

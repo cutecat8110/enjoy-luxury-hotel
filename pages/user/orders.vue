@@ -17,7 +17,7 @@
         </div>
       </CRecentOrder>
       <div v-else class="card">
-        <div class="flex items-center justify-between">
+        <div class="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div class="space-y-5">
             <p class="text-title text-black xl:text-h5">即將來的行程</p>
             <p>目前尚無行程</p>
@@ -31,7 +31,8 @@
 
     <section class="xl:col-span-5">
       <div class="card">
-        <p class="text-title xl:text-h5">歷史訂單</p>
+        <p class="text-title xl:text-h5">訂單紀錄</p>
+        <p v-if="historyOrder.length === 0">目前尚無訂單</p>
 
         <template v-for="(order, index) in historyOrder" :key="index">
           <div class="flex flex-col gap-6 xl:flex-row xl:gap-10">
