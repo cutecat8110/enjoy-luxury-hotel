@@ -167,3 +167,5 @@ npm run dev
 ### GitHub Pages 入口
 
 GitHub Pages 使用 `main` 的 `/docs`，將舊展示網址與子路徑轉至目前 Render 網站。完整會員、訂房及伺服器路由繼續由 Render 提供；不再發布 Nuxt 靜態輸出至 `gh-pages`。
+
+[介面設計規範](DESIGN_GUIDELINES.md)

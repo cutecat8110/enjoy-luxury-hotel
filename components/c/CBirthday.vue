@@ -29,7 +29,8 @@
     </div>
     <VField v-model.trim="formatBirthday" class="hidden" name="birthday" />
     <VErrorMessage
-      class="block text-sub-title text-system-error-120 xl:text-title"
+      class="field-error"
+      :class="{ 'field-error--on-dark': !blackhead }"
       name="birthday"
     />
   </div>

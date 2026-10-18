@@ -26,11 +26,15 @@
         :name="props.name"
         :type="props.type"
         :aria-label="headless ? String(attrs.label || props.name) : undefined"
+        :aria-invalid="props.error ? 'true' : undefined"
+        :aria-describedby="[attrs['aria-describedby'], props.error ? `${inputId}-error` : undefined].filter(Boolean).join(' ') || undefined"
       />
       <slot name="suffix" />
     </div>
     <VErrorMessage
-      class="block text-sub-title text-system-error-120 xl:text-title"
+      :id="`${inputId}-error`"
+      class="field-error"
+      :class="{ 'field-error--on-dark': !blackhead }"
       :name="props.name"
     />
   </div>

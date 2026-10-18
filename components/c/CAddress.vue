@@ -26,7 +26,8 @@
     </div>
     <VField v-model.trim="address.zipcode" class="hidden" name="zipcode" label="縣市、地區" />
     <VErrorMessage
-      class="block text-sub-title text-system-error-120 xl:text-title"
+      class="field-error"
+      :class="{ 'field-error--on-dark': !blackhead }"
       name="zipcode"
     />
     <UIInput
@@ -36,6 +37,7 @@
       placeholder="請輸入詳細地址"
       :error="props.detailError"
       headless
+      :blackhead="blackhead"
       :disabled="props.disabled"
     />
   </div>

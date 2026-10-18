@@ -68,6 +68,10 @@ it('fills the dedicated account without submitting and clears previous field err
   hooks.onResponseError({ response: { _data: { message: '此使用者不存在' } } })
   await flushPromises()
   expect(wrapper.text()).toContain('電子信箱 不存在')
+  const emailField = wrapper.get('input[type="email"]')
+  expect(emailField.attributes('aria-invalid')).toBe('true')
+  const errorId = emailField.attributes('aria-describedby')
+  expect(wrapper.get(`[id="${errorId}"]`).text()).toBe('電子信箱 不存在')
   await wrapper.get('button[aria-label="帶入帳密"]').trigger('click')
   await flushPromises()
   expect((wrapper.get('input[type="email"]').element as HTMLInputElement).value).toBe(
@@ -77,6 +81,8 @@ it('fills the dedicated account without submitting and clears previous field err
     demoAccount.password
   )
   expect(wrapper.text()).not.toContain('電子信箱 不存在')
+  expect(emailField.attributes('aria-invalid')).toBeUndefined()
+  expect(emailField.attributes('aria-describedby')).toBeUndefined()
   expect(refresh).not.toHaveBeenCalled()
   expect(wrapper.get('[role="status"]').text()).toBe('已帶入帳密')
   expect(wrapper.find('label button').exists()).toBe(false)

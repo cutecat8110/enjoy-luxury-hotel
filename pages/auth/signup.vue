@@ -24,7 +24,7 @@
           v-model="formData.email"
           name="email"
           label="電子信箱"
-          placeholder="hello@exsample.com"
+          placeholder="hello@example.com"
           :error="errors.email"
           :disabled="apiPending"
         />

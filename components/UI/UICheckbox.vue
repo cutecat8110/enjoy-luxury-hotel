@@ -20,7 +20,7 @@
       <div class="select-none text-sub-title text-white xl:text-title">{{ props.text }}</div>
     </div>
     <VErrorMessage
-      class="block text-sub-title text-system-error-120 xl:text-title"
+      class="field-error field-error--on-dark"
       :name="props.name"
     />
   </label>
