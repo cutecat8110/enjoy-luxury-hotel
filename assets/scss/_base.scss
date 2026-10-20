@@ -88,3 +88,7 @@ div:where(.swal2-container).swal2-noanimation {
     gap: 3.75rem;
   }
 }
+
+.ui-dialog-close {
+  @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-lg text-icon-24 transition-colors hover:bg-system-gray-10 hover:text-system-primary-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-system-primary-100;
+}

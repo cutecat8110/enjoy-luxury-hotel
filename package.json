@@ -12,6 +12,7 @@
     "preview": "nuxt preview",
     "start": "node .output/server/index.mjs",
     "test": "vitest run",
+    "check": "npm run test && npm run typecheck && npm run build",
     "typecheck": "nuxt prepare && vue-tsc --noEmit"
   },
   "config": {

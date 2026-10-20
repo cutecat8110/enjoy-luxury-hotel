@@ -14,7 +14,7 @@
               props.black ? ' bg-system-background' : ' bg-white',
               'max-w-full overflow-hidden shadow-2xl'
             ]"
-            aria-label="對話視窗"
+            :aria-label="props.label"
             aria-modal="true"
             role="dialog"
             tabindex="-1"
@@ -30,7 +30,7 @@
 
               <!-- 彈窗關閉按鈕 -->
               <button
-                class="flex h-6 w-6 items-center justify-center text-icon-24 transition-colors hover:text-system-primary-100"
+                class="ui-dialog-close"
                 type="button"
                 aria-label="關閉視窗"
                 @click="toggleModal"
@@ -62,6 +62,10 @@
 <script lang="ts" setup>
 import { lockModal, unlockModal, isTopModal } from '@/utils/modal'
 const props = defineProps({
+  label: {
+    type: String,
+    default: '對話視窗'
+  },
   position: {
     type: String as PropType<'center' | 'bottom'>,
     default: 'center'
@@ -146,7 +150,7 @@ const onKeydown = (event: KeyboardEvent) => {
     ...modalRefs.value.querySelectorAll<HTMLElement>(
       'button:not(:disabled), a[href], input:not(:disabled), select:not(:disabled), textarea:not(:disabled), [tabindex="0"]'
     )
-  ].filter((item) => item.getClientRects().length)
+  ].filter((item) => item.tabIndex >= 0 && item.getClientRects().length)
   const first = items[0]
   const last = items.at(-1)
   if (!first) {
@@ -154,15 +158,16 @@ const onKeydown = (event: KeyboardEvent) => {
     modalRefs.value.focus()
     return
   }
+  const focusOutside = !modalRefs.value.contains(document.activeElement)
   if (
     event.shiftKey &&
-    (document.activeElement === first || document.activeElement === modalRefs.value)
+    (focusOutside || document.activeElement === first || document.activeElement === modalRefs.value)
   ) {
     event.preventDefault()
     last?.focus()
   } else if (
     !event.shiftKey &&
-    (document.activeElement === last || document.activeElement === modalRefs.value)
+    (focusOutside || document.activeElement === last || document.activeElement === modalRefs.value)
   ) {
     event.preventDefault()
     first.focus()

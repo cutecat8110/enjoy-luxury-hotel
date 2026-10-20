@@ -47,7 +47,7 @@
       </div>
 
       <!-- 彈窗 -->
-      <UIModal v-model="isModalShow" position="bottom">
+      <UIModal v-model="isModalShow" label="選擇訂房日期與人數" position="bottom">
         <div class="rounded-t-lg bg-white">
           <!-- 彈窗: 頁首 -->
           <div class="border-b border-system-gray-40 bg-system-gray-40">
@@ -69,7 +69,8 @@
 
               <!-- 彈窗關閉按鈕 -->
               <button
-                class="flex h-6 w-6 items-center justify-center text-icon-24 transition-colors hover:text-system-primary-100"
+                ref="modalCloseButton"
+                class="ui-dialog-close"
                 type="button"
                 aria-label="關閉日期視窗"
                 @click="toggleModal('close')"
@@ -83,18 +84,11 @@
           <template v-if="progress === 0">
             <div class="border-t border-system-gray-40 py-6">
               <div class="container">
-                <VDatePicker
+                <UIBookingCalendar
                   ref="datePicker"
-                  v-model.range.string="checkInOutDate"
-                  :masks="{
-                    modelValue: 'YYYY/M/DD'
-                  }"
-                  :min-date="$dayjs().format('YYYY/M/DD')"
+                  v-model="checkInOutDate"
                   :rows="2"
-                  borderless
-                  color="black"
                   expanded
-                  mode="date"
                   title-position="left"
                 />
               </div>
@@ -141,7 +135,6 @@
                   @click="toggleProgress(0)"
                 />
                 <UIButton
-                  aria-label="關閉日期視窗"
                   block
                   text="儲存"
                   :disabled="!orderStore.isConfirmedDate"
@@ -162,7 +155,6 @@ import type { RoomResponse } from '@/types'
 
 /* 全局屬性 */
 const orderStore = useOrderStore()
-const { $dayjs } = useNuxtApp()
 
 /* props */
 const props = defineProps({
@@ -185,8 +177,9 @@ onMounted(() => {
 
 /* 控制彈窗顯示 */
 const isModalShow = ref(false)
+const modalCloseButton = ref<HTMLButtonElement | null>(null)
 const toggleModal = (event: string) => {
-  toggleProgress(0)
+  progress.value = 0
   if (event === 'show') {
     isModalShow.value = true
   } else if (event === 'close') {
@@ -195,8 +188,10 @@ const toggleModal = (event: string) => {
 }
 // 進度狀態
 const progress = ref(0)
-const toggleProgress = (val: number) => {
+const toggleProgress = async (val: number) => {
   progress.value = val
+  await nextTick()
+  if (isModalShow.value) modalCloseButton.value?.focus()
 }
 
 /* 日期選擇器 */

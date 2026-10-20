@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import { afterEach, describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
 import Address from '../components/c/CAddress.vue'
 import Birthday from '../components/c/CBirthday.vue'
@@ -78,6 +78,41 @@ describe('registration and member address', () => {
   })
 })
 describe('modal interaction', () => {
+  it('recovers focus after a step removes its focused control and skips untabbable buttons', async () => {
+    const rects = vi
+      .spyOn(HTMLElement.prototype, 'getClientRects')
+      .mockReturnValue([{}] as unknown as DOMRectList)
+    const wrapper = mount(Modal, {
+      props: { modelValue: true },
+      attachTo: document.body,
+      slots: {
+        default: '<button id="first">關閉</button><button tabindex="-1">略過</button>'
+      },
+      global: { stubs }
+    })
+    try {
+      await nextTick()
+      const first = document.querySelector<HTMLButtonElement>('#first')!
+      const temporaryStep = document.createElement('button')
+      document.querySelector('[role=dialog]')!.append(temporaryStep)
+      temporaryStep.focus()
+      temporaryStep.remove()
+      expect(document.activeElement).toBe(document.body)
+      const recover = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true })
+      document.dispatchEvent(recover)
+      expect(recover.defaultPrevented).toBe(true)
+      expect(document.activeElement).toBe(first)
+
+      document.dispatchEvent(
+        new KeyboardEvent('keydown', { key: 'Tab', shiftKey: true, bubbles: true })
+      )
+      expect(document.activeElement).toBe(first)
+    } finally {
+      wrapper.unmount()
+      rects.mockRestore()
+    }
+  })
+
   it('closing one modal keeps another modal scroll locked', () => {
     const a = Symbol('first')
     const b = Symbol('second')

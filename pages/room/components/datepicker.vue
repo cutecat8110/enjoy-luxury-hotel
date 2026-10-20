@@ -5,10 +5,10 @@
     <UIDataButton title="退房" :date="orderStore.order.checkOutDate" @click="toggleModal('show')" />
 
     <!-- 彈窗: 日期選擇 -->
-    <UIModal v-model="isModalShow" size="auto">
+    <UIModal v-model="isModalShow" label="選擇訂房日期" size="auto">
       <div class="space-y-6 p-3 sm:p-8">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center">
-          <div class="space-y-2">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0 space-y-2">
             <!-- 提示訊息 -->
             <p v-if="!orderStore.isConfirmedDate" class="text-h5">選擇入住日期</p>
 
@@ -23,6 +23,16 @@
             </template>
           </div>
 
+          <button
+            class="ui-dialog-close"
+            type="button"
+            aria-label="關閉日期視窗"
+            @click="toggleModal('close')"
+          >
+            <Icon name="ic:baseline-close" />
+          </button>
+        </div>
+        <div>
           <!-- 按鈕組: 前往該選擇日期 -->
           <div class="grid w-full grid-cols-2 gap-2 md:flex-1">
             <UIDataButton
@@ -42,18 +52,11 @@
         </div>
 
         <!-- 日期區間選擇器 -->
-        <VDatePicker
+        <UIBookingCalendar
           ref="datePicker"
-          v-model.range.string="checkInOutDate"
+          v-model="checkInOutDate"
           class="ui-datepicker"
           :columns="isWide ? 2 : 1"
-          :masks="{
-            modelValue: 'YYYY/M/DD'
-          }"
-          :min-date="$dayjs().format('YYYY/M/DD')"
-          borderless
-          color="black"
-          mode="date"
         />
 
         <!-- 按鈕: 清除選擇/關閉彈窗 -->
@@ -71,11 +74,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { DatePicker } from 'v-calendar'
+import type BookingCalendar from '@/components/UI/UIBookingCalendar.vue'
 
 /* 全局屬性 */
 const orderStore = useOrderStore()
-const { $dayjs } = useNuxtApp()
 const isWide = useMediaQuery('(min-width: 768px)')
 
 /* 彈窗 */
@@ -89,7 +91,7 @@ const toggleModal = (event: string) => {
 }
 
 /* 日期區間選擇器 */
-const datePicker = ref<typeof DatePicker | null>(null)
+const datePicker = ref<InstanceType<typeof BookingCalendar> | null>(null)
 
 // 日期區間
 const checkInOutDate = computed({
